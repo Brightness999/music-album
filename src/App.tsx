@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+import { Header } from './components/Header';
+import Sidebar from './components/Sidebar';
+import Home  from './pages/Home';
+import Genres from './pages/Genres';
+import AllReleases from './pages/AllReleases';
 
-function App() {
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="custom-container pl-5 pr-5">
+        <Header></Header>
+        <Sidebar></Sidebar>
+        <Switch>
+          <Route path="/genres">
+            <Genres />
+          </Route>
+          <Route path="/all-releases">
+            <AllReleases />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
-export default App;
+
