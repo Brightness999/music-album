@@ -169,7 +169,7 @@ header a {
     margin-right: 40px;
 }
 
-.playback-control {
+.hl-control {
     background-color: #ffffff00;
     border: none;
     &:focus,
@@ -178,7 +178,7 @@ header a {
         box-shadow: none !important; // force override from bootstrap
         background-color: #ffffff00 !important; // force override from bootstrap
     }
-    &.track-control {
+    &.normal-control {
         color: #52768f;
         &:hover {
             color: white;

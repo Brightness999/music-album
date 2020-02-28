@@ -12,9 +12,9 @@ export default function PlayBar() {
                 <img className="img-fluid" src={PlayBarAvatar} />
             </div>
             <div className="playback-control-panel">
-                <Button className="playback-control track-control"><FontAwesomeIcon icon={faStepBackward}></FontAwesomeIcon></Button>
-                <Button className="playback-control play-control"><FontAwesomeIcon icon={faPlay}></FontAwesomeIcon></Button>
-                <Button className="playback-control track-control"><FontAwesomeIcon icon={faStepForward}></FontAwesomeIcon></Button>
+                <Button className="hl-control normal-control"><FontAwesomeIcon icon={faStepBackward}></FontAwesomeIcon></Button>
+                <Button className="hl-control play-control"><FontAwesomeIcon icon={faPlay}></FontAwesomeIcon></Button>
+                <Button className="hl-control normal-control"><FontAwesomeIcon icon={faStepForward}></FontAwesomeIcon></Button>
             </div>
             <div className="wave-form-panel">
                 <div className="wave-title">Toddy Terry Soul Speech - Feelin' (Original Mix)</div>
@@ -23,8 +23,8 @@ export default function PlayBar() {
                 </div>
             </div>
             <div className="mute-control-panel">
-                <Button className="playback-control track-control"><FontAwesomeIcon icon={faVolumeUp}></FontAwesomeIcon></Button>
-                <Button className="playback-control track-control"><FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon></Button>
+                <Button className="hl-control normal-control"><FontAwesomeIcon icon={faVolumeUp}></FontAwesomeIcon></Button>
+                <Button className="hl-control normal-control"><FontAwesomeIcon icon={faKeyboard}></FontAwesomeIcon></Button>
             </div>
             <div className="download-panel">
                 <div className="author">
