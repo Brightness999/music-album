@@ -6,6 +6,7 @@
 body {
     background-color: $color-default-bg;
     color: white;
+    overflow: hidden;
 }
 
 // header section
@@ -53,7 +54,10 @@ header a {
 
 // page content section (common)
 .custom-container {
+    display: flex;
+    flex-direction: column;
     width: $page-width;
+    height: 100vh;
     margin-left: calc((100% - #{$sidebar-width} - #{$page-width}) / 2);
 }
 
@@ -74,6 +78,9 @@ header a {
 .page {
     padding-top: 20px;
     padding-bottom: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .page-title {
@@ -100,9 +107,19 @@ header a {
     }
 }
 
+// pages: Home
+.scroll-area {
+    height: 100%;
+}
+
+.album-content {
+    flex-grow: 1;
+    height: 500px;
+}
+
 // components: LargeAlbumItem
 .card {
-    background-color: none;
+    background-color: #00000000;
     border-radius: 4px;
     border: none;
     .card-body {
@@ -119,4 +136,84 @@ header a {
     flex: 0 0 20%;
     max-width: 20%;
     padding: 8px;
+}
+
+// components: PlayBar
+.play-bar {
+    display: flex;
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    align-items: center;
+    filter: drop-shadow(0 0 28.5px rgba(0, 0, 0, 0.3));
+    background-color: #2a3443;
+    width: 100%;
+    height: $playbar-height;
+    z-index: 999;
+    .img-wrapper {
+        img {
+            height: $playbar-height;
+        }
+    }
+}
+
+.playback-control-panel {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.playback-control {
+    background-color: #ffffff00;
+    border: none;
+    &:focus,
+    &:hover,
+    &:active {
+        box-shadow: none !important; // force override from bootstrap
+        background-color: #ffffff00 !important; // force override from bootstrap
+    }
+    &.track-control {
+        color: #52768f;
+        &:hover {
+            color: white;
+        }
+        &:active {
+            color: #52768f;
+        }
+    }
+    &.play-control {
+        color: white;
+        font-size: 30px;
+        &:hover {
+            color: #52768f;
+        }
+        &:active {
+            color: white;
+        }
+    }
+}
+
+.download-button {
+    color: #fdb29b;
+    font-size: 0.8rem;
+}
+
+.wave-form-panel {
+    width: 40%;
+    .wave-image-wrapper {
+        width: 100%;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: calc(#{$playbar-height} * 0.5);
+        }
+    }
+}
+
+.mute-control-panel {
+    padding-top: 1.5rem;
+}
+
+.download-panel .author {
+    font-size: 0.8rem;
+    padding-bottom: 8px;
 }

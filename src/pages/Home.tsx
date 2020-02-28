@@ -1,32 +1,47 @@
 import React from 'react';
 import LargeAlbumItem from '../components/LargeAlbumItem';
-import { Row } from 'reactstrap';
+import ScrollArea from 'react-scrollbar';
 
 export default function Home() {
+    let scrollbarStyles = {
+        borderRadius: 5,
+    };
+    
     return (
         <div className="page">
             <p className="page-title">Featured releases</p>
-            <div className="d-flex flex-wrap">
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>                    
+            <div className="album-content">
+                <ScrollArea
+                    className="scroll-area"
+                    verticalScrollbarStyle={scrollbarStyles}
+                    verticalContainerStyle={scrollbarStyles}
+                    horizontal={false}
+                    smoothScrolling= {true}
+                    minScrollSize={40}
+                >
+                    <div className="d-flex flex-wrap">
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                    </div>
+                </ScrollArea>
             </div>
         </div>
     );
