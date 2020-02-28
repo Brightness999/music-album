@@ -109,7 +109,7 @@ header a {
 
 // pages: Home
 .scroll-area {
-    height: 100%;
+    height: calc(100% - #{$playbar-height});
 }
 
 .album-content {
@@ -141,9 +141,9 @@ header a {
 // components: PlayBar
 .play-bar {
     display: flex;
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     align-items: center;
     filter: drop-shadow(0 0 28.5px rgba(0, 0, 0, 0.3));
     background-color: #2a3443;

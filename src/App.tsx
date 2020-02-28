@@ -33,8 +33,8 @@ export default function App() {
             <Home />
           </Route>
         </Switch>
-        <PlayBar></PlayBar>
       </div>
+      <PlayBar></PlayBar>
     </Router>
   );
 }
