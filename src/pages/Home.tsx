@@ -2,11 +2,10 @@ import React from 'react';
 import LargeAlbumItem from '../components/LargeAlbumItem';
 import ScrollArea from 'react-scrollbar';
 
+import { scrollbarStyles } from '../consts';
+
 export default function Home() {
-    let scrollbarStyles = {
-        borderRadius: 5,
-    };
-    
+
     return (
         <div className="page">
             <p className="page-title">Featured releases</p>
