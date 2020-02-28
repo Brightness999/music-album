@@ -20,6 +20,13 @@ header #iSearch {
     border-radius: 4px;
     color: white;
     background-color: #212939;
+    padding-left: 24px;
+}
+
+header .search-icon {
+    position: relative;
+    left: 22px;
+    color: #647576;
 }
 
 header a {
