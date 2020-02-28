@@ -178,6 +178,10 @@ header a {
         box-shadow: none !important; // force override from bootstrap
         background-color: #ffffff00 !important; // force override from bootstrap
     }
+    &.active {
+        color: white;
+        background-color: #ffffff00 !important; // force override from bootstrap
+    }
     &.normal-control {
         color: #52768f;
         &:hover {

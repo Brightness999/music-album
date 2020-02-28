@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
+import { useSelector } from "react-redux";
 
 export interface StoreState {
   showMode: string;
@@ -10,7 +11,9 @@ export const SHOW_MODE = {
     LIST: 'list'
 }
 
-export const initialState: StoreState = { showMode: SHOW_MODE.GRID };
+export const initialState: StoreState = {
+    showMode: SHOW_MODE.GRID
+};
 
 // Actions
 export const SET_SHOW_MODE = "SET_SHOW_MODE";
@@ -20,6 +23,9 @@ export interface SetShowMode {
   showMode: string;
 }
 export const setShowMode = (showMode: string) => ({ type: SET_SHOW_MODE, showMode: showMode });
+
+// Selectors
+export const selectShowMode = (state: StoreState) => state.showMode;
 
 // Reducer
 export const reducer = (state: StoreState = initialState, action: SetShowMode): StoreState => {
@@ -31,10 +37,8 @@ export const reducer = (state: StoreState = initialState, action: SetShowMode): 
   }
 };
 
-const rootReducer = combineReducers({ reducer });
-
 // Store
 export const store = createStore(
-  rootReducer,
+  reducer,
   devToolsEnhancer({}),
 );
