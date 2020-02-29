@@ -8974,6 +8974,13 @@ react-scrollbar@^0.5.6:
     line-height "^0.1.1"
     react-motion "^0.5.2"
 
+react-text-marquee@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-text-marquee/-/react-text-marquee-1.0.1.tgz#6fac16a68ceeebb8b29403088e4541cdd6ed7e13"
+  integrity sha1-b6wWpozu67iylAMIjkVBzdbtfhM=
+  dependencies:
+    prop-types "^15.5.8"
+
 react-transition-group@^2.3.1:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"

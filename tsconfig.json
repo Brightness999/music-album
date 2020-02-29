@@ -13,6 +13,11 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
+    "noImplicitAny": true,
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -21,5 +26,9 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "typings"
   ]
 }

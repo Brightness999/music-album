@@ -137,6 +137,19 @@ header a {
     }
 }
 
+// components: ListTrackItem
+.list-track-item {
+    width: 100%;
+    img {
+        width: $list-track-item-size;
+        height: $list-track-item-size;
+    }
+    .download-button {
+        padding: 0.1rem;
+        height: 30px;
+    }
+}
+
 // pages: Home
 .scroll-area {
     height: 100%;
@@ -146,6 +159,29 @@ header a {
     flex-grow: 1;
     height: 500px;
     padding-bottom: 25px;
+}
+
+// pages: All releases
+.album-header {
+    font-size: 0.9rem;
+    color: #757b85;
+}
+
+.album-title-header {
+    background-color: #212a39;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+     :last-child {
+        color: #e28484;
+        text-align: right;
+    }
 }
 
 // components: LargeAlbumItem
@@ -230,6 +266,10 @@ header a {
 .download-button {
     color: #fdb29b;
     font-size: 0.8rem;
+    &:focus {
+        color: #fdb29b;
+        box-shadow: none;
+    }
 }
 
 .wave-form-panel {
