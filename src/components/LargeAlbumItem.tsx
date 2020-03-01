@@ -12,7 +12,7 @@ export default function LargeAlbumItem(props: IProps) {
         <Card>
             <CardImg top src={`/uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg`} alt="album" />
             <CardBody>
-                <CardTitle><NavLink to={"/album/"+props.album.id}>{props.album.title}</NavLink></CardTitle>
+                <CardTitle><NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink></CardTitle>
                 <CardSubtitle>{props.album.catalog}</CardSubtitle>
                 <CardText>{props.album.artist.name}</CardText>
             </CardBody>

@@ -17,9 +17,9 @@ import AlbumPage from './pages/AlbumPage';
 export default function App() {
   return (
     <Router>
-      <Sidebar></Sidebar>
+      <Sidebar />
       <div className="custom-container pl-5 pr-5">
-        <Header></Header>
+        <Header />
         <Switch>
           <Route path="/genres">
             <Genres />
@@ -27,15 +27,15 @@ export default function App() {
           <Route path="/all-releases">
             <AllReleases />
           </Route>
+          <Route path="/album/:slug">
+            <AlbumPage />
+          </Route>
           <Route path="/">
             <Home />
           </Route>
-          <Route path="/album/:id">
-            <AlbumPage />
-          </Route>
         </Switch>
       </div>
-      <PlayBar></PlayBar>
+      <PlayBar />
     </Router>
   );
 }

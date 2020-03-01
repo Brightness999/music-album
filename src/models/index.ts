@@ -31,6 +31,7 @@ export interface Track {
     id: number;
     title: string;
     location: string;
+    duration: number;
     slug: string;
     album: Album;
     category: Category;
