@@ -1,14 +1,11 @@
 import React from 'react';
-import {Button, Col} from 'reactstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faPlay} from '@fortawesome/free-solid-svg-icons';
-import {useDispatch} from "react-redux";
+import {Col} from 'reactstrap';
 
 import Marquee from 'react-text-marquee';
 import {Artist, Track} from "../models";
 import {formatDuration} from "../utils";
 import DownloadButton from "./DownloadButton";
-import {setCurrentTrack} from "../store";
+import ListTrackPlayButton from "./ListTrackPlayButton";
 
 interface IProps {
     track: Track;
@@ -18,14 +15,11 @@ interface IProps {
 }
 
 export default function(props: IProps) {
-    const dispatch = useDispatch();
     return (
         <div className="list-track-item d-flex align-items-center justify-content-around mt-3 mb-3">
             <Col sm="4" className="d-flex align-items-center">
                 <img src={`/uploads/albums/${props.album_location}/thumb/${props.album_slug}.jpg`} alt="album"/>
-                <Button className="hl-control normal-control" onClick={() => dispatch && dispatch(setCurrentTrack(props.track.slug))}>
-                    <FontAwesomeIcon icon={faPlay}/>
-                </Button>
+                <ListTrackPlayButton track={props.track}/>
                 <Marquee text={props.artist.name + '-' + props.track.title} className="ml-2 mr-2"/>
             </Col>
             <Col sm="2">
