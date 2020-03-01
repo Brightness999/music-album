@@ -3,7 +3,6 @@ import PlayBarAvatar from '../assets/images/album.jpg';
 import {Button} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faStepForward, faPlay, faVolumeUp, faKeyboard } from '@fortawesome/free-solid-svg-icons'
-import WaveForm from '../assets/images/wave.png';
 import Marquee from "react-text-marquee";
 import {useSelector} from "react-redux";
 import axios from "axios";
@@ -44,7 +43,12 @@ export default function PlayBar() {
                     }
                 </div>
                 <div className="wave-image-wrapper">
-                    <img src={WaveForm} alt="waveform" />
+                    {
+                        track !== undefined?
+                        <img src={`/uploads/audios/${track?.album.location}/wavefiles/${track?.slug}.png`}
+                             alt="waveform"/>
+                             :<div/>
+                    }
                 </div>
             </div>
             <div className="mute-control-panel">
