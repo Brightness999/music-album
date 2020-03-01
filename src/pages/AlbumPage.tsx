@@ -82,7 +82,6 @@ export default function AlbumPage() {
                     minScrollSize={40}
                 >
                     {elmTracks}
-                    {elmTracks}{elmTracks}{elmTracks}{elmTracks}{elmTracks}
                 </ScrollArea>
             </div>
         </div>
