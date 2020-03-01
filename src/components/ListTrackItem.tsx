@@ -24,11 +24,13 @@ export default function(props: IProps) {
             <Col sm="1">
                 <Marquee text={props.track.category.name} />
             </Col>
-            <Col sm="4" className="d-flex justify-content-around">
-                <Button className="download-button mr-2">
+            <Col sm="2" className="pr-1">
+                <Button className="download-button w-100">
                     .mp3 ({formatFilesize(props.track.filesize)})&nbsp;&nbsp;<FontAwesomeIcon icon={faDownload}/>
                 </Button>
-                <Button className="download-button">
+            </Col>
+            <Col sm="2" className="pl-1">
+                <Button className="download-button w-100">
                     .flac ({formatFilesize(props.track.filesize)})&nbsp;&nbsp;<FontAwesomeIcon icon={faDownload}/>
                 </Button>
             </Col>
