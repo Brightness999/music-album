@@ -17,7 +17,7 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             const result: AxiosResponse<IFeaturedReleases> = await axios(
-                'api/featured-album',
+                'api/featured-albums',
             );
             setFeaturedAlbums(result.data.featuredAlbums);
         };

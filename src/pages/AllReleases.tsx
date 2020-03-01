@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Pagination, PaginationItem, PaginationLink, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ScrollArea from 'react-scrollbar';
@@ -9,13 +9,35 @@ import LargeAlbumItem from '../components/LargeAlbumItem';
 import { scrollbarStyles } from '../consts';
 import AlbumTitleHeader from '../components/AlbumTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
+import {IAlbum} from "../interfaces";
+import axios, {AxiosResponse} from "axios";
+
+export interface IAlbums {
+    albums: []
+}
 
 export default function AllReleases() {
     const showMode = useSelector(selectShowMode);
     const dispatch = useDispatch();
-
+    const [albums, setAlbums] = useState<IAlbum[]>([]);
+    useEffect(() => {
+        if (showMode === SHOW_MODE.GRID) {
+            const fetchData = async () => {
+                const result: AxiosResponse<IAlbums> = await axios(
+                    'api/albums'
+                );
+                setAlbums(result.data.albums);
+            };
+            fetchData();
+        }
+    }, []);
     let albumContent;
     if (showMode === SHOW_MODE.GRID) {
+        let index = 0;
+        let elmAlbums: JSX.Element[] = [];
+        albums.forEach((album: IAlbum) => {
+           elmAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
+        });
         albumContent = (
             <div className="album-content">
                 <ScrollArea
@@ -27,6 +49,7 @@ export default function AllReleases() {
                     minScrollSize={40}
                 >
                     <div className="d-flex flex-wrap">
+                        {elmAlbums}
                     </div>
                 </ScrollArea>
             </div>
