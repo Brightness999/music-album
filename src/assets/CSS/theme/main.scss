@@ -242,6 +242,17 @@ header a {
     }
 }
 
+.album-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00000077;
+    opacity: 0;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .col-20 {
     flex: 0 0 20%;
     max-width: 20%;
