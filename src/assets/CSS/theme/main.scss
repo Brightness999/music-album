@@ -192,10 +192,17 @@ header a {
     .card-body {
         background-color: #353d4d;
         padding: 7px;
-        font-size: 0.7rem;
+        font-size: 0.8rem;
         .card-title {
             font-weight: 700;
         }
+        a {
+            color: white;
+        }
+    }
+
+    .card-title {
+        font-size: 1rem;
     }
 }
 
@@ -287,9 +294,11 @@ header a {
 
 .mute-control-panel {
     padding-top: 1.5rem;
+    margin-right: auto;
 }
 
 .download-panel .author {
     font-size: 0.8rem;
     padding-bottom: 8px;
+    margin-right: 3rem;
 }

@@ -10,7 +10,7 @@ export default function TopAlbumItem(props: IProps) {
     return (
         <div className="top-album-item pt-1 pb-1 pl-3">
             <div className="img-wrapper">
-                <img src={`uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg`}></img>
+                <img src={`/uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg`} alt="album"></img>
             </div>
             <div className="content ml-2">
                 <div className="title">{props.album.title}</div>

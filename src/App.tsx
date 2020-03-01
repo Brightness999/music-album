@@ -3,9 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
 import { Header } from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -13,6 +10,7 @@ import PlayBar from './components/PlayBar';
 import Home  from './pages/Home';
 import Genres from './pages/Genres';
 import AllReleases from './pages/AllReleases';
+import AlbumPage from './pages/AlbumPage';
 
 
 
@@ -31,6 +29,9 @@ export default function App() {
           </Route>
           <Route path="/">
             <Home />
+          </Route>
+          <Route path="/album/:id">
+            <AlbumPage />
           </Route>
         </Switch>
       </div>

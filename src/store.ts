@@ -1,6 +1,5 @@
-import { createStore, combineReducers } from "redux";
+import { createStore } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
-import { useSelector } from "react-redux";
 
 export interface StoreState {
   showMode: string;

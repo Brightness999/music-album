@@ -12,14 +12,15 @@ export default function Sidebar() {
     const [topAlbums, setTopAlbums] = useState<Album[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const result: AxiosResponse<ITopAlbums> = await axios('api/top-albums');
+            const result: AxiosResponse<ITopAlbums> = await axios('/api/top-albums');
             setTopAlbums(result.data.topAlbums);
         };
         fetchData();
     }, []);
     let elmAlbums: JSX.Element[] = [];
+    let index = 0;
     topAlbums.forEach((album: Album) => {
-        elmAlbums.push(<TopAlbumItem album={album}></TopAlbumItem>);
+        elmAlbums.push(<TopAlbumItem album={album} key={index++}/>);
     });
     return(
         <div className="sidebar">

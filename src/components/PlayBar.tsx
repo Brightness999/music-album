@@ -10,7 +10,7 @@ export default function PlayBar() {
     return (
         <div className="play-bar">
             <div className="img-wrapper">
-                <img className="img-fluid" src={PlayBarAvatar} />
+                <img className="img-fluid" src={PlayBarAvatar} alt="album"/>
             </div>
             <div className="playback-control-panel">
                 <Button className="hl-control normal-control"><FontAwesomeIcon icon={faStepBackward}></FontAwesomeIcon></Button>
@@ -22,7 +22,7 @@ export default function PlayBar() {
                     <Marquee text={"Toddy Terry Soul Speech - Feelin' (Original Mix)"} />
                 </div>
                 <div className="wave-image-wrapper">
-                    <img src={WaveForm} />
+                    <img src={WaveForm} alt="waveform" />
                 </div>
             </div>
             <div className="mute-control-panel">
@@ -31,7 +31,7 @@ export default function PlayBar() {
             </div>
             <div className="download-panel">
                 <div className="author">
-                    <a href="#">SnakerCharmer</a> by <a href="#">Lisztomania</a> in <a href="#">Tech House</a>
+                    <a>SnakerCharmer</a> by <a>Lisztomania</a> in <a>Tech House</a>
                 </div>
                 <div className="d-flex">
                     <Button className="download-button mr-2">

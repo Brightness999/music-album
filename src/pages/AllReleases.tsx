@@ -28,7 +28,7 @@ export default function AllReleases() {
     useEffect(() => {
         const fetchData = async () => {
             const result: AxiosResponse<IAlbums> = await axios(
-                'api/albums'
+                '/api/albums'
             );
             setAlbums(result.data.albums);
         };
@@ -37,7 +37,7 @@ export default function AllReleases() {
     useEffect(() => {
         const fetchData = async () => {
             const result: AxiosResponse<ITracks> = await axios(
-                'api/tracks'
+                '/api/tracks'
             );
             setTracks(result.data.tracks);
         };
@@ -72,9 +72,9 @@ export default function AllReleases() {
         let elmTracks: JSX.Element[] = [];
         let lastAlbumId: number = -1;
         tracks.forEach((track: Track) => {
-            if (lastAlbumId == -1 || lastAlbumId != track.album.id) {
+            if (lastAlbumId === -1 || lastAlbumId !== track.album.id) {
                 lastAlbumId = track.album.id;
-                elmTracks.push(<AlbumTitleHeader title={track.album.title} createdAt={track.album.release_date}/>);
+                elmTracks.push(<AlbumTitleHeader key={index++} title={track.album.title} createdAt={track.album.release_date}/>);
             }
             elmTracks.push(<ListTrackItem track={track} />);
         });
