@@ -141,6 +141,12 @@ header a {
             height: 100%;
         }
     }
+    a {
+        color: white;
+        &:hover {
+            font-weight: 700;
+        }
+    }
 }
 
 // components: ListTrackItem
@@ -279,6 +285,10 @@ header a {
     &.active {
         color: white;
         background-color: #ffffff00 !important; // force override from bootstrap
+    }
+    &.disabled {
+        color: grey !important;
+        background-color: #ffffff00 !important; // force override from bootstrap;
     }
     &.normal-control {
         color: #52768f;
