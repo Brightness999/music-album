@@ -14,6 +14,6 @@ export const formatDuration = (length: number): string => {
     return `${sec}`;
 }
 
-export const formatFilesize = (filesize: number): string => {
-    return Math.floor(filesize / (1024*1024)) + "Mb";
+export const formatFilesize = (file_size: number): string => {
+    return Math.floor(file_size / (1024*1024)) + " Mb";
 };

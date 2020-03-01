@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import axios, {AxiosResponse} from 'axios';
 import ScrollArea from "react-scrollbar";
 import {Col, Row} from "reactstrap";
@@ -66,11 +66,11 @@ export default function AlbumPage() {
                 </div>
             </Row>
             <Row className="album-header d-flex pt-2">
-                <Col sm={5}>Artist & Title</Col>
+                <Col sm={4}>Artist & Title</Col>
                 <Col sm={2}>Genre</Col>
                 <Col sm={1}>BPM</Col>
                 <Col sm={1}>Length</Col>
-                <Col sm={3} className="d-flex justify-content-around align-items-center" />
+                <Col sm={4} className="d-flex justify-content-around align-items-center" />
             </Row>
             <div className="flex-grow-1 pb-2 tracks-container">
                 <ScrollArea

@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Pagination, PaginationItem, PaginationLink, Col, Row } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {Button, Col, Row} from 'reactstrap';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import ScrollArea from 'react-scrollbar';
-import { faThLarge, faThList, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { setShowMode, SHOW_MODE, selectShowMode } from "../store";
-import { useSelector, useDispatch } from 'react-redux';
+import {faThLarge, faThList} from '@fortawesome/free-solid-svg-icons';
+import {selectShowMode, setShowMode, SHOW_MODE} from "../store";
+import {useDispatch, useSelector} from 'react-redux';
 import LargeAlbumItem from '../components/LargeAlbumItem';
-import { scrollbarStyles } from '../consts';
+import {scrollbarStyles} from '../consts';
 import AlbumTitleHeader from '../components/AlbumTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
 import {Album, Track} from "../models";
 import axios, {AxiosResponse} from "axios";
+import AlbumPagination from "../components/AlbumPagination";
 
 interface IAlbums {
     albums: Album[]
@@ -81,13 +82,10 @@ export default function AllReleases() {
         albumContent = (
             <div className="album-content">
                 <Row className="album-header d-flex">
-                    <Col sm={5}>Artist & Title</Col>
-                    <Col sm={2}>Label</Col>
-                    <Col sm={2}>Genre</Col>
-                    <Col sm={3} className="d-flex justify-content-around align-items-center">
-                        <div>.mp3</div>
-                        <div>.flac</div>
-                    </Col>
+                    <Col sm={6}>Artist & Title</Col>
+                    <Col sm={1}>Label</Col>
+                    <Col sm={1}>Genre</Col>
+                    <Col sm={4}/>
                 </Row>
                 <ScrollArea
                     className="scroll-area"
@@ -118,49 +116,7 @@ export default function AllReleases() {
             </div>
             { albumContent }
             <div className="d-flex justify-content-center align-items-center">
-                <Pagination size="sm">
-                    <PaginationItem>
-                        <PaginationLink previous href="#">
-                            <FontAwesomeIcon icon={faChevronLeft} />
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        1
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        2
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        3
-                        </PaginationLink>
-                    </PaginationItem>
-                    ...
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        67
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        68
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                        69
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink next href="#">
-                        <FontAwesomeIcon icon={faChevronRight} />
-                        </PaginationLink>
-                    </PaginationItem>
-                </Pagination>
+                <AlbumPagination/>
             </div>
         </div>
     );
