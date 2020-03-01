@@ -7,14 +7,7 @@ import {Col, Row} from "reactstrap";
 import {Album, Category, Track} from "../models";
 import {scrollbarStyles} from "../consts";
 import ListTrackItemDetail from "../components/ListTrackItemDetail";
-
-interface DetailAlbum extends Album {
-    tracks: Track[];
-}
-
-interface AlbumResponse {
-    album: DetailAlbum;
-}
+import {AlbumResponse, DetailAlbum} from "../models";
 
 export default function AlbumPage() {
     let { slug } = useParams();

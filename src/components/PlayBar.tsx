@@ -9,11 +9,12 @@ import ReactSound from "react-sound";
 import axios from "axios";
 import {Track} from "../models";
 import DownloadButton from "./DownloadButton";
-import {selectCurrentTrack, selectPlayStatus, setPlayStatus} from "../store";
+import {nextTrack, previousTrack, selectCurrentTrack, selectPlayList, selectPlayStatus, setPlayStatus} from "../store";
 
 export default function PlayBar() {
     const track_slug = useSelector(selectCurrentTrack);
     const play_status = useSelector(selectPlayStatus);
+    const play_list = useSelector(selectPlayList);
     const [track, setTrack] = useState<Track>();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -36,7 +37,12 @@ export default function PlayBar() {
                 } alt="album"/>
             </div>
             <div className="playback-control-panel">
-                <Button className="hl-control normal-control" disabled={track === undefined}><FontAwesomeIcon icon={faStepBackward}/></Button>
+                <Button
+                    className="hl-control normal-control"
+                    onClick={() => dispatch && dispatch(previousTrack())}
+                    disabled={track === undefined || play_list.indexOf(track_slug) === 0}>
+                    <FontAwesomeIcon icon={faStepBackward}/>
+                </Button>
                 <Button
                     className="hl-control play-control"
                     disabled={track === undefined}
@@ -53,7 +59,12 @@ export default function PlayBar() {
                         (play_status==='STOPPED' || play_status === 'PAUSED')?faPlay:faPause
                     }/>
                 </Button>
-                <Button className="hl-control normal-control" disabled={track === undefined}><FontAwesomeIcon icon={faStepForward}/></Button>
+                <Button
+                    className="hl-control normal-control"
+                    onClick={() => dispatch && dispatch(nextTrack())}
+                    disabled={track === undefined || play_list.indexOf(track_slug) === play_list.length-1}>
+                    <FontAwesomeIcon icon={faStepForward}/>
+                </Button>
             </div>
             <div className="wave-form-panel">
                 <div className="wave-title">
@@ -78,8 +89,15 @@ export default function PlayBar() {
                 }
             </div>
             <div className="mute-control-panel">
-                <Button className="hl-control normal-control" disabled={track === undefined}><FontAwesomeIcon icon={faVolumeUp}/></Button>
-                <Button className="hl-control normal-control" disabled={track === undefined}><FontAwesomeIcon icon={faKeyboard}/></Button>
+                <Button
+                    className="hl-control normal-control"
+                    disabled={track === undefined}>
+                    <FontAwesomeIcon icon={faVolumeUp}/></Button>
+                <Button
+                    className="hl-control normal-control"
+                    disabled={track === undefined}>
+                    <FontAwesomeIcon icon={faKeyboard}/>
+                </Button>
             </div>
             <div className="download-panel">
                 <div className="author">
