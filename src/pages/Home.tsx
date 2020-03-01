@@ -1,11 +1,34 @@
-import React from 'react';
-import LargeAlbumItem from '../components/LargeAlbumItem';
+import React, {useEffect, useState} from 'react';
 import ScrollArea from 'react-scrollbar';
+import axios, {AxiosResponse} from 'axios';
+
+import LargeAlbumItem from '../components/LargeAlbumItem';
+import { IAlbum } from '../interfaces';
+
 
 import { scrollbarStyles } from '../consts';
 
-export default function Home() {
+export interface IFeaturedReleases {
+    featuredAlbums: []
+}
 
+export default function Home() {
+    const [featuredAlbums, setFeaturedAlbums] = useState<IAlbum[]>([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const result: AxiosResponse<IFeaturedReleases> = await axios(
+                'api/featured-album',
+            );
+            setFeaturedAlbums(result.data.featuredAlbums);
+        };
+        fetchData();
+    }, []);
+    let elmFeaturedAlbums: JSX.Element[] = [];
+    let index = 0;
+
+    featuredAlbums.forEach((album: IAlbum) => {
+        elmFeaturedAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
+    });
     return (
         <div className="page">
             <p className="page-title">Featured releases</p>
@@ -19,26 +42,7 @@ export default function Home() {
                     minScrollSize={40}
                 >
                     <div className="d-flex flex-wrap">
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
+                        {elmFeaturedAlbums}
                     </div>
                 </ScrollArea>
             </div>

@@ -3,7 +3,7 @@ import { Button, Pagination, PaginationItem, PaginationLink, Col, Row } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ScrollArea from 'react-scrollbar';
 import { faThLarge, faThList, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { setShowMode, SHOW_MODE, StoreState, selectShowMode } from "../store";
+import { setShowMode, SHOW_MODE, selectShowMode } from "../store";
 import { useSelector, useDispatch } from 'react-redux';
 import LargeAlbumItem from '../components/LargeAlbumItem';
 import { scrollbarStyles } from '../consts';
@@ -27,26 +27,6 @@ export default function AllReleases() {
                     minScrollSize={40}
                 >
                     <div className="d-flex flex-wrap">
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
-                        <div className="col-20"><LargeAlbumItem></LargeAlbumItem></div>
                     </div>
                 </ScrollArea>
             </div>
@@ -118,7 +98,7 @@ export default function AllReleases() {
                 <Pagination size="sm">
                     <PaginationItem>
                         <PaginationLink previous href="#">
-                            <FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={faChevronLeft} />
                         </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
@@ -154,7 +134,7 @@ export default function AllReleases() {
                     </PaginationItem>
                     <PaginationItem>
                         <PaginationLink next href="#">
-                        <FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faChevronRight} />
                         </PaginationLink>
                     </PaginationItem>
                 </Pagination>
