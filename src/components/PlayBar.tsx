@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faStepForward, faPlay, faVolumeUp, faKeyboard, faDownload } from '@fortawesome/free-solid-svg-icons'
 import WaveForm from '../assets/images/wave.png';
+import Marquee from "react-text-marquee";
 
 export default function PlayBar() {
     return (
@@ -17,7 +18,9 @@ export default function PlayBar() {
                 <Button className="hl-control normal-control"><FontAwesomeIcon icon={faStepForward}></FontAwesomeIcon></Button>
             </div>
             <div className="wave-form-panel">
-                <div className="wave-title">Toddy Terry Soul Speech - Feelin' (Original Mix)</div>
+                <div className="wave-title">
+                    <Marquee text={"Toddy Terry Soul Speech - Feelin' (Original Mix)"} />
+                </div>
                 <div className="wave-image-wrapper">
                     <img src={WaveForm} />
                 </div>

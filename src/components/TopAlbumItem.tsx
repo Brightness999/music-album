@@ -1,17 +1,21 @@
 import React from 'react';
 
-import AlbumImage from "../assets/images/1.png";
+import {Album} from "../models";
 
-export default function TopAlbumItem() {
+interface IProps {
+    album: Album;
+}
+
+export default function TopAlbumItem(props: IProps) {
     return (
         <div className="top-album-item pt-1 pb-1 pl-3">
             <div className="img-wrapper">
-                <img src={AlbumImage}></img>
+                <img src={`uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg`}></img>
             </div>
             <div className="content ml-2">
-                <div className="title">Nu Groove</div>
-                <div className="desc">Luke Solomon, The visi...</div>
-                <div className="desc">4 To The Floor Records</div>
+                <div className="title">{props.album.title}</div>
+                <div className="desc">{props.album.publisher.name}</div>
+                <div className="desc">{props.album.artist.name}</div>
             </div>
         </div>
     );

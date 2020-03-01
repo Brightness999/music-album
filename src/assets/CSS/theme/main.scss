@@ -225,8 +225,9 @@ header a {
 }
 
 .playback-control-panel {
-    margin-left: 40px;
-    margin-right: 40px;
+    min-width: 145px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hl-control {

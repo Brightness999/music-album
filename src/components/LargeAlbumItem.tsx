@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText } from 'reactstrap';
-import { IAlbum } from '../interfaces';
+import { Album } from '../models';
 
 interface IProps {
-    album: IAlbum;
+    album: Album;
 }
 
 export default function LargeAlbumItem(props: IProps) {

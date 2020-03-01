@@ -3,7 +3,7 @@ import ScrollArea from 'react-scrollbar';
 import axios, {AxiosResponse} from 'axios';
 
 import LargeAlbumItem from '../components/LargeAlbumItem';
-import { IAlbum } from '../interfaces';
+import { Album } from '../models';
 
 
 import { scrollbarStyles } from '../consts';
@@ -13,7 +13,7 @@ export interface IFeaturedReleases {
 }
 
 export default function Home() {
-    const [featuredAlbums, setFeaturedAlbums] = useState<IAlbum[]>([]);
+    const [featuredAlbums, setFeaturedAlbums] = useState<Album[]>([]);
     useEffect(() => {
         const fetchData = async () => {
             const result: AxiosResponse<IFeaturedReleases> = await axios(
@@ -26,7 +26,7 @@ export default function Home() {
     let elmFeaturedAlbums: JSX.Element[] = [];
     let index = 0;
 
-    featuredAlbums.forEach((album: IAlbum) => {
+    featuredAlbums.forEach((album: Album) => {
         elmFeaturedAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
     });
     return (
