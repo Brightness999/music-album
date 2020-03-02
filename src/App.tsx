@@ -21,6 +21,9 @@ export default function App() {
       <div className="custom-container pl-5 pr-5">
         <Header />
         <Switch>
+          <Route path="/genres/:slug">
+            <Genres />
+          </Route>
           <Route path="/genres">
             <Genres />
           </Route>

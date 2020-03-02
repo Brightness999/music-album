@@ -71,6 +71,26 @@ header a {
     }
 }
 
+header .dropdown-toggle { /* force override all bootstrap */
+    background-color: #ffffff00 !important;
+    border: none !important;
+    box-shadow: none !important;
+    &:hover, &:active {
+        background-color: #ffffff00 !important;
+        text-decoration: none !important;
+        color: grey !important;
+    }
+}
+
+header .genres-popup {
+    background-color: #6B849C;
+    top: 80px;
+    left: 50px;
+    width: calc(100% - 100px);
+    height: 100px;
+    z-index: 999;
+}
+
 // sidebar section
 .sidebar {
     display: block;

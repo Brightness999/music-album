@@ -11,13 +11,13 @@ export interface StoreState {
 export const SHOW_MODE = {
     GRID: 'grid',
     LIST: 'list'
-}
+};
 
 export const PLAY_STATUS = {
     PLAYING: 'PLAYING',
     STOPPED: 'STOPPED',
     PAUSED: 'PAUSED'
-}
+};
 
 export const initialState: StoreState = {
     showMode: SHOW_MODE.GRID,
@@ -104,7 +104,7 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
       return Object.assign({}, state, { ...state, playStatus: action.playStatus });
   case NEXT_TRACK: {
       const iCurrentPosition = state.playList.indexOf(state.currentTrack);
-      if (iCurrentPosition === state.playList.length-1) {
+      if (iCurrentPosition === state.playList.length - 1) {
           return state;
       }
       return Object.assign({}, state, { ...state, currentTrack: state.playList[iCurrentPosition+1]});

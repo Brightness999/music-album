@@ -12,7 +12,7 @@ export const formatDuration = (length: number): string => {
         return `${min}:${sec}`;
     }
     return `${sec}`;
-}
+};
 
 export const formatFilesize = (file_size?: number): string => {
     if (file_size === undefined) {

@@ -57,7 +57,7 @@ export default function PlayBar() {
                     }}
                 >
                     <FontAwesomeIcon icon={
-                        (play_status==='STOPPED' || play_status === 'PAUSED')?faPlay:faPause
+                        (play_status === 'STOPPED' || play_status === 'PAUSED')?faPlay:faPause
                     }/>
                 </Button>
                 <Button
