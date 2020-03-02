@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import PlayBarAvatar from '../assets/images/album.jpg';
 import {Button} from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStepBackward, faStepForward, faPlay, faVolumeUp, faKeyboard, faPause } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faKeyboard, faPause, faPlay, faStepBackward, faStepForward, faVolumeUp} from '@fortawesome/free-solid-svg-icons'
 import Marquee from "react-text-marquee";
 import {useDispatch, useSelector} from "react-redux";
 import ReactSound from "react-sound";
@@ -10,6 +10,7 @@ import axios from "axios";
 import {Track} from "../models";
 import DownloadButton from "./DownloadButton";
 import {nextTrack, previousTrack, selectCurrentTrack, selectPlayList, selectPlayStatus, setPlayStatus} from "../store";
+import {NavLink} from "react-router-dom";
 
 export default function PlayBar() {
     const track_slug = useSelector(selectCurrentTrack);
@@ -101,7 +102,22 @@ export default function PlayBar() {
             </div>
             <div className="download-panel">
                 <div className="author">
-                    <a>SnakerCharmer</a> by <a>Lisztomania</a> in <a>Tech House</a>
+                    {
+                        track !== undefined?
+                            <div>
+                                <NavLink to={`/album/${track.album.slug}`}>
+                                    {track.album.title}
+                                </NavLink>&nbsp;by&nbsp;
+                                <NavLink to={`/album/${track.album.slug}`}>
+                                    {track.album.publisher.name}
+                                </NavLink>&nbsp;in&nbsp;
+                                <NavLink to={`/genres/${track?.category.slug}`}>
+                                    {track?.category.name}
+                                </NavLink>
+                            </div>:
+                            <div/>
+                    }
+
                 </div>
                 <div className="d-flex">
                     <DownloadButton track={track} type="mp3" className="mx-2"/>

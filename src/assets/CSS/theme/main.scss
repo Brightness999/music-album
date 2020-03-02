@@ -82,12 +82,6 @@ header a {
     padding-bottom: 10px;
 }
 
-@include media-breakpoint-down(lg) {
-    .sidebar {
-        display: none;
-    }
-}
-
 // page content section (common)
 .custom-container {
     display: flex;
@@ -103,7 +97,10 @@ header a {
     }
 }
 
-@include media-breakpoint-down(md) {
+@media(max-width: $page-width) {
+    .sidebar {
+        display: none;
+    }
     .custom-container {
         width: 100%;
         margin-left: 20px;
@@ -190,11 +187,6 @@ header a {
     padding-left: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-right: 15px;
-     :last-child {
-        color: #e28484;
-        text-align: right;
-    }
 }
 
 // pages: AlbumPage
@@ -216,6 +208,16 @@ header a {
         height: 300px;
         .scroll-area {
             height: 100%;
+        }
+    }
+}
+
+a {
+    &.genre-link {
+        color: white;
+        text-decoration: underline;
+        &:hover {
+            color: #6B849C;
         }
     }
 }
@@ -274,6 +276,16 @@ header a {
     .img-wrapper {
         img {
             height: $playbar-height;
+        }
+    }
+}
+
+.author {
+    a {
+        color: white;
+        text-decoration: underline;
+        &:hover {
+            color: #6B849C;
         }
     }
 }

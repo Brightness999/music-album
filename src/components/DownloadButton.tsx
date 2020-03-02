@@ -13,7 +13,7 @@ interface IProps {
 
 export default function DownloadButton(props: IProps) {
     const download = () => {
-        window.location.href = `https://localhost:8000/download/track/before/${props.track?.slug}/as/${props.type}`;
+        window.location.href = `http://localhost:8000/download/track/before/${props.track?.slug}/as/${props.type}`;
     };
     return (<Button className={"download-button w-100 "+props.className} disabled={props.track === undefined} onClick={() => download()}>
             .{props.type} ({formatFilesize(props.track?.filesize)})&nbsp;&nbsp;<FontAwesomeIcon icon={faDownload}/>

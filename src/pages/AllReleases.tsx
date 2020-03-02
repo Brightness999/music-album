@@ -7,7 +7,7 @@ import {selectShowMode, setShowMode, SHOW_MODE} from "../store";
 import {useDispatch, useSelector} from 'react-redux';
 import LargeAlbumItem from '../components/LargeAlbumItem';
 import {scrollbarStyles} from '../consts';
-import AlbumTitleHeader from '../components/AlbumTitleHeader';
+import GenreTitleHeader from '../components/GenreTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
 import {Album, Track} from "../models";
 import axios, {AxiosResponse} from "axios";
@@ -71,11 +71,11 @@ export default function AllReleases() {
     } else {
         let index = 0;
         let elmTracks: JSX.Element[] = [];
-        let lastAlbumId: number = -1;
+        let lastGenreId: number = -1;
         tracks.forEach((track: Track) => {
-            if (lastAlbumId === -1 || lastAlbumId !== track.album.id) {
-                lastAlbumId = track.album.id;
-                elmTracks.push(<AlbumTitleHeader key={index++} title={track.album.title} createdAt={track.album.release_date}/>);
+            if (lastGenreId === -1 || lastGenreId !== track.category.id) {
+                lastGenreId = track.category.id;
+                elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
             }
             elmTracks.push(<ListTrackItem track={track} />);
         });

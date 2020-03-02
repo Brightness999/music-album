@@ -38,8 +38,8 @@ export default function LargeAlbumItem(props: IProps) {
             </div>
             <CardBody>
                 <CardTitle><NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink></CardTitle>
-                <CardSubtitle>{props.album.catalog}</CardSubtitle>
-                <CardText>{props.album.artist.name}</CardText>
+                <CardSubtitle>{props.album.artist.name}</CardSubtitle>
+                <CardText>{props.album.publisher.name}</CardText>
             </CardBody>
         </Card>
     );

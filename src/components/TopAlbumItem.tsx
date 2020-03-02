@@ -37,8 +37,8 @@ export default function TopAlbumItem(props: IProps) {
                 <div className="title">
                     <NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink>
                 </div>
-                <div className="desc">{props.album.publisher.name}</div>
                 <div className="desc">{props.album.artist.name}</div>
+                <div className="desc">{props.album.publisher.name}</div>
             </div>
         </div>
     );

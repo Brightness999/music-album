@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
+import {NavLink, useHistory, useParams} from 'react-router-dom';
 import axios, {AxiosResponse} from 'axios';
 import ScrollArea from "react-scrollbar";
 import {Col, Row} from "reactstrap";
 
-import {Album, Category, Track} from "../models";
+import {AlbumResponse, DetailAlbum, Track} from "../models";
 import {scrollbarStyles} from "../consts";
 import ListTrackItemDetail from "../components/ListTrackItemDetail";
-import {AlbumResponse, DetailAlbum} from "../models";
 
 export default function AlbumPage() {
     let { slug } = useParams();
@@ -27,15 +26,16 @@ export default function AlbumPage() {
         return <div>Loading...</div>;
     }
     let artists: string|undefined;
-    let genres = "";
+    let genres: JSX.Element[] = [];
 
     artists = album?.artist.name;
-
-    album?.categories.forEach((category: Category) => {
-        genres += category.name+", ";
-    });
-    if (genres.endsWith(", ")) {
-        genres = genres.substr(0, genres.length-2);
+    const category_count = album?.categories.length || 0;
+    for (let i = 0; i < category_count; i++)
+    {
+        genres.push(<NavLink to={`/genres/${album?.categories[i].slug}`} key={i} className="genre-link">{album?.categories[i].name}</NavLink>);
+        if (i !== category_count-1) {
+            genres.push(<span>, </span>);
+        }
     }
 
     let elmTracks: JSX.Element[] = [];
@@ -59,11 +59,11 @@ export default function AlbumPage() {
                 </div>
             </Row>
             <Row className="album-header d-flex pt-2">
-                <Col sm={4}>Artist & Title</Col>
+                <Col sm={5}>Artist & Title</Col>
                 <Col sm={2}>Genre</Col>
                 <Col sm={1}>BPM</Col>
                 <Col sm={1}>Length</Col>
-                <Col sm={4} className="d-flex justify-content-around align-items-center" />
+                <Col sm={3} className="d-flex justify-content-around align-items-center" />
             </Row>
             <div className="flex-grow-1 pb-2 tracks-container">
                 <ScrollArea
