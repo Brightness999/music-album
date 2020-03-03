@@ -2,14 +2,12 @@ import React from 'react';
 import { Col } from 'reactstrap';
 import Marquee from 'react-text-marquee';
 
-import {
-    Artist,
-    Track
-} from '../models';
+import { Artist, Track } from '../models';
 import { formatDuration } from '../utils';
 import DownloadButton from './DownloadButton';
 import ListTrackPlayButton from './ListTrackPlayButton';
 import { composeAlbumImagePath } from '../common';
+import { MusicFileType } from '../types';
 
 interface Props {
     track: Track;
@@ -36,8 +34,8 @@ export default function(props: Props) {
                 { formatDuration(props.track.duration) }
             </Col>
             <Col sm="3" className="d-flex pr-1">
-                <DownloadButton className="mr-1" track={ props.track } type="mp3"/>
-                <DownloadButton track={ props.track } type="flac"/>
+                <DownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
+                <DownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
             </Col>
         </div>
     );

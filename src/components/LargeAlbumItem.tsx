@@ -1,13 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-    Card,
-    CardBody,
-    CardImg,
-    CardSubtitle,
-    CardText,
-    CardTitle
-} from 'reactstrap';
+import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -30,7 +23,10 @@ export default function LargeAlbumItem(props: Props) {
                          src={ `/uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg` }
                          alt="album"/>
                 <div className="album-cover d-flex justify-content-center align-items-center">
-                    <FontAwesomeIcon icon={ faPlay }/>
+                    <FontAwesomeIcon icon={
+
+                        faPlay
+                    }/>
                 </div>
             </div>
             <CardBody>

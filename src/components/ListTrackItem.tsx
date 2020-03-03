@@ -5,6 +5,7 @@ import Marquee from 'react-text-marquee';
 import { Track } from '../models';
 import DownloadButton from './DownloadButton';
 import ListTrackPlayButton from './ListTrackPlayButton';
+import { MusicFileType } from '../types';
 
 interface IProps {
     track: Track;
@@ -27,8 +28,8 @@ export default function(props: IProps) {
                 <Marquee text={ props.track.category.name } />
             </Col>
             <Col sm="3" className="pr-1 d-flex">
-                <DownloadButton className="mr-1" track={ props.track } type="mp3"/>
-                <DownloadButton track={ props.track } type="flac"/>
+                <DownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
+                <DownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
             </Col>
         </div>
     );

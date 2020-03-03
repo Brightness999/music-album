@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import {
-    useDispatch,
-    useSelector
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Marquee from 'react-text-marquee';
 import ReactSound from 'react-sound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,20 +15,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import PlayBarAvatar from '../assets/images/album.png';
 import { PlayStatus } from '../redux/store';
-import {
-    nextTrack,
-    previousTrack,
-    requestTrack,
-    setPlayStatus,
-} from '../redux/actions';
-import {
-    selectCurrentTrack,
-    selectCurrentTrackSlug,
-    selectPlayList,
-    selectPlayStatus,
-} from '../redux/selectors';
+import { nextTrack, previousTrack, requestTrack, setPlayStatus, } from '../redux/actions';
+import { selectCurrentTrack, selectCurrentTrackSlug, selectPlayList, selectPlayStatus, } from '../redux/selectors';
 
 import DownloadButton from './DownloadButton';
+import { MusicFileType } from '../types';
 
 export default function PlayBar() {
     const trackSlug = useSelector(selectCurrentTrackSlug);
@@ -53,7 +41,7 @@ export default function PlayBar() {
                         PlayBarAvatar
                 } alt="album"/>
             </div>
-            <div className="playback-control-panel">
+            <div className="playback-control-wrapper">
                 <Button
                     className="hl-control normal-control"
                     onClick={() => dispatch && dispatch(previousTrack())}
@@ -106,7 +94,7 @@ export default function PlayBar() {
                         :<span/>
                 }
             </div>
-            <div className="mute-control-panel">
+            <div className="mute-control-wrapper">
                 <Button
                     className="hl-control normal-control"
                     disabled={track === undefined}>
@@ -118,7 +106,7 @@ export default function PlayBar() {
                     <FontAwesomeIcon icon={faKeyboard}/>
                 </Button>
             </div>
-            <div className="download-panel">
+            <div className="download-wrapper">
                 <div className="author">
                     {
                         track !== undefined?
@@ -133,13 +121,12 @@ export default function PlayBar() {
                                     {track?.category.name}
                                 </NavLink>
                             </div>:
-                            <div/>
+                            <div>&nbsp;</div>
                     }
-
                 </div>
                 <div className="d-flex">
-                    <DownloadButton track={ track } type="mp3" className="mx-2"/>
-                    <DownloadButton track={ track } type="mp3" className="mx-2"/>
+                    <DownloadButton track={ track } type={ MusicFileType.MP3 } className="mx-2"/>
+                    <DownloadButton track={ track } type={ MusicFileType.FLAC } className="mx-2"/>
                 </div>
             </div>
         </div>

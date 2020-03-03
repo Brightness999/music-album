@@ -319,10 +319,10 @@ a {
     }
 }
 
-.playback-control-panel {
+.playback-control-wrapper {
     min-width: 145px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .hl-control {
@@ -384,12 +384,16 @@ a {
     }
 }
 
-.mute-control-panel {
+.mute-control-wrapper {
     padding-top: 1.5rem;
     margin-right: auto;
 }
 
-.download-panel .author {
+.download-wrapper {
+    min-width: 280px;
+}
+
+.download-wrapper .author {
     font-size: 0.8rem;
     padding-bottom: 8px;
     margin-right: 3rem;

@@ -8,6 +8,8 @@ export interface Track {
     location: string;
     slug: string;
     filesize: number;
+    mp3_size: number;
+    flac_size: number;
     duration: number;
     album: Album;
     category: Category;
