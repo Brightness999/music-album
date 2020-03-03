@@ -3,10 +3,14 @@ import {
     ActionType,
     NEXT_TRACK,
     PREVIOUS_TRACK,
+    SET_ALL_ALBUMS,
+    SET_CURRENT_ALBUM_DETAIL,
     SET_CURRENT_TRACK,
+    SET_FEATURED_ALBUMS,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
-    SET_SHOW_MODE
+    SET_SHOW_MODE,
+    SET_TRACKS
 } from './actions';
 
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
@@ -37,7 +41,18 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
             }
             return Object.assign({}, state, { ...state, currentTrack: state.playList[iCurrentPosition-1]});
         }
-
+        case SET_ALL_ALBUMS: {
+            return Object.assign({}, state, {...state, allAlbumList: action.albums});
+        }
+        case SET_FEATURED_ALBUMS: {
+            return Object.assign({}, state, {...state, featuredAlbumList: action.albums});
+        }
+        case SET_TRACKS: {
+            return Object.assign({}, state, {...state, tracks: action.tracks});
+        }
+        case SET_CURRENT_ALBUM_DETAIL: {
+            return Object.assign({}, state, {...state, currentAlbumDetails: action.album});
+        }
         default:
             return state;
     }

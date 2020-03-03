@@ -1,61 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import ScrollArea from 'react-scrollbar';
-import axios, { AxiosResponse } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { scrollbarStyles } from '../consts';
 import { Album, Track } from '../models';
 import { ShowMode } from '../redux/store';
-import { selectShowMode } from '../redux/selectors';
-import { setShowMode } from '../redux/actions';
+import { selectAllAlbumList, selectShowMode, selectTracks } from '../redux/selectors';
+import { requestAllAlbums, requestTracks, setShowMode } from '../redux/actions';
 
 import ListTrackItem from '../components/ListTrackItem';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import AlbumPagination from '../components/AlbumPagination';
 import LargeAlbumItem from '../components/LargeAlbumItem';
 
-interface AlbumsResponse {
-    albums: Album[]
-}
-
-interface TracksResponse {
-    tracks: Track[]
-}
-
 export default function AllReleases() {
     const showMode = useSelector(selectShowMode);
+    const albums = useSelector(selectAllAlbumList);
+    const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
-    const [albums, setAlbums] = useState<Album[]>([]);
-    const [tracks, setTracks] = useState<Track[]>([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            const result: AxiosResponse<AlbumsResponse> = await axios(
-                '/api/albums'
-            );
-            setAlbums(result.data.albums);
-        };
-        fetchData();
-    }, []);
-    useEffect(() => {
-        const fetchData = async () => {
-            const result: AxiosResponse<TracksResponse> = await axios(
-                '/api/tracks'
-            );
-            setTracks(result.data.tracks);
-        };
-        fetchData();
 
-    }, []);
+    useEffect(() => {
+        if (showMode == ShowMode.GRID) {
+            dispatch(requestAllAlbums());
+        } else {
+            ;dispatch(requestTracks())
+        }
+    }, [showMode]);
     let albumContent;
     if (showMode === ShowMode.GRID) {
-        let index = 0;
-        let elmAlbums: JSX.Element[] = [];
-        albums.forEach((album: Album) => {
-           elmAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
-        });
         albumContent = (
             <div className="album-content">
                 <ScrollArea
@@ -67,21 +42,24 @@ export default function AllReleases() {
                     minScrollSize={40}
                 >
                     <div className="d-flex flex-wrap">
-                        {elmAlbums}
+                        {
+                            albums.map((album: Album, index: number) =>
+                                <div className="col-20" key={index}>
+                                    <LargeAlbumItem album={album} />
+                                </div>)
+                        }
                     </div>
                 </ScrollArea>
             </div>
         );
     } else {
-        let index = 0;
-        let elmTracks: JSX.Element[] = [];
         let lastGenreId: number = -1;
-        tracks.forEach((track: Track) => {
+        let elmTracks = tracks.map((track: Track, index: number) => {
             if (lastGenreId === -1 || lastGenreId !== track.category.id) {
                 lastGenreId = track.category.id;
-                elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
+                return <GenreTitleHeader key={index} title={track.category.name}/>;
             }
-            elmTracks.push(<ListTrackItem track={track} />);
+            return <ListTrackItem track={track} />;
         });
         albumContent = (
             <div className="album-content">

@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ScrollArea from 'react-scrollbar';
-import axios, { AxiosResponse } from 'axios';
 
 import { scrollbarStyles } from '../consts';
 import { Album } from '../models';
 import LargeAlbumItem from '../components/LargeAlbumItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFeaturedAlbumList } from '../redux/selectors';
+import { requestFeaturedAlbums } from '../redux/actions';
 
-export interface FeaturedReleasesResponse {
-    featuredAlbums: []
-}
 
 export default function Home() {
-    const [featuredAlbums, setFeaturedAlbums] = useState<Album[]>([]);
+    const featuredAlbums = useSelector(selectFeaturedAlbumList);
+    const dispatch = useDispatch();
     useEffect(() => {
-        const fetchData = async () => {
-            const result: AxiosResponse<FeaturedReleasesResponse> = await axios(
-                '/api/featured-albums',
-            );
-            setFeaturedAlbums(result.data.featuredAlbums);
-        };
-        fetchData();
-    }, []);
+        dispatch(requestFeaturedAlbums());
+    }, [dispatch]);
     return (
         <div className="page">
             <p className="page-title">Featured releases</p>
@@ -35,7 +29,7 @@ export default function Home() {
                 >
                     <div className="d-flex flex-wrap">
                         {
-                            featuredAlbums.map((album: Album, index: number) =>
+                            featuredAlbums?.map((album: Album, index: number) =>
                                 <div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>)
                         }
                     </div>

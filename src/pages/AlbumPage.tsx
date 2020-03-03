@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useHistory, useParams } from 'react-router-dom';
-import axios, { AxiosResponse } from 'axios';
+import React, { useEffect } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
 import { Col, Row } from 'reactstrap';
 
-import { DetailAlbumResponse, DetailAlbum, Track } from '../models';
+import { Track } from '../models';
 import { scrollbarStyles } from '../consts';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentAlbumDetail } from '../redux/selectors';
+import { requestAlbumDetail } from '../redux/actions';
 
 export default function AlbumPage() {
     let { slug } = useParams();
-    const history = useHistory();
-    const [album, setAlbum] = useState<DetailAlbum>();
+    const album = useSelector(selectCurrentAlbumDetail);
+    const dispatch = useDispatch();
     useEffect(() => {
-        const fetchData = async () => {
-            const result: AxiosResponse<DetailAlbumResponse> = await axios(`/api/album/${slug}`);
-            setAlbum(result.data.album);
-            if (result.data.album === null ) {
-                history.push('/');
-            }
-        };
-        fetchData();
-    }, [history, slug]);
-    if (album === null ){
-        return <div>Loading...</div>;
-    }
+        if (slug === undefined) return;
+        dispatch(requestAlbumDetail(slug));
+    }, [slug]);
+
     let artists: string|undefined;
     let genres: JSX.Element[] = [];
 
@@ -67,8 +61,7 @@ export default function AlbumPage() {
                     verticalContainerStyle={scrollbarStyles}
                     horizontal={false}
                     smoothScrolling= {true}
-                    minScrollSize={40}
-                >
+                    minScrollSize={40}>
                     {
                         album?.tracks.map((track: Track, index: number) =>
                             <ListTrackItemDetail

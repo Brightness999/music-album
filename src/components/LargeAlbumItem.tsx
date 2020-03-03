@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from 'axios';
 import { useDispatch } from 'react-redux';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Album, DetailAlbumResponse } from '../models';
+import { Album, DetailAlbum } from '../models';
 import { setPlayList } from '../redux/actions';
 
 interface Props {
@@ -19,7 +19,7 @@ export default function LargeAlbumItem(props: Props) {
             <div
                 onClick={() => {
                     const fetchData = async () => {
-                        const result: AxiosResponse<DetailAlbumResponse> = await axios(`/api/album/${props.album.slug}`);
+                        const result: AxiosResponse<DetailAlbum> = await axios(`/api/album/${props.album.slug}`);
                         const play_list = result.data.album.tracks.map(track => track.slug);
                         dispatch(setPlayList(play_list));
                     };

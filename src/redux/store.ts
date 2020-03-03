@@ -1,6 +1,9 @@
-import { createStore } from 'redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
+import appSaga from './sagas';
+import { Album, DetailAlbum, Track } from '../models';
 
 export enum PlayStatus {
     PLAYING = 'PLAYING',
@@ -13,22 +16,36 @@ export enum ShowMode {
     LIST = 'LIST'
 }
 
-export interface StoreState {
-  showMode: ShowMode;
-  currentTrack: string;
-  playList: string[];
-  playStatus: PlayStatus;
-}
-
 export const initialState: StoreState = {
     showMode: ShowMode.GRID,
     currentTrack: '',
     playList: [],
-    playStatus: PlayStatus.STOPPED
+    playStatus: PlayStatus.STOPPED,
+    allAlbumList: [],
+    featuredAlbumList: [],
+    tracks: []
 };
+
+export interface StoreState {
+    showMode: ShowMode;
+    currentTrack: string;
+    playList: string[];
+    playStatus: PlayStatus;
+    allAlbumList: Album[];
+    featuredAlbumList: Album[];
+    tracks: Track[];
+    currentAlbumDetails?: DetailAlbum;
+}
+
+// saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 // Store
 export const store = createStore(
-  reducer,
-  devToolsEnhancer({}),
+    reducer,
+    composeWithDevTools(
+        applyMiddleware(sagaMiddleware)
+    )
 );
+
+sagaMiddleware.run(appSaga);
