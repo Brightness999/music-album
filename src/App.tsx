@@ -11,10 +11,14 @@ import Home  from './pages/Home';
 import Genres from './pages/Genres';
 import AllReleases from './pages/AllReleases';
 import AlbumPage from './pages/AlbumPage';
+import { requestCategories } from './redux/actions';
+import { useDispatch } from 'react-redux';
 
 
 
 export default function App() {
+  const dispatch = useDispatch();
+  dispatch(requestCategories());
   return (
     <Router>
       <Sidebar />

@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
 import appSaga from './sagas';
-import { Album, DetailAlbum, Track } from '../models';
+import { Album, Category, DetailAlbum, Track } from '../models';
 
 export enum PlayStatus {
     PLAYING = 'PLAYING',
@@ -30,7 +30,8 @@ export const initialState: StoreState = {
     featuredAlbumList: [],
     tracks: [],
     topAlbums: [],
-    loadingState: LoadingState.LOADED
+    loadingState: LoadingState.LOADED,
+    categories: []
 
 };
 
@@ -46,6 +47,7 @@ export interface StoreState {
     currentTrack?: Track;
     topAlbums: Album[];
     loadingState: LoadingState;
+    categories: Category[];
 }
 
 // saga middleware

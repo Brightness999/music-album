@@ -4,6 +4,7 @@ import {
     NEXT_TRACK,
     PREVIOUS_TRACK,
     SET_ALL_ALBUMS,
+    SET_CATEGORIES,
     SET_CURRENT_ALBUM_DETAIL,
     SET_CURRENT_TRACK,
     SET_CURRENT_TRACK_SLUG,
@@ -64,6 +65,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_LOADING_STATE: {
             return Object.assign({}, state, {...state, loadingState: action.loadingState});
+        }
+        case SET_CATEGORIES: {
+            return Object.assign({}, state, {...state, categories: action.categories});
         }
         default:
             return state;

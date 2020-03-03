@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { createRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+
+import { selectCategories } from '../redux/selectors';
 
 export function Header() {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const categories = useSelector(selectCategories);
+    const genresMenuWrapper = createRef<HTMLDivElement>();
+
     return (
         <header className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
                 <NavLink to="/home" activeClassName="active">Home</NavLink>
-                <NavLink to="/genres" onMouseEnter={ () => setDropdownOpen(true) }>Genres</NavLink>
-                { dropdownOpen?
-                        <div className="position-absolute genres-popup"
-                             onMouseOut={ () => setDropdownOpen(false) }/>:
-                        <div/>
-                }
+                <div className="genres-menu">
+                    <NavLink to="/genres" className="genres-link" onMouseOver={() => {
+                        if (genresMenuWrapper.current !== null) {
+                            genresMenuWrapper.current.hidden = false;
+                        }
+                    }}>Genres</NavLink>
+                    <div className="position-absolute sub-menu-wrapper" ref={genresMenuWrapper}>
+                        {
+                            categories.map(((category, index) =>
+                                <NavLink
+                                    onClick={ () => {
+                                        if (genresMenuWrapper.current !== null) {
+                                            genresMenuWrapper.current.hidden = true;
+                                        }
+                                    } }
+                                    to={`/genres/${category.slug}`}
+                                    key={index}
+                                >{category.name}</NavLink>))
+                        }
+                    </div>
+                </div>
+
                 <NavLink to="/all-releases" activeClassName="active">All releases</NavLink>
                 <div className="d-flex align-items-center">
                     <FontAwesomeIcon icon={ faSearch } className="search-icon"/>

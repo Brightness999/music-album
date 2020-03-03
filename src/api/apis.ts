@@ -5,3 +5,4 @@ export const API_FETCH_TRACKS = '/api/tracks';
 export const API_FETCH_ALBUM = '/api/album/';
 export const API_FETCH_TRACK = '/api/track/';
 export const API_FETCH_GENRE_TRACKS = '/api/genre-tracks/';
+export const API_FETCH_CATEGORIES = '/api/categories';

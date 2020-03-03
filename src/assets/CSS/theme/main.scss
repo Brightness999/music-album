@@ -81,13 +81,22 @@ header .dropdown-toggle { /* force override all bootstrap */
     }
 }
 
-header .genres-popup {
+header .sub-menu-wrapper {
     background-color: #6B849C;
-    top: 80px;
+    top: 77px;
     left: 50px;
     width: calc(100% - 100px);
     height: 100px;
     z-index: 999;
+    display: none;
+    padding: 10px 20px 10px 20px;
+}
+
+header div.genres-menu:hover {
+    cursor: pointer;
+    .sub-menu-wrapper {
+        display: block;
+    }
 }
 
 // sidebar section

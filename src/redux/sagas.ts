@@ -2,13 +2,13 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums, apiFetchTopAlbums } from '../api/AlbumAPI';
 import {
     ALBUM_DETAIL_REQUESTED,
-    ALL_ALBUMS_REQUESTED,
+    ALL_ALBUMS_REQUESTED, CATEGORIES_REQUESTED,
     FEATURED_ALBUMS_REQUESTED, GENRE_TRACKS_REQUESTED,
     RequestAlbumDetail, RequestGenreTracks,
     RequestTrack,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
-    setAllAlbums,
+    setAllAlbums, setCategories,
     setCurrentAlbumDetail,
     setCurrentTrack,
     setFeaturedAlbums,
@@ -23,6 +23,7 @@ import {
 import { apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
+import { apiFetchCategories } from '../api/CategoriAPI';
 
 function* fetchAllAlbums() {
     try {
@@ -91,6 +92,13 @@ function* selectAlbumAsPlaylist(action: SelectAlbumAsPlaylist) {
     yield put(setPlayList(play_list));
 }
 
+function* fetchCategories() {
+    try {
+        const categories = yield call(apiFetchCategories);
+        yield put(setCategories(categories));
+    } catch (e) { }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
@@ -100,6 +108,7 @@ function* appSaga() {
     yield takeLatest(SELECT_ALBUM_AS_PLAY_LIST, selectAlbumAsPlaylist);
     yield takeLatest(TOP_ALBUMS_REQUESTED, fetchTopAlbums);
     yield takeLatest(GENRE_TRACKS_REQUESTED, fetchGenreTracks);
+    yield takeLatest(CATEGORIES_REQUESTED, fetchCategories);
 }
 
 export default appSaga;
