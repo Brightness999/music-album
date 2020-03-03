@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 import { Track } from '../models';
 import {
+    API_FETCH_GENRE_TRACKS,
     API_FETCH_TRACK,
     API_FETCH_TRACKS
 } from './apis';
@@ -22,4 +23,9 @@ export const apiFetchTracks = async () => {
 export const apiFetchTrack = async(slug: string) => {
     const result: AxiosResponse<TrackResponse> = await axios(API_FETCH_TRACK + slug);
     return result.data.track;
+};
+
+export const apiFetchGenreTracks = async(slug: string) => {
+    const result: AxiosResponse<TracksResponse> = await axios(API_FETCH_GENRE_TRACKS + slug);
+    return result.data.tracks;
 };

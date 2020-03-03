@@ -3,8 +3,8 @@ import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums, apiFetc
 import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
-    FEATURED_ALBUMS_REQUESTED,
-    RequestAlbumDetail,
+    FEATURED_ALBUMS_REQUESTED, GENRE_TRACKS_REQUESTED,
+    RequestAlbumDetail, RequestGenreTracks,
     RequestTrack,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
@@ -20,7 +20,7 @@ import {
     TRACK_REQUESTED,
     TRACKS_REQUESTED
 } from './actions';
-import { apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
+import { apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
 
@@ -53,10 +53,17 @@ function* fetchFeaturedAlbums() {
 
 function* fetchTracks() {
     try {
-        yield put(setLoadingState(LoadingState.LOADING));
         const tracks = yield call(apiFetchTracks);
         yield put(setTracks(tracks));
-        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setTracks([]));
+    }
+}
+
+function* fetchGenreTracks(action: RequestGenreTracks) {
+    try {
+        const tracks = yield call(apiFetchGenreTracks, action.slug);
+        yield put(setTracks(tracks));
     } catch (e) {
         yield put(setTracks([]));
     }
@@ -64,8 +71,10 @@ function* fetchTracks() {
 
 function* fetchAlbumDetail(action: RequestAlbumDetail) {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const album = yield call(apiFetchAlbumDetail, action.slug);
         yield put(setCurrentAlbumDetail(album));
+        yield put(setLoadingState(LoadingState.LOADED));
     } catch (e) { }
 }
 
@@ -90,6 +99,7 @@ function* appSaga() {
     yield takeLatest(TRACK_REQUESTED, fetchTrack);
     yield takeLatest(SELECT_ALBUM_AS_PLAY_LIST, selectAlbumAsPlaylist);
     yield takeLatest(TOP_ALBUMS_REQUESTED, fetchTopAlbums);
+    yield takeLatest(GENRE_TRACKS_REQUESTED, fetchGenreTracks);
 }
 
 export default appSaga;

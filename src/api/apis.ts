@@ -4,3 +4,4 @@ export const API_FETCH_FEATURED_ALBUMS = '/api/featured-albums';
 export const API_FETCH_TRACKS = '/api/tracks';
 export const API_FETCH_ALBUM = '/api/album/';
 export const API_FETCH_TRACK = '/api/track/';
+export const API_FETCH_GENRE_TRACKS = '/api/genre-tracks/';

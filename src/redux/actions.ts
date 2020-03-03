@@ -23,6 +23,7 @@ export const TRACKS_REQUESTED = 'TRACKS_REQUESTED';
 export const ALBUM_DETAIL_REQUESTED = ' ALBUM_DETAIL_REQUEST';
 export const TRACK_REQUESTED = 'TRACK_REQUESTED';
 export const TOP_ALBUMS_REQUESTED = 'TOP_ALBUMS_REQUESTED';
+export const GENRE_TRACKS_REQUESTED = 'GENRE_TRACKS_REQUESTED';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -40,6 +41,7 @@ type ALBUM_DETAIL_REQUESTED = typeof ALBUM_DETAIL_REQUESTED;
 type TRACK_REQUESTED = typeof TRACK_REQUESTED;
 type SELECT_ALBUM_AS_PLAY_LIST = typeof SELECT_ALBUM_AS_PLAY_LIST;
 type SET_LOADING_STATE = typeof SET_LOADING_STATE;
+type GENRE_TRACKS_REQUESTED = typeof GENRE_TRACKS_REQUESTED;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -121,6 +123,11 @@ export interface SelectAlbumAsPlaylist {
     slug: string;
 }
 
+export interface RequestGenreTracks {
+    type: GENRE_TRACKS_REQUESTED;
+    slug: string;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -149,6 +156,7 @@ export const requestAllAlbums = () => ({ type: ALL_ALBUMS_REQUESTED });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
 export const requestTracks = () => ({ type: TRACKS_REQUESTED });
+export const requestGenreTracks = (slug: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug});
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug});
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });
 export const setAllAlbums = (albums: Album[]) => ({ type: SET_ALL_ALBUMS, albums: albums });

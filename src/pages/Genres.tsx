@@ -10,22 +10,29 @@ import ListTrackItem from '../components/ListTrackItem';
 import AlbumPagination from '../components/AlbumPagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTracks } from '../redux/selectors';
-import { requestTracks } from '../redux/actions';
+import { requestGenreTracks, requestTracks } from '../redux/actions';
 
 export default function GenresPage() {
     let { slug } = useParams();
+    console.log(`slug=${slug}`);
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(requestTracks());
+        if (slug === undefined) {
+            dispatch(requestTracks());
+        } else {
+            dispatch(requestGenreTracks(slug));
+        }
     }, [slug, dispatch]);
     let lastGenreId: number = -1;
-    let elmTracks = tracks.map((track: Track, index: number) => {
+    let elmTracks: JSX.Element[] = [];
+    let index = 0;
+    tracks.forEach((track: Track) => {
         if (lastGenreId === -1 || lastGenreId !== track.category.id) {
             lastGenreId = track.category.id;
-            return <GenreTitleHeader key={index++} title={track.category.name}/>;
+            elmTracks.push(<GenreTitleHeader key={index+1} title={track.category.name}/>);
         }
-        return <ListTrackItem track={track} />;
+        elmTracks.push(<ListTrackItem track={track} key={index+1} />);
     });
 
     return (
@@ -44,7 +51,7 @@ export default function GenresPage() {
                     horizontal={false}
                     smoothScrolling= {true}
                     minScrollSize={40}>
-                    {elmTracks}
+                    { elmTracks }
                 </ScrollArea>
             </div>
             <div className="d-flex justify-content-center align-items-center">
