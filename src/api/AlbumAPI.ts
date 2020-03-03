@@ -1,21 +1,37 @@
 import axios, { AxiosResponse } from 'axios';
+
 import { Album, DetailAlbum } from '../models';
+import {
+    API_FETCH_ALBUM,
+    API_FETCH_ALL_ALBUMS,
+    API_FETCH_FEATURED_ALBUMS,
+    API_FETCH_TOP_ALBUMS
+} from './apis';
 
 interface AlbumsResponse {
-    albums: Album[]
+    albums: Album[];
+}
+
+interface DetailAlbumResponse {
+    album: DetailAlbum;
 }
 
 export const apiFetchAllAlbums = async () => {
-    const result: AxiosResponse<AlbumsResponse> = await axios('/api/albums');
+    const result: AxiosResponse<AlbumsResponse> = await axios(API_FETCH_ALL_ALBUMS);
     return result.data.albums;
 };
 
 export const apiFetchFeaturedAlbums = async () => {
-    const result: AxiosResponse<AlbumsResponse> = await axios('/api/featured-albums');
+    const result: AxiosResponse<AlbumsResponse> = await axios(API_FETCH_FEATURED_ALBUMS);
     return result.data.albums;
-}
+};
 
 export const apiFetchAlbumDetail = async(slug: string) => {
-    const result: AxiosResponse<DetailAlbum> = await axios(`/api/album/${slug}`);
-    return result.data;
-}
+    const result: AxiosResponse<DetailAlbumResponse> = await axios(API_FETCH_ALBUM+slug);
+    return result.data.album;
+};
+
+export const apiFetchTopAlbums = async () => {
+    const result: AxiosResponse<AlbumsResponse> = await axios(API_FETCH_TOP_ALBUMS);
+    return result.data.albums;
+};

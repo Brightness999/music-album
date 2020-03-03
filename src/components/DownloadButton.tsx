@@ -16,8 +16,8 @@ export default function DownloadButton(props: Props) {
     const download = () => {
     };
     return (<Button
-        className={"download-button w-100 "+props.className}
-        disabled={props.track === undefined} onClick={() => download()}>
-            .{props.type} ({formatFilesize(props.track?.filesize)})&nbsp;&nbsp;<FontAwesomeIcon icon={faDownload}/>
+        className={ "download-button w-100 "+props.className }
+        disabled={ props.track === undefined } onClick={ () => download() }>
+            .{props.type} ({ formatFilesize(props.track?.filesize) })&nbsp;&nbsp;<FontAwesomeIcon icon={ faDownload }/>
         </Button>);
 }

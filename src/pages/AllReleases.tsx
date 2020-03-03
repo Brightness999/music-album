@@ -23,12 +23,12 @@ export default function AllReleases() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (showMode == ShowMode.GRID) {
+        if (showMode === ShowMode.GRID) {
             dispatch(requestAllAlbums());
         } else {
-            ;dispatch(requestTracks())
+            dispatch(requestTracks())
         }
-    }, [showMode]);
+    }, [showMode, dispatch]);
     let albumContent;
     if (showMode === ShowMode.GRID) {
         albumContent = (

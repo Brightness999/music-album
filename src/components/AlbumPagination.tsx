@@ -1,14 +1,21 @@
 import React from 'react';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import {
+    Pagination,
+    PaginationItem,
+    PaginationLink
+} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {
+    faChevronLeft,
+    faChevronRight
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function AlbumPagination() {
     return (
         <Pagination size="sm">
             <PaginationItem>
                 <PaginationLink previous href="#">
-                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <FontAwesomeIcon icon={ faChevronLeft } />
                 </PaginationLink>
             </PaginationItem>
             <PaginationItem>
@@ -32,7 +39,7 @@ export default function AlbumPagination() {
             </PaginationItem>
             <PaginationItem>
                 <PaginationLink next href="#">
-                    <FontAwesomeIcon icon={faChevronRight} />
+                    <FontAwesomeIcon icon={ faChevronRight } />
                 </PaginationLink>
             </PaginationItem>
         </Pagination>

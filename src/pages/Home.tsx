@@ -25,8 +25,7 @@ export default function Home() {
                     verticalContainerStyle={scrollbarStyles}
                     horizontal={false}
                     smoothScrolling= {true}
-                    minScrollSize={40}
-                >
+                    minScrollSize={40}>
                     <div className="d-flex flex-wrap">
                         {
                             featuredAlbums?.map((album: Album, index: number) =>

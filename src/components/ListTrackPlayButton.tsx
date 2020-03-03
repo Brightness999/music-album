@@ -1,13 +1,25 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import {
+    faPause,
+    faPlay
+} from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux';
 
 import { Track } from '../models';
 import { PlayStatus } from '../redux/store';
-import { selectCurrentTrack, selectPlayStatus } from '../redux/selectors';
-import { setCurrentTrack, setPlayStatus } from '../redux/actions';
+import {
+    selectCurrentTrackSlug,
+    selectPlayStatus
+} from '../redux/selectors';
+import {
+    setCurrentTrackSlug,
+    setPlayStatus
+} from '../redux/actions';
 
 interface Props {
     track: Track;
@@ -15,14 +27,14 @@ interface Props {
 
 export default function ListTrackPlayButton(props: Props) {
     const dispatch = useDispatch();
-    const trackSlug = useSelector(selectCurrentTrack);
+    const trackSlug = useSelector(selectCurrentTrackSlug);
     const playStatus = useSelector(selectPlayStatus);
     return (<Button
         className="hl-control normal-control"
         onClick={() => {
             if (!dispatch) return;
             if (props.track.slug !== trackSlug) {
-                dispatch(setCurrentTrack(props.track.slug));
+                dispatch(setCurrentTrackSlug(props.track.slug));
                 return;
             }
             if (playStatus === PlayStatus.PLAYING) {

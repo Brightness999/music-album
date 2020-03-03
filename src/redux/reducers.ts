@@ -6,10 +6,12 @@ import {
     SET_ALL_ALBUMS,
     SET_CURRENT_ALBUM_DETAIL,
     SET_CURRENT_TRACK,
+    SET_CURRENT_TRACK_SLUG,
     SET_FEATURED_ALBUMS,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
     SET_SHOW_MODE,
+    SET_TOP_ALBUMS,
     SET_TRACKS
 } from './actions';
 
@@ -17,29 +19,29 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
     switch (action.type) {
         case SET_SHOW_MODE:
             return Object.assign({}, state, { ...state, showMode: action.showMode });
-        case SET_CURRENT_TRACK: {
-            if (state.playList.indexOf(state.currentTrack) === -1) {
-                return Object.assign({}, state, {...state, currentTrack: action.trackSlug, playList: [action.trackSlug]});
+        case SET_CURRENT_TRACK_SLUG: {
+            if (state.playList.indexOf(state.currentTrackSlug) === -1) {
+                return Object.assign({}, state, {...state, currentTrackSlug: action.trackSlug, playList: [action.trackSlug]});
             }
-            return Object.assign({}, state, {...state, currentTrack: action.trackSlug});
+            return Object.assign({}, state, {...state, currentTrackSlug: action.trackSlug});
         }
         case SET_PLAY_LIST:
-            return Object.assign({}, state, { ...state, playList: action.playList, currentTrack: action.playList[0] });
+            return Object.assign({}, state, { ...state, playList: action.playList, currentTrackSlug: action.playList[0] });
         case SET_PLAY_STATUS:
             return Object.assign({}, state, { ...state, playStatus: action.playStatus });
         case NEXT_TRACK: {
-            const iCurrentPosition = state.playList.indexOf(state.currentTrack);
+            const iCurrentPosition = state.playList.indexOf(state.currentTrackSlug);
             if (iCurrentPosition === state.playList.length - 1) {
                 return state;
             }
-            return Object.assign({}, state, { ...state, currentTrack: state.playList[iCurrentPosition+1]});
+            return Object.assign({}, state, { ...state, currentTrackSlug: state.playList[iCurrentPosition+1]});
         }
         case PREVIOUS_TRACK: {
-            const iCurrentPosition = state.playList.indexOf(state.currentTrack);
+            const iCurrentPosition = state.playList.indexOf(state.currentTrackSlug);
             if (iCurrentPosition === 0) {
                 return state;
             }
-            return Object.assign({}, state, { ...state, currentTrack: state.playList[iCurrentPosition-1]});
+            return Object.assign({}, state, { ...state, currentTrackSlug: state.playList[iCurrentPosition-1]});
         }
         case SET_ALL_ALBUMS: {
             return Object.assign({}, state, {...state, allAlbumList: action.albums});
@@ -52,6 +54,12 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_CURRENT_ALBUM_DETAIL: {
             return Object.assign({}, state, {...state, currentAlbumDetails: action.album});
+        }
+        case SET_CURRENT_TRACK: {
+            return Object.assign({}, state, {...state, currentTrack: action.track});
+        }
+        case SET_TOP_ALBUMS: {
+            return Object.assign({}, state, {...state, topAlbums: action.albums});
         }
         default:
             return state;

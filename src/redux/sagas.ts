@@ -1,18 +1,24 @@
-import { call, put, takeLatest, take } from 'redux-saga/effects'
-import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums } from '../api/AlbumAPI';
+import { call, put, takeLatest } from 'redux-saga/effects'
+import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums, apiFetchTopAlbums } from '../api/AlbumAPI';
 import {
-    ActionType,
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
+    TRACK_REQUESTED,
+    TRACKS_REQUESTED,
+    SELECT_ALBUM_AS_PLAY_LIST,
     RequestAlbumDetail,
+    RequestTrack,
+    SelectAlbumAsPlaylist,
     setAllAlbums,
     setCurrentAlbumDetail,
+    setCurrentTrack,
     setFeaturedAlbums,
-    setTracks,
-    TRACKS_REQUESTED
+    setPlayList,
+    setTracks, TOP_ALBUMS_REQUESTED, setTopAlbums
 } from './actions';
-import { apiFetchTracks } from '../api/TrackAPI';
+import { apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
+import { Track } from '../models';
 
 function* fetchAllAlbums() {
     try {
@@ -20,6 +26,15 @@ function* fetchAllAlbums() {
         yield put(setAllAlbums(albums));
     } catch (e) {
         yield put(setAllAlbums([]));
+    }
+}
+
+function* fetchTopAlbums() {
+    try {
+        const albums = yield call(apiFetchTopAlbums);
+        yield put(setTopAlbums(albums));
+    } catch (e) {
+        yield put(setTopAlbums([]));
     }
 }
 
@@ -48,12 +63,27 @@ function* fetchAlbumDetail(action: RequestAlbumDetail) {
     } catch (e) { }
 }
 
-function* mySaga() {
+function* fetchTrack(action: RequestTrack) {
+    try {
+        const track = yield call(apiFetchTrack, action.slug);
+        yield put(setCurrentTrack(track));
+    } catch (e) { }
+}
 
+function* selectAlbumAsPlaylist(action: SelectAlbumAsPlaylist) {
+    const album = yield call(apiFetchAlbumDetail, action.slug);
+    const play_list = album.tracks.map((track: Track) => track.slug);
+    yield put(setPlayList(play_list));
+}
+
+function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
     yield takeLatest(TRACKS_REQUESTED, fetchTracks);
     yield takeLatest(ALBUM_DETAIL_REQUESTED, fetchAlbumDetail);
+    yield takeLatest(TRACK_REQUESTED, fetchTrack);
+    yield takeLatest(SELECT_ALBUM_AS_PLAY_LIST, selectAlbumAsPlaylist);
+    yield takeLatest(TOP_ALBUMS_REQUESTED, fetchTopAlbums);
 }
 
-export default mySaga;
+export default appSaga;

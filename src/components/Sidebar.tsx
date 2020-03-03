@@ -1,22 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import axios, {AxiosResponse} from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {Album} from '../models';
+import { Album } from '../models';
 import TopAlbumItem from './TopAlbumItem';
-
-interface TopAlbumsResponse {
-    topAlbums: Album[];
-}
+import { selectTopAlbums } from '../redux/selectors';
+import { requestTopAlbums } from '../redux/actions';
 
 export default function Sidebar() {
-    const [topAlbums, setTopAlbums] = useState<Album[]>([]);
+    const topAlbums = useSelector(selectTopAlbums);
+    const dispatch = useDispatch();
     useEffect(() => {
-        const fetchData = async () => {
-            const result: AxiosResponse<TopAlbumsResponse> = await axios('/api/top-albums');
-            setTopAlbums(result.data.topAlbums);
-        };
-        fetchData();
-    }, []);
+        dispatch(requestTopAlbums());
+    }, [dispatch]);
     return(
         <div className="sidebar">
             <div className="pt-4 pl-4 pb-5">Top {topAlbums.length} albums</div>

@@ -18,23 +18,26 @@ export enum ShowMode {
 
 export const initialState: StoreState = {
     showMode: ShowMode.GRID,
-    currentTrack: '',
+    currentTrackSlug: '',
     playList: [],
     playStatus: PlayStatus.STOPPED,
     allAlbumList: [],
     featuredAlbumList: [],
-    tracks: []
+    tracks: [],
+    topAlbums: []
 };
 
 export interface StoreState {
     showMode: ShowMode;
-    currentTrack: string;
     playList: string[];
+    currentTrackSlug: string;
     playStatus: PlayStatus;
     allAlbumList: Album[];
     featuredAlbumList: Album[];
     tracks: Track[];
     currentAlbumDetails?: DetailAlbum;
+    currentTrack?: Track;
+    topAlbums: Album[];
 }
 
 // saga middleware

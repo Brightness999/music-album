@@ -17,11 +17,10 @@ export default function AlbumPage() {
     useEffect(() => {
         if (slug === undefined) return;
         dispatch(requestAlbumDetail(slug));
-    }, [slug]);
+    }, [slug, dispatch]);
 
     let artists: string|undefined;
     let genres: JSX.Element[] = [];
-
     artists = album?.artist.name;
     const categoryCount = album?.categories.length || 0;
     for (let i = 0; i < categoryCount; i++)

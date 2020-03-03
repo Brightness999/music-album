@@ -18,7 +18,7 @@ export default function GenresPage() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(requestTracks());
-    }, [slug]);
+    }, [slug, dispatch]);
     let lastGenreId: number = -1;
     let elmTracks = tracks.map((track: Track, index: number) => {
         if (lastGenreId === -1 || lastGenreId !== track.category.id) {

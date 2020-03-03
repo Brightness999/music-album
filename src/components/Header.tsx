@@ -10,21 +10,15 @@ export function Header() {
         <header className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
                 <NavLink to="/home" activeClassName="active">Home</NavLink>
-                <NavLink to="/genres"
-                    onMouseEnter={() => setDropdownOpen(true)}
-                    >Genres
-                </NavLink>
-                {
-                    dropdownOpen?
-                        <div
-                            className="position-absolute genres-popup"
-                            onMouseOut={() => setDropdownOpen(false)}
-                        />:
+                <NavLink to="/genres" onMouseEnter={ () => setDropdownOpen(true) }>Genres</NavLink>
+                { dropdownOpen?
+                        <div className="position-absolute genres-popup"
+                             onMouseOut={ () => setDropdownOpen(false) }/>:
                         <div/>
                 }
                 <NavLink to="/all-releases" activeClassName="active">All releases</NavLink>
                 <div className="d-flex align-items-center">
-                    <FontAwesomeIcon icon={faSearch} className="search-icon"/>
+                    <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
                     <Input placeholder="Search here..." id="iSearch"/>
                 </div>
             </div>

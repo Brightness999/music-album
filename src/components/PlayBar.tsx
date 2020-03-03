@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+    useDispatch,
+    useSelector
+} from 'react-redux';
 import Marquee from 'react-text-marquee';
 import ReactSound from 'react-sound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,19 +16,17 @@ import {
     faStepForward,
     faVolumeUp
 } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-
 import PlayBarAvatar from '../assets/images/album.png';
-
-import { Track } from '../models';
 import { PlayStatus } from '../redux/store';
 import {
     nextTrack,
     previousTrack,
+    requestTrack,
     setPlayStatus,
 } from '../redux/actions';
 import {
     selectCurrentTrack,
+    selectCurrentTrackSlug,
     selectPlayList,
     selectPlayStatus,
 } from '../redux/selectors';
@@ -33,27 +34,22 @@ import {
 import DownloadButton from './DownloadButton';
 
 export default function PlayBar() {
-    const trackSlug = useSelector(selectCurrentTrack);
+    const trackSlug = useSelector(selectCurrentTrackSlug);
     const playStatus = useSelector(selectPlayStatus);
     const playList = useSelector(selectPlayList);
-    const [track, setTrack] = useState<Track>();
+    const track = useSelector(selectCurrentTrack);
     const dispatch = useDispatch();
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(`/api/track/${trackSlug}`);
-            setTrack(result.data.track);
-            if (result.data.track !== undefined) {
-                dispatch(setPlayStatus(PlayStatus.PLAYING));
-            }
-        };
-        fetchData();
+        if (trackSlug !== '') {
+            dispatch(requestTrack(trackSlug));
+        }
     }, [trackSlug, dispatch]);
     return (
         <div className="play-bar">
             <div className="img-wrapper">
                 <img className="img-fluid" src={
                     track !== undefined?
-                    `/uploads/albums/${track?.album.location}/thumb/${track?.album.slug}.jpg`:
+                        `/uploads/albums/${track?.album.location}/thumb/${track?.album.slug}.jpg`:
                         PlayBarAvatar
                 } alt="album"/>
             </div>
@@ -74,24 +70,23 @@ export default function PlayBar() {
                         } else {
                             dispatch(setPlayStatus(PlayStatus.PLAYING));
                         }
-                    }}
-                >
+                    }}>
                     <FontAwesomeIcon icon={
                         (playStatus === PlayStatus.STOPPED || playStatus === PlayStatus.PAUSED)?faPlay:faPause
                     }/>
                 </Button>
                 <Button
                     className="hl-control normal-control"
-                    onClick={() => dispatch && dispatch(nextTrack())}
-                    disabled={track === undefined || playList.indexOf(trackSlug) === playList.length-1}>
-                    <FontAwesomeIcon icon={faStepForward}/>
+                    onClick={ () => dispatch && dispatch(nextTrack()) }
+                    disabled={ track === undefined || playList.indexOf(trackSlug) === playList.length-1 }>
+                    <FontAwesomeIcon icon={ faStepForward }/>
                 </Button>
             </div>
             <div className="wave-form-panel">
                 <div className="wave-title">
                     {
                         track !== undefined?
-                        <Marquee text={track?.artist.name + '-' + track?.title} />:
+                        <Marquee text={ track?.artist.name + '-' + track?.title } />:
                         <div>Please select a track.</div>
                     }
                 </div>
@@ -105,7 +100,9 @@ export default function PlayBar() {
                 </div>
                 {
                     track !== undefined?
-                        <ReactSound url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`} playStatus={playStatus} />
+                        <ReactSound
+                            url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`}
+                            playStatus={playStatus} />
                         :<span/>
                 }
             </div>
@@ -113,7 +110,8 @@ export default function PlayBar() {
                 <Button
                     className="hl-control normal-control"
                     disabled={track === undefined}>
-                    <FontAwesomeIcon icon={faVolumeUp}/></Button>
+                    <FontAwesomeIcon icon={faVolumeUp}/>
+                </Button>
                 <Button
                     className="hl-control normal-control"
                     disabled={track === undefined}>
@@ -140,8 +138,8 @@ export default function PlayBar() {
 
                 </div>
                 <div className="d-flex">
-                    <DownloadButton track={track} type="mp3" className="mx-2"/>
-                    <DownloadButton track={track} type="mp3" className="mx-2"/>
+                    <DownloadButton track={ track } type="mp3" className="mx-2"/>
+                    <DownloadButton track={ track } type="mp3" className="mx-2"/>
                 </div>
             </div>
         </div>
