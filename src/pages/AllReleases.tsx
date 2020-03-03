@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { scrollbarStyles } from '../consts';
 import { Album, Track } from '../models';
-import { selectShowMode, setShowMode, SHOW_MODE } from '../store';
+import { ShowMode } from '../redux/store';
+import { selectShowMode } from '../redux/selectors';
+import { setShowMode } from '../redux/actions';
+
 import ListTrackItem from '../components/ListTrackItem';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import AlbumPagination from '../components/AlbumPagination';
@@ -47,7 +50,7 @@ export default function AllReleases() {
 
     }, []);
     let albumContent;
-    if (showMode === SHOW_MODE.GRID) {
+    if (showMode === ShowMode.GRID) {
         let index = 0;
         let elmAlbums: JSX.Element[] = [];
         albums.forEach((album: Album) => {
@@ -107,10 +110,10 @@ export default function AllReleases() {
             <div className="d-flex justify-content-between">
                 <p className="page-title">All releases</p>
                 <div className="d-flex align-items-center">
-                    <Button className="hl-control normal-control" active={showMode === SHOW_MODE.GRID} onClick={() => dispatch && dispatch(setShowMode(SHOW_MODE.GRID))}>
+                    <Button className="hl-control normal-control" active={showMode === ShowMode.GRID} onClick={() => dispatch && dispatch(setShowMode(ShowMode.GRID))}>
                         <FontAwesomeIcon icon={faThLarge} />&nbsp;&nbsp;Grid
                     </Button>
-                    <Button className="hl-control normal-control" active={showMode === SHOW_MODE.LIST} onClick={() => dispatch && dispatch(setShowMode(SHOW_MODE.LIST))}>
+                    <Button className="hl-control normal-control" active={showMode === ShowMode.LIST} onClick={() => dispatch && dispatch(setShowMode(ShowMode.LIST))}>
                         <FontAwesomeIcon icon={faThList} />&nbsp;&nbsp;List
                     </Button>
                 </div>

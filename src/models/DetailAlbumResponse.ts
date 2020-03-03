@@ -5,6 +5,6 @@ export interface DetailAlbum extends Album {
     tracks: Track[];
 }
 
-export interface AlbumResponse {
+export interface DetailAlbumResponse {
     album: DetailAlbum;
 }

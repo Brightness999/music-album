@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios';
 import ScrollArea from 'react-scrollbar';
 import { Col, Row } from 'reactstrap';
 
-import { AlbumResponse, DetailAlbum, Track } from '../models';
+import { DetailAlbumResponse, DetailAlbum, Track } from '../models';
 import { scrollbarStyles } from '../consts';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
 
@@ -14,7 +14,7 @@ export default function AlbumPage() {
     const [album, setAlbum] = useState<DetailAlbum>();
     useEffect(() => {
         const fetchData = async () => {
-            const result: AxiosResponse<AlbumResponse> = await axios(`/api/album/${slug}`);
+            const result: AxiosResponse<DetailAlbumResponse> = await axios(`/api/album/${slug}`);
             setAlbum(result.data.album);
             if (result.data.album === null ) {
                 history.push('/');

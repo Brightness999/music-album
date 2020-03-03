@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Marquee from 'react-text-marquee';
 import ReactSound from 'react-sound';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faKeyboard, faPause, faPlay, faStepBackward, faStepForward, faVolumeUp} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faKeyboard,
+    faPause,
+    faPlay,
+    faStepBackward,
+    faStepForward,
+    faVolumeUp
+} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import PlayBarAvatar from '../assets/images/album.png';
 
-import {Track} from '../models';
-import {nextTrack, previousTrack, selectCurrentTrack, selectPlayList, selectPlayStatus, setPlayStatus} from '../store';
+import { Track } from '../models';
+import { PlayStatus } from '../redux/store';
+import {
+    nextTrack,
+    previousTrack,
+    setPlayStatus,
+} from '../redux/actions';
+import {
+    selectCurrentTrack,
+    selectPlayList,
+    selectPlayStatus,
+} from '../redux/selectors';
+
 import DownloadButton from './DownloadButton';
 
 export default function PlayBar() {
@@ -25,7 +43,7 @@ export default function PlayBar() {
             const result = await axios(`/api/track/${trackSlug}`);
             setTrack(result.data.track);
             if (result.data.track !== undefined) {
-                dispatch(setPlayStatus('PLAYING'));
+                dispatch(setPlayStatus(PlayStatus.PLAYING));
             }
         };
         fetchData();
@@ -51,15 +69,15 @@ export default function PlayBar() {
                     disabled={track === undefined}
                     onClick={() => {
                         if (!dispatch) return;
-                        if (playStatus === 'PLAYING') {
-                            dispatch(setPlayStatus('PAUSED'));
+                        if (playStatus === PlayStatus.PLAYING) {
+                            dispatch(setPlayStatus(PlayStatus.PAUSED));
                         } else {
-                            dispatch(setPlayStatus('PLAYING'));
+                            dispatch(setPlayStatus(PlayStatus.PLAYING));
                         }
                     }}
                 >
                     <FontAwesomeIcon icon={
-                        (playStatus === 'STOPPED' || playStatus === 'PAUSED')?faPlay:faPause
+                        (playStatus === PlayStatus.STOPPED || playStatus === PlayStatus.PAUSED)?faPlay:faPause
                     }/>
                 </Button>
                 <Button
