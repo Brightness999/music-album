@@ -1,6 +1,6 @@
-import {Category} from "./Category";
-import {Artist} from "./Artist";
-import {Publisher} from "./Publisher";
+import { Category } from './Category';
+import { Artist } from './Artist';
+import { Publisher } from './Publisher';
 
 export interface Album {
     id: number;

@@ -1,20 +1,20 @@
 import React from 'react';
-import {Col} from 'reactstrap';
-
+import { Col } from 'reactstrap';
 import Marquee from 'react-text-marquee';
-import {Artist, Track} from "../models";
-import {formatDuration} from "../utils";
+
+import { Artist, Track } from "../models";
+import { formatDuration } from "../utils";
 import DownloadButton from "./DownloadButton";
 import ListTrackPlayButton from "./ListTrackPlayButton";
 
-interface IProps {
+interface Props {
     track: Track;
     album_slug: string;
     album_location: string;
     artist: Artist;
 }
 
-export default function(props: IProps) {
+export default function(props: Props) {
     return (
         <div className="list-track-item d-flex align-items-center justify-content-around mt-3 mb-3">
             <Col sm="5" className="d-flex align-items-center">

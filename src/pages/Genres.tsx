@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import {Col, Row} from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'reactstrap';
+import { useParams } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
-import {scrollbarStyles} from '../consts';
+import axios, { AxiosResponse } from 'axios';
+
+import { scrollbarStyles } from '../consts';
+import { Track } from '../models';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
-import {Track} from "../models";
-import axios, {AxiosResponse} from "axios";
-import AlbumPagination from "../components/AlbumPagination";
-import {useParams} from "react-router-dom";
+import AlbumPagination from '../components/AlbumPagination';
 
-interface ITracks {
+interface TracksResponse {
     tracks: Track[]
 }
 
@@ -26,21 +27,19 @@ export default function GenresPage() {
                 // url = `/api/genre-tracks/${slug}`
                 url = '/api/tracks';
             }
-            const result: AxiosResponse<ITracks> = await axios(url);
+            const result: AxiosResponse<TracksResponse> = await axios(url);
             setTracks(result.data.tracks);
         };
         fetchData();
     }, [slug]);
     let albumContent;
-    let index = 0;
-    let elmTracks: JSX.Element[] = [];
     let lastGenreId: number = -1;
-    tracks.forEach((track: Track) => {
+    let elmTracks = tracks.map((track: Track, index: number) => {
         if (lastGenreId === -1 || lastGenreId !== track.category.id) {
             lastGenreId = track.category.id;
-            elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
+            return <GenreTitleHeader key={index++} title={track.category.name}/>;
         }
-        elmTracks.push(<ListTrackItem track={track} />);
+        return <ListTrackItem track={track} />;
     });
     albumContent = (
         <div className="album-content">

@@ -1,7 +1,8 @@
 import React from 'react';
-import {Col} from 'reactstrap';
+import { Col } from 'reactstrap';
 import Marquee from 'react-text-marquee';
-import {Track} from "../models";
+
+import { Track } from "../models";
 import DownloadButton from "./DownloadButton";
 import ListTrackPlayButton from "./ListTrackPlayButton";
 

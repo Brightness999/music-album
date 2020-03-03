@@ -1,18 +1,18 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import {Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle} from 'reactstrap';
-import {Album, AlbumResponse} from '../models';
-import axios, {AxiosResponse} from "axios";
-import {useDispatch} from "react-redux";
-import {setPlayList} from "../store";
-import {faPlay} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { NavLink } from 'react-router-dom';
+import { Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import axios, { AxiosResponse } from 'axios';
+import { useDispatch } from 'react-redux';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Album, AlbumResponse } from '../models';
+import { setPlayList } from '../store';
 
-interface IProps {
+interface Props {
     album: Album;
 }
 
-export default function LargeAlbumItem(props: IProps) {
+export default function LargeAlbumItem(props: Props) {
     const dispatch = useDispatch();
     return (
         <Card>

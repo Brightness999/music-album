@@ -1,6 +1,6 @@
-import {Album} from "./Album";
-import {Category} from "./Category";
-import {Artist} from "./Artist";
+import { Album } from './Album';
+import { Category } from './Category';
+import { Artist } from './Artist';
 
 export interface Track {
     id: number;

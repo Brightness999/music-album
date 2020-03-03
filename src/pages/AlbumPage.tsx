@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {NavLink, useHistory, useParams} from 'react-router-dom';
-import axios, {AxiosResponse} from 'axios';
-import ScrollArea from "react-scrollbar";
-import {Col, Row} from "reactstrap";
+import React, { useEffect, useState } from 'react';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
+import axios, { AxiosResponse } from 'axios';
+import ScrollArea from 'react-scrollbar';
+import { Col, Row } from 'reactstrap';
 
-import {AlbumResponse, DetailAlbum, Track} from "../models";
-import {scrollbarStyles} from "../consts";
-import ListTrackItemDetail from "../components/ListTrackItemDetail";
+import { AlbumResponse, DetailAlbum, Track } from '../models';
+import { scrollbarStyles } from '../consts';
+import ListTrackItemDetail from '../components/ListTrackItemDetail';
 
 export default function AlbumPage() {
     let { slug } = useParams();
@@ -29,20 +29,15 @@ export default function AlbumPage() {
     let genres: JSX.Element[] = [];
 
     artists = album?.artist.name;
-    const category_count = album?.categories.length || 0;
-    for (let i = 0; i < category_count; i++)
+    const categoryCount = album?.categories.length || 0;
+    for (let i = 0; i < categoryCount; i++)
     {
         genres.push(<NavLink to={`/genres/${album?.categories[i].slug}`} key={i} className="genre-link">{album?.categories[i].name}</NavLink>);
-        if (i !== category_count-1) {
+        if (i !== categoryCount-1) {
             genres.push(<span>, </span>);
         }
     }
 
-    let elmTracks: JSX.Element[] = [];
-    let index = 0;
-    album?.tracks.forEach((track: Track) => {
-        elmTracks.push(<ListTrackItemDetail track={track} key={index++} album_slug={album?.slug} album_location={album?.location} artist={album?.artist}/>);
-    });
     return (
         <div className="page album-page">
             <p className="album-title">{album?.title}</p>
@@ -74,7 +69,15 @@ export default function AlbumPage() {
                     smoothScrolling= {true}
                     minScrollSize={40}
                 >
-                    {elmTracks}
+                    {
+                        album?.tracks.map((track: Track, index: number) =>
+                            <ListTrackItemDetail
+                                track={track}
+                                key={index}
+                                album_slug={album?.slug}
+                                album_location={album?.location}
+                                artist={album?.artist}/>)
+                    }
                 </ScrollArea>
             </div>
         </div>

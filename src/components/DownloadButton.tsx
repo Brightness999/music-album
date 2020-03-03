@@ -1,21 +1,23 @@
 import React from 'react';
-import {Track} from "../models";
-import {Button} from "reactstrap";
-import {formatFilesize} from "../utils";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDownload} from "@fortawesome/free-solid-svg-icons";
+import { Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-interface IProps {
+import { Track } from '../models';
+import { formatFilesize } from '../utils';
+
+interface Props {
     track?: Track;
     className?: string;
-    type: string; // mp3|flac
+    type: 'mp3' | 'flac';
 }
 
-export default function DownloadButton(props: IProps) {
+export default function DownloadButton(props: Props) {
     const download = () => {
-        window.location.href = `http://localhost:8000/download/track/before/${props.track?.slug}/as/${props.type}`;
     };
-    return (<Button className={"download-button w-100 "+props.className} disabled={props.track === undefined} onClick={() => download()}>
+    return (<Button
+        className={"download-button w-100 "+props.className}
+        disabled={props.track === undefined} onClick={() => download()}>
             .{props.type} ({formatFilesize(props.track?.filesize)})&nbsp;&nbsp;<FontAwesomeIcon icon={faDownload}/>
         </Button>);
 }

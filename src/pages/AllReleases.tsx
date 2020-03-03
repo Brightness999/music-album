@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Col, Row} from 'reactstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, { useEffect, useState } from 'react';
+import { Button, Col, Row } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import ScrollArea from 'react-scrollbar';
-import {faThLarge, faThList} from '@fortawesome/free-solid-svg-icons';
-import {selectShowMode, setShowMode, SHOW_MODE} from "../store";
-import {useDispatch, useSelector} from 'react-redux';
-import LargeAlbumItem from '../components/LargeAlbumItem';
-import {scrollbarStyles} from '../consts';
-import GenreTitleHeader from '../components/GenreTitleHeader';
-import ListTrackItem from '../components/ListTrackItem';
-import {Album, Track} from "../models";
-import axios, {AxiosResponse} from "axios";
-import AlbumPagination from "../components/AlbumPagination";
+import axios, { AxiosResponse } from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface IAlbums {
+import { scrollbarStyles } from '../consts';
+import { Album, Track } from '../models';
+import { selectShowMode, setShowMode, SHOW_MODE } from '../store';
+import ListTrackItem from '../components/ListTrackItem';
+import GenreTitleHeader from '../components/GenreTitleHeader';
+import AlbumPagination from '../components/AlbumPagination';
+import LargeAlbumItem from '../components/LargeAlbumItem';
+
+interface AlbumsResponse {
     albums: Album[]
 }
 
-interface ITracks {
+interface TracksResponse {
     tracks: Track[]
 }
 
@@ -28,7 +29,7 @@ export default function AllReleases() {
     const [tracks, setTracks] = useState<Track[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const result: AxiosResponse<IAlbums> = await axios(
+            const result: AxiosResponse<AlbumsResponse> = await axios(
                 '/api/albums'
             );
             setAlbums(result.data.albums);
@@ -37,7 +38,7 @@ export default function AllReleases() {
     }, []);
     useEffect(() => {
         const fetchData = async () => {
-            const result: AxiosResponse<ITracks> = await axios(
+            const result: AxiosResponse<TracksResponse> = await axios(
                 '/api/tracks'
             );
             setTracks(result.data.tracks);

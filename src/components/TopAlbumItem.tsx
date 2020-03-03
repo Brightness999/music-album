@@ -1,12 +1,12 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import { NavLink } from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import axios, {AxiosResponse} from 'axios';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faPlay} from '@fortawesome/free-solid-svg-icons';
 
-import {Album, AlbumResponse} from "../models";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlay} from "@fortawesome/free-solid-svg-icons";
-import axios, {AxiosResponse} from "axios";
-import {setPlayList} from "../store";
-import {useDispatch} from "react-redux";
+import {Album, AlbumResponse} from '../models';
+import {setPlayList} from '../store';
 
 interface IProps {
     album: Album;

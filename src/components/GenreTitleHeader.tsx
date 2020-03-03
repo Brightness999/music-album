@@ -1,15 +1,13 @@
 import React from 'react';
 
-interface IProps {
+interface Props {
     title: string;
 }
 
-export default function GenreTitleHeader(props: IProps) {
+export default function GenreTitleHeader(props: Props) {
     return (
         <div className="album-title-header">
-            <div>
-                { props.title }
-                </div>
+            <div>{ props.title }</div>
         </div>
     );
 }

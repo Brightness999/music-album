@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ScrollArea from 'react-scrollbar';
-import axios, {AxiosResponse} from 'axios';
-
-import LargeAlbumItem from '../components/LargeAlbumItem';
-import { Album } from '../models';
-
+import axios, { AxiosResponse } from 'axios';
 
 import { scrollbarStyles } from '../consts';
+import { Album } from '../models';
+import LargeAlbumItem from '../components/LargeAlbumItem';
 
-export interface IFeaturedReleases {
+export interface FeaturedReleasesResponse {
     featuredAlbums: []
 }
 
@@ -16,19 +14,13 @@ export default function Home() {
     const [featuredAlbums, setFeaturedAlbums] = useState<Album[]>([]);
     useEffect(() => {
         const fetchData = async () => {
-            const result: AxiosResponse<IFeaturedReleases> = await axios(
+            const result: AxiosResponse<FeaturedReleasesResponse> = await axios(
                 '/api/featured-albums',
             );
             setFeaturedAlbums(result.data.featuredAlbums);
         };
         fetchData();
     }, []);
-    let elmFeaturedAlbums: JSX.Element[] = [];
-    let index = 0;
-
-    featuredAlbums.forEach((album: Album) => {
-        elmFeaturedAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
-    });
     return (
         <div className="page">
             <p className="page-title">Featured releases</p>
@@ -42,7 +34,10 @@ export default function Home() {
                     minScrollSize={40}
                 >
                     <div className="d-flex flex-wrap">
-                        {elmFeaturedAlbums}
+                        {
+                            featuredAlbums.map((album: Album, index: number) =>
+                                <div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>)
+                        }
                     </div>
                 </ScrollArea>
             </div>

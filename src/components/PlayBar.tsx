@@ -1,33 +1,35 @@
-import React, {useEffect, useState} from 'react';
-import PlayBarAvatar from '../assets/images/album.jpg';
-import {Button} from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import {useDispatch, useSelector} from 'react-redux';
+import Marquee from 'react-text-marquee';
+import ReactSound from 'react-sound';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faKeyboard, faPause, faPlay, faStepBackward, faStepForward, faVolumeUp} from '@fortawesome/free-solid-svg-icons'
-import Marquee from "react-text-marquee";
-import {useDispatch, useSelector} from "react-redux";
-import ReactSound from "react-sound";
-import axios from "axios";
-import {Track} from "../models";
-import DownloadButton from "./DownloadButton";
-import {nextTrack, previousTrack, selectCurrentTrack, selectPlayList, selectPlayStatus, setPlayStatus} from "../store";
-import {NavLink} from "react-router-dom";
+import {faKeyboard, faPause, faPlay, faStepBackward, faStepForward, faVolumeUp} from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
+import PlayBarAvatar from '../assets/images/album.png';
+
+import {Track} from '../models';
+import {nextTrack, previousTrack, selectCurrentTrack, selectPlayList, selectPlayStatus, setPlayStatus} from '../store';
+import DownloadButton from './DownloadButton';
 
 export default function PlayBar() {
-    const track_slug = useSelector(selectCurrentTrack);
-    const play_status = useSelector(selectPlayStatus);
-    const play_list = useSelector(selectPlayList);
+    const trackSlug = useSelector(selectCurrentTrack);
+    const playStatus = useSelector(selectPlayStatus);
+    const playList = useSelector(selectPlayList);
     const [track, setTrack] = useState<Track>();
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
-            const result = await axios(`/api/track/${track_slug}`);
+            const result = await axios(`/api/track/${trackSlug}`);
             setTrack(result.data.track);
             if (result.data.track !== undefined) {
                 dispatch(setPlayStatus('PLAYING'));
             }
         };
         fetchData();
-    }, [track_slug, dispatch]);
+    }, [trackSlug, dispatch]);
     return (
         <div className="play-bar">
             <div className="img-wrapper">
@@ -41,7 +43,7 @@ export default function PlayBar() {
                 <Button
                     className="hl-control normal-control"
                     onClick={() => dispatch && dispatch(previousTrack())}
-                    disabled={track === undefined || play_list.indexOf(track_slug) === 0}>
+                    disabled={track === undefined || playList.indexOf(trackSlug) === 0}>
                     <FontAwesomeIcon icon={faStepBackward}/>
                 </Button>
                 <Button
@@ -49,7 +51,7 @@ export default function PlayBar() {
                     disabled={track === undefined}
                     onClick={() => {
                         if (!dispatch) return;
-                        if (play_status === 'PLAYING') {
+                        if (playStatus === 'PLAYING') {
                             dispatch(setPlayStatus('PAUSED'));
                         } else {
                             dispatch(setPlayStatus('PLAYING'));
@@ -57,13 +59,13 @@ export default function PlayBar() {
                     }}
                 >
                     <FontAwesomeIcon icon={
-                        (play_status === 'STOPPED' || play_status === 'PAUSED')?faPlay:faPause
+                        (playStatus === 'STOPPED' || playStatus === 'PAUSED')?faPlay:faPause
                     }/>
                 </Button>
                 <Button
                     className="hl-control normal-control"
                     onClick={() => dispatch && dispatch(nextTrack())}
-                    disabled={track === undefined || play_list.indexOf(track_slug) === play_list.length-1}>
+                    disabled={track === undefined || playList.indexOf(trackSlug) === playList.length-1}>
                     <FontAwesomeIcon icon={faStepForward}/>
                 </Button>
             </div>
@@ -85,7 +87,7 @@ export default function PlayBar() {
                 </div>
                 {
                     track !== undefined?
-                        <ReactSound url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`} playStatus={play_status} />
+                        <ReactSound url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`} playStatus={playStatus} />
                         :<span/>
                 }
             </div>
