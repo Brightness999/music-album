@@ -1,3 +1,3 @@
 export const scrollbarStyles = {
-    borderRadius: 5,
+    borderRadius: 5
 };

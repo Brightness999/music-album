@@ -1,4 +1,4 @@
-import { initialState, StoreState } from './store';
+import { initialState, PlayStatus, StoreState } from './store';
 import {
     ActionType,
     NEXT_TRACK,
@@ -8,6 +8,7 @@ import {
     SET_CURRENT_TRACK,
     SET_CURRENT_TRACK_SLUG,
     SET_FEATURED_ALBUMS,
+    SET_LOADING_STATE,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
     SET_SHOW_MODE,
@@ -56,10 +57,13 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
             return Object.assign({}, state, {...state, currentAlbumDetails: action.album});
         }
         case SET_CURRENT_TRACK: {
-            return Object.assign({}, state, {...state, currentTrack: action.track});
+            return Object.assign({}, state, {...state, currentTrack: action.track, playStatus: PlayStatus.PLAYING});
         }
         case SET_TOP_ALBUMS: {
             return Object.assign({}, state, {...state, topAlbums: action.albums});
+        }
+        case SET_LOADING_STATE: {
+            return Object.assign({}, state, {...state, loadingState: action.loadingState});
         }
         default:
             return state;

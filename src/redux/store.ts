@@ -16,6 +16,11 @@ export enum ShowMode {
     LIST = 'LIST'
 }
 
+export enum LoadingState {
+    LOADING = 'LOADING',
+    LOADED = 'LOADED'
+}
+
 export const initialState: StoreState = {
     showMode: ShowMode.GRID,
     currentTrackSlug: '',
@@ -24,7 +29,9 @@ export const initialState: StoreState = {
     allAlbumList: [],
     featuredAlbumList: [],
     tracks: [],
-    topAlbums: []
+    topAlbums: [],
+    loadingState: LoadingState.LOADED
+
 };
 
 export interface StoreState {
@@ -38,6 +45,7 @@ export interface StoreState {
     currentAlbumDetails?: DetailAlbum;
     currentTrack?: Track;
     topAlbums: Album[];
+    loadingState: LoadingState;
 }
 
 // saga middleware

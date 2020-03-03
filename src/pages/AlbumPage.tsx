@@ -7,17 +7,25 @@ import { Track } from '../models';
 import { scrollbarStyles } from '../consts';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentAlbumDetail } from '../redux/selectors';
+import { selectCurrentAlbumDetail, selectLoadingState } from '../redux/selectors';
 import { requestAlbumDetail } from '../redux/actions';
+import { composeAlbumImagePath } from '../common';
+import { LoadingState } from '../redux/store';
 
 export default function AlbumPage() {
     let { slug } = useParams();
     const album = useSelector(selectCurrentAlbumDetail);
+    const loadingState = useSelector(selectLoadingState);
+
     const dispatch = useDispatch();
     useEffect(() => {
         if (slug === undefined) return;
         dispatch(requestAlbumDetail(slug));
     }, [slug, dispatch]);
+
+    if (loadingState === LoadingState.LOADING) {
+        return <div>Loading...</div>;
+    }
 
     let artists: string|undefined;
     let genres: JSX.Element[] = [];
@@ -36,7 +44,7 @@ export default function AlbumPage() {
             <p className="album-title">{album?.title}</p>
             <Row>
                 <div className="album-image-wrapper">
-                    <img src={`/uploads/albums/${album?.location}/thumb/${album?.slug}.jpg`} alt="album"/>
+                    <img src={ composeAlbumImagePath(album?.location, album?.slug) } alt="album"/>
                 </div>
                 <div className="pl-3 pt-3 description">
                     <div className="pb-2">Artists: {artists}</div>

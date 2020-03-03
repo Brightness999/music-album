@@ -1,4 +1,4 @@
-import { PlayStatus, ShowMode } from './store';
+import { LoadingState, PlayStatus, ShowMode } from './store';
 import { Album, DetailAlbum, Track } from '../models';
 
 export const SET_SHOW_MODE = 'SET_SHOW_MODE';
@@ -8,18 +8,13 @@ export const SET_PLAY_STATUS = 'SET_PLAY_STATUS';
 export const NEXT_TRACK = 'NEXT_TRACK';
 export const PREVIOUS_TRACK = 'PREVIOUS_TRACK';
 export const SET_ALL_ALBUMS = 'SET_ALL_ALBUMS';
-export const ALL_ALBUMS_FETCH_FAILED = 'ALL_ALBUMS_FETCH_FAILED';
 export const SET_FEATURED_ALBUMS = 'SET_FEATURED_ALBUMS';
-export const FEATURED_ALBUMS_FETCH_FAILED = 'FEATURED_ALBUMS_FETCH_FAILED';
 export const SET_TRACKS = 'SET_TRACKS';
-export const TRACKS_FETCH_FAILED = 'TRACKS_FETCH_FAILED';
 export const SET_CURRENT_ALBUM_DETAIL = 'SET_CURRENT_ALBUM_DETAIL';
-export const ALBUM_DETAIL_FETCH_FAILED = 'ALBUM_DETAIL_FETCH_FAILED';
 export const SET_CURRENT_TRACK = 'SET_CURRENT_TRACK';
-export const CURRENT_TRACK_FETCH_FAILED = 'CURRENT_TRACK_FETCH_FAILED';
 export const SELECT_ALBUM_AS_PLAY_LIST = 'SELECT_ALBUM_AS_PLAY_LIST';
 export const SET_TOP_ALBUMS = 'SET_TOP_ALBUMS';
-export const TOP_ALBUMS_FETCH_FAILED = 'TOP_ALBUMS_FETCH_FAILED';
+export const SET_LOADING_STATE = 'SET_LOADING_STATE';
 
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
@@ -44,6 +39,7 @@ type SET_TOP_ALBUMS = typeof SET_TOP_ALBUMS;
 type ALBUM_DETAIL_REQUESTED = typeof ALBUM_DETAIL_REQUESTED;
 type TRACK_REQUESTED = typeof TRACK_REQUESTED;
 type SELECT_ALBUM_AS_PLAY_LIST = typeof SELECT_ALBUM_AS_PLAY_LIST;
+type SET_LOADING_STATE = typeof SET_LOADING_STATE;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -103,6 +99,11 @@ interface SetTopAlbums {
     albums: Album[];
 }
 
+interface SetLoadingState {
+    type: SET_LOADING_STATE;
+    loadingState: LoadingState;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -135,7 +136,8 @@ export type ActionType =
     SetCurrentTrack |
     RequestTrack |
     SelectAlbumAsPlaylist |
-    SetTopAlbums;
+    SetTopAlbums |
+    SetLoadingState;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -156,3 +158,4 @@ export const setCurrentAlbumDetail = (album: DetailAlbum) => ({ type: SET_CURREN
 export const setCurrentTrack = (track: Track) => ({ type: SET_CURRENT_TRACK, track: track});
 export const selectAlbumAsPlaylist = (slug: string) => ({ type: SELECT_ALBUM_AS_PLAY_LIST, slug: slug});
 export const setTopAlbums = (albums: Album[]) => ({ type: SET_TOP_ALBUMS, albums: albums});
+export const setLoadingState = (loadingState: LoadingState) => ({ type: SET_LOADING_STATE, loadingState: loadingState});

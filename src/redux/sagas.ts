@@ -4,21 +4,25 @@ import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
-    TRACK_REQUESTED,
-    TRACKS_REQUESTED,
-    SELECT_ALBUM_AS_PLAY_LIST,
     RequestAlbumDetail,
     RequestTrack,
+    SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
     setAllAlbums,
     setCurrentAlbumDetail,
     setCurrentTrack,
     setFeaturedAlbums,
+    setLoadingState,
     setPlayList,
-    setTracks, TOP_ALBUMS_REQUESTED, setTopAlbums
+    setTopAlbums,
+    setTracks,
+    TOP_ALBUMS_REQUESTED,
+    TRACK_REQUESTED,
+    TRACKS_REQUESTED
 } from './actions';
 import { apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
+import { LoadingState } from './store';
 
 function* fetchAllAlbums() {
     try {
@@ -49,8 +53,10 @@ function* fetchFeaturedAlbums() {
 
 function* fetchTracks() {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const tracks = yield call(apiFetchTracks);
         yield put(setTracks(tracks));
+        yield put(setLoadingState(LoadingState.LOADED));
     } catch (e) {
         yield put(setTracks([]));
     }
