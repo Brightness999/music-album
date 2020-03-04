@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,7 +29,11 @@ export default function TopAlbumItem(props: Props) {
                     <NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink>
                 </div>
                 <div className="desc">{props.album.artist.name}</div>
-                <div className="desc">{props.album.publisher.name}</div>
+                <div className="desc">
+                    <NavLink to={`/all-releases/${props.album.publisher.slug}`} className="genre-link">
+                        { props.album.publisher.name }
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

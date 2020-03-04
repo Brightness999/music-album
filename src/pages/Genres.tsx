@@ -39,7 +39,7 @@ export default function GenresPage() {
     tracks.forEach((track: Track) => {
         if (lastGenreId === -1 || lastGenreId !== track.category.id) {
             lastGenreId = track.category.id;
-            elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
+            elmTracks.push(<GenreTitleHeader key={index++} category={track.category}/>);
         }
         elmTracks.push(<ListTrackItem track={track} key={index++} />);
     });

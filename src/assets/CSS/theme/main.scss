@@ -259,7 +259,7 @@ header div.genres-menu:hover {
 a {
     &.genre-link {
         color: white;
-        text-decoration: underline;
+        text-decoration: none;
         &:hover {
             color: #6B849C;
         }

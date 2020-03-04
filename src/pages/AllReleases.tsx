@@ -32,7 +32,7 @@ export default function AllReleases() {
         if (publisherSlug !== undefined) {
             dispatch(setShowMode(ShowMode.GRID));
         }
-    }, [publisherSlug]);
+    }, [publisherSlug, dispatch]);
 
     useEffect(() => {
         if (showMode === ShowMode.GRID) {
@@ -67,7 +67,7 @@ export default function AllReleases() {
         tracks.forEach(track => {
             if (lastGenreId === -1 || lastGenreId !== track.category.id) {
                 lastGenreId = track.category.id;
-                elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
+                elmTracks.push(<GenreTitleHeader key={index++} category={track.category}/>);
             }
             elmTracks.push(<ListTrackItem track={track} key={index++}/>);
         });

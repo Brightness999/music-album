@@ -1,13 +1,19 @@
 import React from 'react';
+import { Category } from '../models';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
-    title: string;
+    category: Category;
 }
 
 export default function GenreTitleHeader(props: Props) {
     return (
         <div className="album-title-header">
-            <div>{ props.title }</div>
+            <div>
+                <NavLink to={`/genres/${props.category.slug}`} className="genre-link">
+                    { props.category.name }
+                </NavLink>
+            </div>
         </div>
     );
 }
