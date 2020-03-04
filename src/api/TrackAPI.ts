@@ -28,9 +28,9 @@ export const apiFetchTrack = async(slug: string) => {
     return result.data.track;
 };
 
-export const apiFetchGenreTracks = async(slug: string) => {
-    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_GENRE_TRACKS + slug);
-    return result.data.tracks;
+export const apiFetchGenreTracks = async(slug: string, skip: number, limit: number) => {
+    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_GENRE_TRACKS + slug + '?skip='+skip+'&limit='+limit);
+    return [result.data.tracks, result.data.track_count];
 };
 
 export const apiDownloadTrack = (slug?: string, ext?: string) => {

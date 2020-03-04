@@ -72,8 +72,12 @@ function* fetchTracks(action: RequestTracks) {
 
 function* fetchGenreTracks(action: RequestGenreTracks) {
     try {
-        const tracks = yield call(apiFetchGenreTracks, action.slug);
+        const [tracks, trackCount] = yield call(apiFetchGenreTracks, action.slug, action.skip, action.limit);
         yield put(setTracks(tracks));
+        yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
+        if (tracks.length === 0) {
+            yield put(setCurrentPage(0));
+        }
     } catch (e) {
         yield put(setTracks([]));
     }

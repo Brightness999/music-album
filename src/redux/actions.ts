@@ -169,6 +169,8 @@ export interface SelectAlbumAsPlaylist {
 export interface RequestGenreTracks {
     type: GENRE_TRACKS_REQUESTED;
     slug: string;
+    skip: number;
+    limit: number;
 }
 
 export type ActionType =
@@ -203,7 +205,7 @@ export const requestAllAlbums = (skip: number, limit: number) => ({ type: ALL_AL
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
 export const requestTracks = (skip: number, limit: number) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit });
-export const requestGenreTracks = (slug: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug });
+export const requestGenreTracks = (slug: string, skip: number, limit: number) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug, skip: skip, limit: limit });
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });
 export const setAllAlbums = (albums: Album[]) => ({ type: SET_ALL_ALBUMS, albums: albums });

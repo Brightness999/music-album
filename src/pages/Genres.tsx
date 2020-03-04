@@ -22,7 +22,7 @@ export default function GenresPage() {
         if (slug === undefined) {
             dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         } else {
-            dispatch(requestGenreTracks(slug));
+            dispatch(requestGenreTracks(slug, currentPage * trackCountPerPage, trackCountPerPage));
         }
     }, [slug, dispatch, currentPage]);
     let lastGenreId: number = -1;
