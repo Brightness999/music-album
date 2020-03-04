@@ -5,7 +5,7 @@ import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import ScrollArea from 'react-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { albumCountPerPage, scrollbarStyles } from '../consts';
+import { albumCountPerPage, scrollbarStyles, trackCountPerPage } from '../consts';
 import { Album } from '../models';
 import { ShowMode } from '../redux/store';
 import {
@@ -36,7 +36,7 @@ export default function AllReleases() {
         if (showMode === ShowMode.GRID) {
             dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage));
         } else {
-            dispatch(requestTracks())
+            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         }
     }, [showMode, dispatch, currentPage]);
     let albumContent;

@@ -11,15 +11,16 @@ import { environment } from '../environments/envrionment';
 
 interface TracksResponse {
     tracks: Track[];
+    track_count: number;
 }
 
 interface TrackResponse {
     track: Track;
 }
 
-export const apiFetchTracks = async () => {
-    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS);
-    return result.data.tracks;
+export const apiFetchTracks = async (skip: number, limit: number) => {
+    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit);
+    return [result.data.tracks, result.data.track_count];
 };
 
 export const apiFetchTrack = async(slug: string) => {

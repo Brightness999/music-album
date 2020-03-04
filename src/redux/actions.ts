@@ -45,6 +45,7 @@ type SET_TOP_ALBUMS = typeof SET_TOP_ALBUMS;
 type ALBUM_DETAIL_REQUESTED = typeof ALBUM_DETAIL_REQUESTED;
 type ALL_ALBUMS_REQUESTED = typeof ALL_ALBUMS_REQUESTED;
 type TRACK_REQUESTED = typeof TRACK_REQUESTED;
+type TRACKS_REQUESTED = typeof TRACKS_REQUESTED;
 type SELECT_ALBUM_AS_PLAY_LIST = typeof SELECT_ALBUM_AS_PLAY_LIST;
 type SET_LOADING_STATE = typeof SET_LOADING_STATE;
 type GENRE_TRACKS_REQUESTED = typeof GENRE_TRACKS_REQUESTED;
@@ -149,6 +150,12 @@ export interface RequestAllAlbums {
     limit: number;
 }
 
+export interface RequestTracks {
+    type: TRACKS_REQUESTED;
+    skip: number;
+    limit: number;
+}
+
 export interface RequestTrack {
     type: TRACK_REQUESTED;
     slug: string;
@@ -195,7 +202,7 @@ export const previousTrack = () => ({ type: PREVIOUS_TRACK });
 export const requestAllAlbums = (skip: number, limit: number) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
-export const requestTracks = () => ({ type: TRACKS_REQUESTED });
+export const requestTracks = (skip: number, limit: number) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit });
 export const requestGenreTracks = (slug: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug });
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });

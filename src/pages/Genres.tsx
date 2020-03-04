@@ -3,13 +3,13 @@ import { Col, Row } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
 
-import { scrollbarStyles } from '../consts';
+import { scrollbarStyles, trackCountPerPage } from '../consts';
 import { Track } from '../models';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
 import AlbumPagination from '../components/AlbumPagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTracks } from '../redux/selectors';
+import { selectCurrentPage, selectTracks } from '../redux/selectors';
 import { requestGenreTracks, requestTracks } from '../redux/actions';
 
 export default function GenresPage() {
@@ -17,13 +17,14 @@ export default function GenresPage() {
     console.log(`slug=${slug}`);
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
+    const currentPage = useSelector(selectCurrentPage);
     useEffect(() => {
         if (slug === undefined) {
-            dispatch(requestTracks());
+            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         } else {
             dispatch(requestGenreTracks(slug));
         }
-    }, [slug, dispatch]);
+    }, [slug, dispatch, currentPage]);
     let lastGenreId: number = -1;
     let elmTracks: JSX.Element[] = [];
     let index = 0;
