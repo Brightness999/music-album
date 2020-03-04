@@ -10,12 +10,19 @@ import {
     faPlay,
     faStepBackward,
     faStepForward,
+    faVolumeMute,
     faVolumeUp
 } from '@fortawesome/free-solid-svg-icons';
 import PlayBarAvatar from '../assets/images/album.png';
 import { PlayStatus } from '../redux/store';
-import { nextTrack, previousTrack, requestTrack, setPlayStatus, } from '../redux/actions';
-import { selectCurrentTrack, selectCurrentTrackSlug, selectPlayList, selectPlayStatus, } from '../redux/selectors';
+import { nextTrack, previousTrack, requestTrack, setMuted, setPlayStatus, } from '../redux/actions';
+import {
+    selectCurrentTrack,
+    selectCurrentTrackSlug,
+    selectMuted,
+    selectPlayList,
+    selectPlayStatus,
+} from '../redux/selectors';
 import { NavLink } from 'react-router-dom';
 import DownloadButton from './DownloadButton';
 import { MusicFileType } from '../types';
@@ -27,6 +34,7 @@ export default function PlayBar() {
     const playStatus = useSelector(selectPlayStatus);
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
+    const muted = useSelector(selectMuted);
     const [playPosition, setPlayPosition] = useState(238000);
     const [playDuration] = useState(0);
     const dispatch = useDispatch();
@@ -45,7 +53,7 @@ export default function PlayBar() {
         <div className="play-bar">
             <div className="img-wrapper">
                 <img className="img-fluid" src={
-                    track !== undefined?
+                    track !== undefined ?
                         composeAlbumImagePath(track?.album.location, track?.album.slug) :
                         PlayBarAvatar
                 } alt="album"/>
@@ -69,22 +77,22 @@ export default function PlayBar() {
                         }
                     }}>
                     <FontAwesomeIcon icon={
-                        (playStatus === PlayStatus.STOPPED || playStatus === PlayStatus.PAUSED)?faPlay:faPause
+                        (playStatus === PlayStatus.STOPPED || playStatus === PlayStatus.PAUSED) ? faPlay : faPause
                     }/>
                 </Button>
                 <Button
                     className="hl-control normal-control"
-                    onClick={ () => dispatch && dispatch(nextTrack()) }
-                    disabled={ track === undefined || playList.indexOf(trackSlug) === playList.length-1 }>
-                    <FontAwesomeIcon icon={ faStepForward }/>
+                    onClick={() => dispatch && dispatch(nextTrack())}
+                    disabled={track === undefined || playList.indexOf(trackSlug) === playList.length - 1}>
+                    <FontAwesomeIcon icon={faStepForward}/>
                 </Button>
             </div>
             <div className="wave-form-panel">
                 <div className="wave-title">
                     {
-                        track !== undefined?
-                        <Marquee text={ track?.artist.name + '-' + track?.title } />:
-                        <div>Please select a track.</div>
+                        track !== undefined ?
+                            <Marquee text={track?.artist.name + '-' + track?.title}/> :
+                            <div>Please select a track.</div>
                     }
                 </div>
                 <div
@@ -93,22 +101,23 @@ export default function PlayBar() {
                         if (!refPlayerWrapper.current) return;
                         const playerRect = refPlayerWrapper.current.getBoundingClientRect();
                         const pressedX = event.clientX - playerRect.x;
-                        setPlayPosition(Math.floor( playDuration * pressedX / playerRect.width));
+                        setPlayPosition(Math.floor(playDuration * pressedX / playerRect.width));
                     }}
                     className="wave-image-wrapper">
                     {
-                        track !== undefined?
-                        <img src={ composeWaveformImagePath(track?.album.location, track?.slug) }
-                             alt="waveform"/>
-                             :<div/>
+                        track !== undefined ?
+                            <img src={composeWaveformImagePath(track?.album.location, track?.slug)}
+                                 alt="waveform"/>
+                            : <div/>
                     }
                     <div className="seek-bar position-absolute h-100" ref={refSeekBar}/>
                 </div>
                 {
-                    track !== undefined?
+                    track !== undefined ?
                         <ReactSound
-                            ref={ refPlayer }
-                            position={ playPosition }
+                            volume={muted ? 0 : 100}
+                            ref={refPlayer}
+                            position={playPosition}
                             onPlaying={(params: OnPlayingParams) => {
                                 if (!refSeekBar.current) {
                                     return;
@@ -120,19 +129,20 @@ export default function PlayBar() {
                                 dispatch(setPlayStatus(PlayStatus.STOPPED));
                                 dispatch(nextTrack());
                             }}
-                            url={ composeMusicFilePath(track?.album.location, track?.slug) }
-                            playStatus={playStatus} />
-                        :<span/>
+                            url={composeMusicFilePath(track?.album.location, track?.slug)}
+                            playStatus={playStatus}/>
+                        : <span/>
                 }
             </div>
             <div className="mute-control-wrapper">
                 <Button
-                    className="hl-control normal-control"
+                    className="hl-control normal-control w-50"
+                    onClick={() => dispatch(setMuted(!muted))}
                     disabled={track === undefined}>
-                    <FontAwesomeIcon icon={faVolumeUp}/>
+                    <FontAwesomeIcon icon={muted ? faVolumeMute : faVolumeUp}/>
                 </Button>
                 <Button
-                    className="hl-control normal-control"
+                    className="hl-control normal-control w-50"
                     disabled={track === undefined}>
                     <FontAwesomeIcon icon={faKeyboard}/>
                 </Button>
@@ -140,7 +150,7 @@ export default function PlayBar() {
             <div className="download-wrapper">
                 <div className="author">
                     {
-                        track !== undefined?
+                        track !== undefined ?
                             <div>
                                 <NavLink to={`/album/${track.album.slug}`}>
                                     {track.album.title}
@@ -151,13 +161,13 @@ export default function PlayBar() {
                                 <NavLink to={`/genres/${track?.category.slug}`}>
                                     {track?.category.name}
                                 </NavLink>
-                            </div>:
+                            </div> :
                             <div>&nbsp;</div>
                     }
                 </div>
                 <div className="d-flex">
-                    <DownloadButton track={ track } type={ MusicFileType.MP3 } className="mx-2"/>
-                    <DownloadButton track={ track } type={ MusicFileType.FLAC } className="mx-2"/>
+                    <DownloadButton track={track} type={MusicFileType.MP3} className="mx-2"/>
+                    <DownloadButton track={track} type={MusicFileType.FLAC} className="mx-2"/>
                 </div>
             </div>
         </div>

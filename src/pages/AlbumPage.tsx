@@ -7,14 +7,18 @@ import { Track } from '../models';
 import { scrollbarStyles } from '../consts';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentAlbumDetail, selectLoadingState } from '../redux/selectors';
-import { requestAlbumDetail } from '../redux/actions';
+import { selectCurrentAlbumDetail, selectCurrentTrack, selectLoadingState, selectPlayStatus } from '../redux/selectors';
+import { requestAlbumDetail, selectAlbumAsPlaylist, setPlayStatus } from '../redux/actions';
 import { composeAlbumImagePath } from '../common';
-import { LoadingState } from '../redux/store';
+import { LoadingState, PlayStatus } from '../redux/store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 export default function AlbumPage() {
     let { slug } = useParams();
     const album = useSelector(selectCurrentAlbumDetail);
+    const currentTrack = useSelector(selectCurrentTrack);
+    const playStatus = useSelector(selectPlayStatus);
     const loadingState = useSelector(selectLoadingState);
 
     const dispatch = useDispatch();
@@ -44,9 +48,29 @@ export default function AlbumPage() {
         <div className="page album-page">
             <p className="album-title">{album?.title}</p>
             <Row>
-                <div className="album-image-wrapper">
+                <div
+                    onClick={() => {
+                        if (album?.slug === currentTrack?.album.slug) {
+                            if (playStatus === PlayStatus.PLAYING) {
+                                dispatch(setPlayStatus(PlayStatus.PAUSED));
+                            } else {
+                                dispatch(setPlayStatus(PlayStatus.PLAYING));
+                            }
+                        } else {
+                            dispatch(selectAlbumAsPlaylist(album.slug));
+                        }
+                    }}
+                    className="album-image-wrapper position-relative">
                     <img src={ composeAlbumImagePath(album?.location, album?.slug) } alt="album"/>
+                    <div className="album-cover d-flex justify-content-center align-items-center">
+                        <FontAwesomeIcon icon={
+                            (album?.slug === currentTrack?.album.slug && playStatus === PlayStatus.PLAYING)?
+                                faPause:
+                                faPlay
+                        }/>
+                    </div>
                 </div>
+
                 <div className="pl-3 pt-3 description">
                     <div className="pb-2">Artists: {artists}</div>
                     <div className="pb-2">Label: {album?.publisher.name}</div>

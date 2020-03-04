@@ -31,7 +31,8 @@ export const initialState: StoreState = {
     tracks: [],
     topAlbums: [],
     loadingState: LoadingState.LOADED,
-    categories: []
+    categories: [],
+    muted: false
 };
 
 export interface StoreState {
@@ -47,6 +48,7 @@ export interface StoreState {
     topAlbums: Album[];
     loadingState: LoadingState;
     categories: Category[];
+    muted: boolean;
 }
 
 // saga middleware

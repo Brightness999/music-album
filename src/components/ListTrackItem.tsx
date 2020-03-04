@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 import Marquee from 'react-text-marquee';
 
 import { Track } from '../models';
@@ -14,7 +14,7 @@ interface IProps {
 
 export default function(props: IProps) {
     return (
-        <div className="list-track-item d-flex align-items-center justify-content-around mt-3 mb-3">
+        <Row className="list-track-item d-flex align-items-center justify-content-around mt-3 mb-3">
             <Col sm="6" className="d-flex align-items-center">
                 <div className="position-relative d-flex">
                     <img src={ composeAlbumImagePath(props.track.album.location, props.track.album.slug) } alt="album" />
@@ -32,6 +32,6 @@ export default function(props: IProps) {
                 <DownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
                 <DownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
             </Col>
-        </div>
+        </Row>
     );
 }

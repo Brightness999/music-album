@@ -22,7 +22,7 @@ export default function LargeAlbumItem(props: Props) {
     return (
         <Card>
             <div
-                onClick={ () => {
+                onClick={() => {
                     if (props.album.slug === currentTrack?.album.slug) {
                         if (playStatus === PlayStatus.PLAYING) {
                             dispatch(setPlayStatus(PlayStatus.PAUSED));
@@ -32,7 +32,7 @@ export default function LargeAlbumItem(props: Props) {
                     } else {
                         dispatch(selectAlbumAsPlaylist(props.album.slug));
                     }
-                } }
+                }}
                 className="position-relative d-flex">
                 <CardImg top
                          src={ composeAlbumImagePath(props.album.location, props.album.slug) }

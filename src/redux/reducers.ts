@@ -14,7 +14,8 @@ import {
     SET_PLAY_STATUS,
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
-    SET_TRACKS
+    SET_TRACKS,
+    SET_MUTED
 } from './actions';
 
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
@@ -68,6 +69,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_CATEGORIES: {
             return Object.assign({}, state, {...state, categories: action.categories});
+        }
+        case SET_MUTED: {
+            return Object.assign({}, state, {...state, muted: action.muted});
         }
         default:
             return state;

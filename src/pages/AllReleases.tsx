@@ -39,8 +39,7 @@ export default function AllReleases() {
                     verticalContainerStyle={scrollbarStyles}
                     horizontal={false}
                     smoothScrolling= {true}
-                    minScrollSize={40}
-                >
+                    minScrollSize={40}>
                     <div className="d-flex flex-wrap">
                         {
                             albums.map((album: Album, index: number) =>

@@ -12,3 +12,4 @@ export const selectCurrentAlbumDetail = (state: StoreState) => state.currentAlbu
 export const selectTopAlbums = (state: StoreState) => state.topAlbums;
 export const selectLoadingState = (state: StoreState) => state.loadingState;
 export const selectCategories = (state: StoreState) => state.categories;
+export const selectMuted = (state: StoreState) => state.muted;
