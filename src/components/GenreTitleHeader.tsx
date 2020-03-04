@@ -3,15 +3,15 @@ import { Category } from '../models';
 import { NavLink } from 'react-router-dom';
 
 interface Props {
-    category: Category;
+    category?: Category;
 }
 
 export default function GenreTitleHeader(props: Props) {
     return (
         <div className="album-title-header">
             <div>
-                <NavLink to={`/genres/${props.category.slug}`} className="genre-link">
-                    { props.category.name }
+                <NavLink to={`/genres/${props.category?.slug}`} className="genre-link">
+                    { props.category?.name }
                 </NavLink>
             </div>
         </div>

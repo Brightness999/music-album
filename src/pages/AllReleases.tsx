@@ -5,7 +5,7 @@ import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { albumCountPerPage, trackCountPerPage } from '../consts';
-import { Album } from '../models';
+import { Album, Category } from '../models';
 import { ShowMode } from '../redux/store';
 import { selectAllAlbumList, selectCurrentPage, selectShowMode, selectTracks } from '../redux/selectors';
 import { requestAllAlbums, requestTracks, setCurrentPage, setShowMode } from '../redux/actions';
@@ -61,15 +61,22 @@ export default function AllReleases() {
             </div>
         );
     } else {
-        let lastGenreId: number = -1;
         let elmTracks: JSX.Element[] = [];
         let index = 0;
+        let elmTracksMap: Map<number, JSX.Element[]> = new Map();
+        let categoryMap: Map<number, Category> = new Map();
         tracks.forEach(track => {
-            if (lastGenreId === -1 || lastGenreId !== track.category.id) {
-                lastGenreId = track.category.id;
-                elmTracks.push(<GenreTitleHeader key={index++} category={track.category}/>);
+            if (!categoryMap.has(track.category.id)) {
+                categoryMap.set(track.category.id, track.category);
             }
-            elmTracks.push(<ListTrackItem track={track} key={index++}/>);
+            if (!elmTracksMap.has(track.category.id)) {
+                elmTracksMap.set(track.category.id, []);
+            }
+            elmTracksMap.get(track.category.id)?.push(<ListTrackItem track={track} key={index++}/>);
+        });
+        elmTracksMap.forEach((_emlTracks, key ) => {
+            elmTracks.push(<GenreTitleHeader category={categoryMap.get(key)}/>);
+            elmTracks = elmTracks.concat(_emlTracks);
         });
         albumContent = (
             <div className="album-content">
