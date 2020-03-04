@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Col, Row } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import ScrollArea from 'react-scrollbar';
@@ -10,7 +10,7 @@ import ListTrackItem from '../components/ListTrackItem';
 import AlbumPagination from '../components/AlbumPagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentPage, selectTracks } from '../redux/selectors';
-import { requestGenreTracks, requestTracks } from '../redux/actions';
+import { requestGenreTracks, requestTracks, setCurrentPage } from '../redux/actions';
 
 export default function GenresPage() {
     let { slug } = useParams();
@@ -18,6 +18,12 @@ export default function GenresPage() {
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
+    const refScrollArea = createRef<ScrollArea>();
+
+    useEffect(() => {
+        dispatch(setCurrentPage(0));
+    }, [dispatch, slug]);
+
     useEffect(() => {
         if (slug === undefined) {
             dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
@@ -25,6 +31,11 @@ export default function GenresPage() {
             dispatch(requestGenreTracks(slug, currentPage * trackCountPerPage, trackCountPerPage));
         }
     }, [slug, dispatch, currentPage]);
+
+    useEffect(() => {
+        refScrollArea.current?.scrollTop();
+    }, [tracks, refScrollArea]);
+
     let lastGenreId: number = -1;
     let elmTracks: JSX.Element[] = [];
     let index = 0;
@@ -46,6 +57,7 @@ export default function GenresPage() {
                     <Col sm={4}/>
                 </Row>
                 <ScrollArea
+                    ref={refScrollArea}
                     className="scroll-area"
                     verticalScrollbarStyle={scrollbarStyles}
                     verticalContainerStyle={scrollbarStyles}

@@ -23,7 +23,7 @@ import {
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
     switch (action.type) {
         case SET_SHOW_MODE:
-            return Object.assign({}, state, { ...state, showMode: action.showMode });
+            return Object.assign({}, state, { ...state, showMode: action.showMode, currentPage: 0 });
         case SET_CURRENT_TRACK_SLUG: {
             if (state.playList.indexOf(action.trackSlug) === -1) {
                 return Object.assign({}, state, {...state, currentTrackSlug: action.trackSlug, playList: [action.trackSlug]});

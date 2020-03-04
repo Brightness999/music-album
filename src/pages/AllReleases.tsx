@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ import {
 } from '../redux/selectors';
 import {
     requestAllAlbums,
-    requestTracks,
+    requestTracks, setCurrentPage,
     setShowMode
 } from '../redux/actions';
 
@@ -31,6 +31,11 @@ export default function AllReleases() {
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
+    const refScrollArea = createRef<ScrollArea>();
+
+    useEffect(() => {
+        dispatch(setCurrentPage(0));
+    }, [dispatch]);
 
     useEffect(() => {
         if (showMode === ShowMode.GRID) {
@@ -39,11 +44,17 @@ export default function AllReleases() {
             dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         }
     }, [showMode, dispatch, currentPage]);
+
+    useEffect(() => {
+        refScrollArea.current?.scrollTop();
+    }, [tracks, albums, refScrollArea]);
+
     let albumContent;
     if (showMode === ShowMode.GRID) {
         albumContent = (
             <div className="album-content">
                 <ScrollArea
+                    ref={refScrollArea}
                     className="scroll-area"
                     verticalScrollbarStyle={scrollbarStyles}
                     verticalContainerStyle={scrollbarStyles}
@@ -81,6 +92,7 @@ export default function AllReleases() {
                     <Col sm={4}/>
                 </Row>
                 <ScrollArea
+                    ref={refScrollArea}
                     className="scroll-area"
                     verticalScrollbarStyle={scrollbarStyles}
                     verticalContainerStyle={scrollbarStyles}
