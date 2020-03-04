@@ -6,7 +6,7 @@ import ScrollArea from 'react-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { scrollbarStyles } from '../consts';
-import { Album, Track } from '../models';
+import { Album } from '../models';
 import { ShowMode } from '../redux/store';
 import { selectAllAlbumList, selectShowMode, selectTracks } from '../redux/selectors';
 import { requestAllAlbums, requestTracks, setShowMode } from '../redux/actions';
@@ -54,12 +54,14 @@ export default function AllReleases() {
         );
     } else {
         let lastGenreId: number = -1;
-        let elmTracks = tracks.map((track: Track, index: number) => {
+        let elmTracks: JSX.Element[] = [];
+        let index = 0;
+        tracks.forEach(track => {
             if (lastGenreId === -1 || lastGenreId !== track.category.id) {
                 lastGenreId = track.category.id;
-                return <GenreTitleHeader key={index} title={track.category.name}/>;
+                elmTracks.push(<GenreTitleHeader key={index++} title={track.category.name}/>);
             }
-            return <ListTrackItem track={track} />;
+            elmTracks.push(<ListTrackItem track={track} key={index++}/>);
         });
         albumContent = (
             <div className="album-content">
@@ -75,8 +77,7 @@ export default function AllReleases() {
                     verticalContainerStyle={scrollbarStyles}
                     horizontal={false}
                     smoothScrolling= {true}
-                    minScrollSize={40}
-                >
+                    minScrollSize={40}>
                     {elmTracks}
                 </ScrollArea>
             </div>
