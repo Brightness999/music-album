@@ -14,11 +14,13 @@ import ListTrackItem from '../components/ListTrackItem';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import AlbumPagination from '../components/AlbumPagination';
 import LargeAlbumItem from '../components/LargeAlbumItem';
+import { useParams } from 'react-router-dom';
 
 export default function AllReleases() {
     const showMode = useSelector(selectShowMode);
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
+    let { publisherSlug } = useParams();
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
 
@@ -27,12 +29,18 @@ export default function AllReleases() {
     }, [dispatch]);
 
     useEffect(() => {
+        if (publisherSlug !== undefined) {
+            dispatch(setShowMode(ShowMode.GRID));
+        }
+    }, [publisherSlug]);
+
+    useEffect(() => {
         if (showMode === ShowMode.GRID) {
-            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage));
+            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || ''));
         } else {
             dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         }
-    }, [showMode, dispatch, currentPage]);
+    }, [showMode, publisherSlug, dispatch, currentPage]);
 
     useEffect(() => {
         window.scrollTo({top: 0});
@@ -79,7 +87,7 @@ export default function AllReleases() {
     return (
         <div className="page">
             <div className="d-flex justify-content-between">
-                <p className="page-title">All releases</p>
+                <p className="page-title">{publisherSlug?albums[0]?.publisher.name:'All releases'}</p>
                 <div className="d-flex align-items-center">
                     <Button className="hl-control normal-control" active={showMode === ShowMode.GRID} onClick={() => dispatch && dispatch(setShowMode(ShowMode.GRID))}>
                         <FontAwesomeIcon icon={faThLarge} />&nbsp;&nbsp;Grid

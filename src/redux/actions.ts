@@ -148,6 +148,7 @@ export interface RequestAllAlbums {
     type: ALL_ALBUMS_REQUESTED;
     skip: number;
     limit: number;
+    publisherSlug: string;
 }
 
 export interface RequestTracks {
@@ -201,7 +202,7 @@ export const setPlayList = (playList: string[]) => ({ type: SET_PLAY_LIST, playL
 export const setPlayStatus = (playStatus: PlayStatus) => ({ type: SET_PLAY_STATUS, playStatus: playStatus });
 export const nextTrack = () => ({ type: NEXT_TRACK });
 export const previousTrack = () => ({ type: PREVIOUS_TRACK });
-export const requestAllAlbums = (skip: number, limit: number) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit });
+export const requestAllAlbums = (skip: number, limit: number, publisherSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
 export const requestTracks = (skip: number, limit: number) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit });

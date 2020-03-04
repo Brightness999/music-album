@@ -48,7 +48,9 @@ export default function LargeAlbumItem(props: Props) {
             <CardBody>
                 <CardTitle><NavLink to={ "/album/"+props.album.slug }>{ props.album.title }</NavLink></CardTitle>
                 <CardSubtitle>{ props.album.artist.name }</CardSubtitle>
-                <CardText>{ props.album.publisher.name }</CardText>
+                <CardText>
+                    <NavLink to={`/all-releases/${props.album.publisher.slug}`} className="genre-link">{ props.album.publisher.name }</NavLink>
+                </CardText>
             </CardBody>
         </Card>
     );

@@ -70,7 +70,12 @@ export default function AlbumPage() {
 
                 <div className="pl-3 pt-3 description">
                     <div className="pb-2">Artists: {artists}</div>
-                    <div className="pb-2">Label: {album?.publisher.name}</div>
+                    <div className="pb-2">
+                        Label:&nbsp;
+                        <NavLink to={`/all-releases/${album?.publisher.slug}`} className="genre-link">
+                            { album?.publisher.name }
+                        </NavLink>
+                    </div>
                     <div className="pb-2">Catalog #: {album?.catalog}</div>
                     <div className="pb-2">Date: {album?.release_date}</div>
                     <div className="pb-2">Genres: {genres}</div>

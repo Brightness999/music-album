@@ -2,17 +2,25 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums, apiFetchTopAlbums } from '../api/AlbumAPI';
 import {
     ALBUM_DETAIL_REQUESTED,
-    ALL_ALBUMS_REQUESTED, CATEGORIES_REQUESTED,
-    FEATURED_ALBUMS_REQUESTED, GENRE_TRACKS_REQUESTED,
-    RequestAlbumDetail, RequestAllAlbums, RequestGenreTracks,
-    RequestTrack, RequestTracks,
+    ALL_ALBUMS_REQUESTED,
+    CATEGORIES_REQUESTED,
+    FEATURED_ALBUMS_REQUESTED,
+    GENRE_TRACKS_REQUESTED,
+    RequestAlbumDetail,
+    RequestAllAlbums,
+    RequestGenreTracks,
+    RequestTrack,
+    RequestTracks,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
-    setAllAlbums, setCategories,
-    setCurrentAlbumDetail, setCurrentPage,
+    setAllAlbums,
+    setCategories,
+    setCurrentAlbumDetail,
+    setCurrentPage,
     setCurrentTrack,
     setFeaturedAlbums,
-    setLoadingState, setPageCount,
+    setLoadingState,
+    setPageCount,
     setPlayList,
     setTopAlbums,
     setTracks,
@@ -28,7 +36,7 @@ import { albumCountPerPage, trackCountPerPage } from '../consts';
 
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
-        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit);
+        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {

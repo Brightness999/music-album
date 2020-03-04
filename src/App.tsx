@@ -15,28 +15,31 @@ export default function App() {
   dispatch(requestCategories());
   return (
     <Router>
-      <Sidebar />
-      <Header />
+      <Sidebar/>
+      <Header/>
       <div className="custom-container pl-5 pr-5">
         <Switch>
           <Route path="/genres/:slug">
-            <Genres />
+            <Genres/>
           </Route>
           <Route path="/genres">
-            <Genres />
+            <Genres/>
+          </Route>
+          <Route path="/all-releases/:publisherSlug">
+            <AllReleases/>
           </Route>
           <Route path="/all-releases">
-            <AllReleases />
+            <AllReleases/>
           </Route>
           <Route path="/album/:slug">
-            <AlbumPage />
+            <AlbumPage/>
           </Route>
           <Route path="/">
-            <Home />
+            <Home/>
           </Route>
         </Switch>
       </div>
-      <PlayBar />
+      <PlayBar/>
     </Router>
   );
 }
