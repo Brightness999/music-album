@@ -375,11 +375,18 @@ a {
 .wave-form-panel {
     width: 40%;
     .wave-image-wrapper {
+        position: relative;
         width: 100%;
         overflow: hidden;
         img {
             width: 100%;
             height: calc(#{$playbar-height} * 0.5);
+        }
+        .seek-bar {
+            background-color: #2a334355;
+            border-right: 2px solid #78859c;
+            top: 0;
+            width: 0;
         }
     }
 }

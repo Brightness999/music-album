@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Component, createRef, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Marquee from 'react-text-marquee';
-import ReactSound from 'react-sound';
+import ReactSound, { ReactSoundProps } from 'react-sound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faKeyboard,
@@ -17,9 +16,10 @@ import PlayBarAvatar from '../assets/images/album.png';
 import { PlayStatus } from '../redux/store';
 import { nextTrack, previousTrack, requestTrack, setPlayStatus, } from '../redux/actions';
 import { selectCurrentTrack, selectCurrentTrackSlug, selectPlayList, selectPlayStatus, } from '../redux/selectors';
-
+import { NavLink } from 'react-router-dom';
 import DownloadButton from './DownloadButton';
 import { MusicFileType } from '../types';
+
 
 export default function PlayBar() {
     const trackSlug = useSelector(selectCurrentTrackSlug);
@@ -27,6 +27,10 @@ export default function PlayBar() {
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
     const dispatch = useDispatch();
+
+    const refPlayer = createRef<Component<ReactSoundProps>>();
+    const refSeekBar = createRef<HTMLDivElement>();
+
     useEffect(() => {
         if (trackSlug !== '') {
             dispatch(requestTrack(trackSlug));
@@ -85,10 +89,21 @@ export default function PlayBar() {
                              alt="waveform"/>
                              :<div/>
                     }
+                    <div className="seek-bar position-absolute h-100" ref={refSeekBar}/>
                 </div>
                 {
                     track !== undefined?
                         <ReactSound
+                            ref={ refPlayer }
+                            onPlaying={(params) => {
+                                if (refPlayer.current === null) return;
+                                if (!refSeekBar.current) return;
+                                refSeekBar.current.style.width = `${100 * params.position / params.duration}%`;
+                            }}
+                            onFinishedPlaying={() => {
+                                dispatch(setPlayStatus(PlayStatus.STOPPED));
+                                dispatch(nextTrack());
+                            }}
                             url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`}
                             playStatus={playStatus} />
                         :<span/>
