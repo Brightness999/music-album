@@ -9,7 +9,13 @@ import { scrollbarStyles } from '../consts';
 import { Album } from '../models';
 import { ShowMode } from '../redux/store';
 import { selectAllAlbumList, selectShowMode, selectTracks } from '../redux/selectors';
-import { requestAllAlbums, requestTracks, setShowMode } from '../redux/actions';
+import {
+    requestAllAlbums,
+    requestTracks,
+    setCurrentPage,
+    setPageCount,
+    setShowMode
+} from '../redux/actions';
 
 import ListTrackItem from '../components/ListTrackItem';
 import GenreTitleHeader from '../components/GenreTitleHeader';
@@ -21,6 +27,8 @@ export default function AllReleases() {
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
+    dispatch(setPageCount(10));
+    dispatch(setCurrentPage(4));
 
     useEffect(() => {
         if (showMode === ShowMode.GRID) {

@@ -32,7 +32,9 @@ export const initialState: StoreState = {
     topAlbums: [],
     loadingState: LoadingState.LOADED,
     categories: [],
-    muted: false
+    muted: false,
+    pageCount: 0,
+    currentPage: 0
 };
 
 export interface StoreState {
@@ -49,6 +51,9 @@ export interface StoreState {
     loadingState: LoadingState;
     categories: Category[];
     muted: boolean;
+    pageCount: number;
+    currentPage: number;
+
 }
 
 // saga middleware

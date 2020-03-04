@@ -13,3 +13,5 @@ export const selectTopAlbums = (state: StoreState) => state.topAlbums;
 export const selectLoadingState = (state: StoreState) => state.loadingState;
 export const selectCategories = (state: StoreState) => state.categories;
 export const selectMuted = (state: StoreState) => state.muted;
+export const selectCurrentPage = (state: StoreState) => state.currentPage;
+export const selectPageCount = (state: StoreState) => state.pageCount;

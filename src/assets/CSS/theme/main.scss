@@ -18,6 +18,9 @@ body {
 .pagination .page-item {
     margin-left: 5px;
     margin-right: 5px;
+    &.active .page-link {
+        color: white;
+    }
     .page-link {
         color: #48505e;
         background-color: #ffffff00;

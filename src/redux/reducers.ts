@@ -6,16 +6,18 @@ import {
     SET_ALL_ALBUMS,
     SET_CATEGORIES,
     SET_CURRENT_ALBUM_DETAIL,
+    SET_CURRENT_PAGE,
     SET_CURRENT_TRACK,
     SET_CURRENT_TRACK_SLUG,
     SET_FEATURED_ALBUMS,
     SET_LOADING_STATE,
+    SET_MUTED,
+    SET_PAGE_COUNT,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
-    SET_TRACKS,
-    SET_MUTED
+    SET_TRACKS
 } from './actions';
 
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
@@ -72,6 +74,12 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_MUTED: {
             return Object.assign({}, state, {...state, muted: action.muted});
+        }
+        case SET_PAGE_COUNT: {
+            return Object.assign({}, state, {...state, pageCount: action.pageCount});
+        }
+        case SET_CURRENT_PAGE: {
+            return Object.assign({}, state, {...state, currentPage: action.currentPage});
         }
         default:
             return state;
