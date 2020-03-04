@@ -35,7 +35,7 @@ export default function PlayBar() {
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
     const muted = useSelector(selectMuted);
-    const [playPosition, setPlayPosition] = useState(10000);
+    const [playPosition, setPlayPosition] = useState(0);
     const [playDuration, setPlayDuration] = useState(0);
     const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ export default function PlayBar() {
         if (trackSlug !== '') {
             dispatch(requestTrack(trackSlug));
         }
-
+        setPlayPosition(0);
     }, [trackSlug, dispatch]);
     return (
         <div className="play-bar">
