@@ -1,4 +1,5 @@
 import { environment } from '../environments/envrionment';
+import { Artist, Track } from '../models';
 
 export const composeAlbumImagePath = (albumLocation?: string, albumSlug?: string) => {
     return `${environment.API_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
@@ -15,3 +16,10 @@ export const composeMusicFilePath = (albumSlug?: string) => {
 export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: string) => {
     return `${environment.API_URL}/uploads/audios/${albumLocation}/wavefiles/${trackSlug}.png`;
 };
+
+export function composeTrackName(track?: Track, artist?: Artist) {
+    if (artist === undefined) {
+        return `${track?.artist.name} - ${track?.title}`;
+    }
+    return `${artist?.name} - ${track?.title}`;
+}

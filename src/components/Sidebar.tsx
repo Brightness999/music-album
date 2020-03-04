@@ -13,7 +13,7 @@ export default function Sidebar() {
         dispatch(requestTopAlbums());
     }, [dispatch]);
     return(
-        <div className="sidebar">
+        <div className="sidebar position-fixed position-absolute">
             <div className="pt-4 pl-4 pb-5">Top {topAlbums.length} albums</div>
             {
                 topAlbums.map((album: Album, index: number) => <TopAlbumItem album={album} key={index}/>)

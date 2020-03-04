@@ -1,9 +1,8 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'reactstrap';
 import { useParams } from 'react-router-dom';
-import ScrollArea from 'react-scrollbar';
 
-import { scrollbarStyles, trackCountPerPage } from '../consts';
+import { trackCountPerPage } from '../consts';
 import { Track } from '../models';
 import GenreTitleHeader from '../components/GenreTitleHeader';
 import ListTrackItem from '../components/ListTrackItem';
@@ -17,7 +16,6 @@ export default function GenresPage() {
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
-    const refScrollArea = createRef<ScrollArea>();
 
     useEffect(() => {
         dispatch(setCurrentPage(0));
@@ -32,8 +30,8 @@ export default function GenresPage() {
     }, [slug, dispatch, currentPage]);
 
     useEffect(() => {
-        refScrollArea.current?.scrollTop();
-    }, [tracks, refScrollArea]);
+        window.scrollTo({top: 0});
+    }, [tracks]);
 
     let lastGenreId: number = -1;
     let elmTracks: JSX.Element[] = [];
@@ -50,21 +48,12 @@ export default function GenresPage() {
         <div className="page">
             <div className="album-content">
                 <Row className="album-header d-flex">
-                    <Col sm={6}>Artist & Title</Col>
-                    <Col sm={1}>Label</Col>
-                    <Col sm={1}>Genre</Col>
-                    <Col sm={4}/>
+                    <Col sm={5}>Artist & Title</Col>
+                    <Col sm={2}>Label</Col>
+                    <Col sm={2}>Genre</Col>
+                    <Col sm={3}/>
                 </Row>
-                <ScrollArea
-                    ref={refScrollArea}
-                    className="scroll-area"
-                    verticalScrollbarStyle={scrollbarStyles}
-                    verticalContainerStyle={scrollbarStyles}
-                    horizontal={false}
-                    smoothScrolling= {true}
-                    minScrollSize={40}>
-                    { elmTracks }
-                </ScrollArea>
+                { elmTracks }
             </div>
             <div className="d-flex justify-content-center align-items-center">
                 <AlbumPagination/>

@@ -12,41 +12,43 @@ export function Header() {
     const genresMenuWrapper = createRef<HTMLDivElement>();
 
     return (
-        <header className="d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center">
-                <NavLink to="/home" activeClassName="active">Home</NavLink>
-                <div className="genres-menu">
-                    <NavLink to="/genres" className="genres-link" onMouseOver={() => {
-                        if (genresMenuWrapper.current !== null) {
-                            genresMenuWrapper.current.hidden = false;
-                        }
-                    }}>Genres</NavLink>
-                    <div className="position-absolute sub-menu-wrapper" ref={genresMenuWrapper}>
-                        {
-                            categories.map(((category, index) =>
-                                <NavLink
-                                    onClick={ () => {
-                                        if (genresMenuWrapper.current !== null) {
-                                            genresMenuWrapper.current.hidden = true;
-                                        }
-                                    } }
-                                    to={`/genres/${category.slug}`}
-                                    key={index}
-                                >{category.name}</NavLink>))
-                        }
+        <header className="d-flex position-fixed align-items-center justify-content-between w-100">
+            <div className="header-wrapper d-flex justify-content-around">
+                <div className="d-flex align-items-center">
+                    <NavLink to="/home" activeClassName="active">Home</NavLink>
+                    <div className="genres-menu">
+                        <NavLink to="/genres" className="genres-link" onMouseOver={() => {
+                            if (genresMenuWrapper.current !== null) {
+                                genresMenuWrapper.current.hidden = false;
+                            }
+                        }}>Genres</NavLink>
+                        <div className="position-absolute sub-menu-wrapper" ref={genresMenuWrapper}>
+                            {
+                                categories.map(((category, index) =>
+                                    <NavLink
+                                        onClick={ () => {
+                                            if (genresMenuWrapper.current !== null) {
+                                                genresMenuWrapper.current.hidden = true;
+                                            }
+                                        } }
+                                        to={`/genres/${category.slug}`}
+                                        key={index}
+                                    >{category.name}</NavLink>))
+                            }
+                        </div>
+                    </div>
+
+                    <NavLink to="/all-releases" activeClassName="active">All releases</NavLink>
+                    <div className="d-flex align-items-center">
+                        <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
+                        <Input placeholder="Search here..." id="iSearch"/>
                     </div>
                 </div>
-
-                <NavLink to="/all-releases" activeClassName="active">All releases</NavLink>
                 <div className="d-flex align-items-center">
-                    <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
-                    <Input placeholder="Search here..." id="iSearch"/>
+                    <NavLink to="/premium" activeClassName="active">Premium</NavLink>
+                    <NavLink to="/account" activeClassName="active">Account</NavLink>
+                    <NavLink to="/contact" activeClassName="active">Contact</NavLink>
                 </div>
-            </div>
-            <div className="d-flex align-items-center">
-                <NavLink to="/premium" activeClassName="active">Premium</NavLink>
-                <NavLink to="/account" activeClassName="active">Account</NavLink>
-                <NavLink to="/contact" activeClassName="active">Contact</NavLink>
             </div>
         </header>
     );

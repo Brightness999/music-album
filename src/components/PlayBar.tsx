@@ -5,7 +5,6 @@ import Marquee from 'react-text-marquee';
 import ReactSound, { OnPlayingParams, ReactSoundProps } from 'react-sound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faKeyboard,
     faPause,
     faPlay,
     faStepBackward,
@@ -26,7 +25,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import DownloadButton from './DownloadButton';
 import { MusicFileType } from '../types';
-import { composeAlbumImagePath, composeMusicFilePath, composeWaveformImagePath } from '../common';
+import { composeAlbumImagePath, composeMusicFilePath, composeTrackName, composeWaveformImagePath } from '../common';
 
 
 export default function PlayBar() {
@@ -51,7 +50,7 @@ export default function PlayBar() {
         setPlayPosition(0);
     }, [trackSlug, dispatch]);
     return (
-        <div className="play-bar">
+        <div className="play-bar position-fixed d-flex align-items-center w-100">
             <div className="img-wrapper">
                 <img className="img-fluid" src={
                     track !== undefined ?
@@ -93,7 +92,7 @@ export default function PlayBar() {
                 <div className="wave-title">
                     {
                         track !== undefined ?
-                            <Marquee text={track?.artist.name + '-' + track?.title}/> :
+                            <Marquee text={composeTrackName(track)}/> :
                             <div>Please select a track.</div>
                     }
                 </div>
@@ -158,11 +157,6 @@ export default function PlayBar() {
                     onClick={() => dispatch(setMuted(!muted))}
                     disabled={track === undefined}>
                     <FontAwesomeIcon icon={muted ? faVolumeMute : faVolumeUp}/>
-                </Button>
-                <Button
-                    className="hl-control normal-control w-50"
-                    disabled={track === undefined}>
-                    <FontAwesomeIcon icon={faKeyboard}/>
                 </Button>
             </div>
             <div className="download-wrapper">

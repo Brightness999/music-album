@@ -7,7 +7,6 @@
 body {
     background-color: $color-default-bg;
     color: white;
-    overflow: hidden;
 }
 
 body {
@@ -42,7 +41,18 @@ body {
 
 // header section
 header {
-    padding-top: 50px;
+    z-index: 998;
+    height: $navbar-height;
+    background-color: $color-default-bg;
+}
+
+@mixin custom-responsive-container {
+    width: $page-width;
+    margin-left: calc((100% - #{$sidebar-width} - #{$page-width}) / 2);
+}
+
+.header-wrapper {
+    @include custom-responsive-container;
 }
 
 header #iSearch {
@@ -110,10 +120,9 @@ header div.genres-menu:hover {
 
 // sidebar section
 .sidebar {
-    display: block;
     background-color: $color-sidebar-bg;
     width: $sidebar-width;
-    position: absolute;
+    z-index: 999;
     right: 0;
     top: 0;
     padding-bottom: 10px;
@@ -121,11 +130,10 @@ header div.genres-menu:hover {
 
 // page content section (common)
 .custom-container {
+    @include custom-responsive-container;
     display: flex;
     flex-direction: column;
-    width: $page-width;
     height: 100vh;
-    margin-left: calc((100% - #{$sidebar-width} - #{$page-width}) / 2);
 }
 
 @include media-breakpoint-down(lg) {
@@ -146,7 +154,7 @@ header div.genres-menu:hover {
 
 // page section
 .page {
-    padding-top: 20px;
+    padding-top: $navbar-height;
     padding-bottom: $playbar-height;
     flex-grow: 1;
     display: flex;
@@ -204,7 +212,6 @@ header div.genres-menu:hover {
 
 .album-content {
     flex-grow: 1;
-    height: 500px;
     padding-bottom: 25px;
 }
 
@@ -302,14 +309,10 @@ a {
 
 // components: PlayBar
 .play-bar {
-    display: flex;
-    position: absolute;
     bottom: 0;
     left: 0;
-    align-items: center;
     filter: drop-shadow(0 0 28.5px rgba(0, 0, 0, 0.3));
     background-color: #2a3443;
-    width: 100%;
     height: $playbar-height;
     z-index: 999;
     .img-wrapper {

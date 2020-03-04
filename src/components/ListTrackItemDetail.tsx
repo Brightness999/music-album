@@ -1,12 +1,13 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import Marquee from 'react-text-marquee';
 
 import { Artist, Track } from '../models';
 import { formatDuration } from '../utils';
 import DownloadButton from './DownloadButton';
 import ListTrackPlayButton from './ListTrackPlayButton';
-import { composeAlbumImagePath } from '../common';
+import { composeAlbumImagePath, composeTrackName } from '../common';
 import { MusicFileType } from '../types';
 
 interface Props {
@@ -22,15 +23,12 @@ export default function(props: Props) {
             <Col sm="5" className="d-flex align-items-center">
                 <img src={ composeAlbumImagePath(props.album_location, props.album_slug) } alt="album"/>
                 <ListTrackPlayButton track={props.track}/>
-                <Marquee text={ `${props.artist.name}-${props.track.title}` } className="ml-2 mr-2"/>
+                <Marquee text={ composeTrackName(props.track, props.artist) } className="ml-2 mr-2"/>
             </Col>
             <Col sm="2">
-                <Marquee text={ props.track.category.name }/>
+                <NavLink to={`/genres/${props.track.category.slug}`} className="genre-link">{ props.track.category.name }</NavLink>
             </Col>
-            <Col sm="1">
-                120
-            </Col>
-            <Col sm="1">
+            <Col sm="2">
                 { formatDuration(props.track.duration) }
             </Col>
             <Col sm="3" className="d-flex pr-1">

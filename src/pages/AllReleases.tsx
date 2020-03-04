@@ -1,24 +1,14 @@
-import React, { createRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Col, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
-import ScrollArea from 'react-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { albumCountPerPage, scrollbarStyles, trackCountPerPage } from '../consts';
+import { albumCountPerPage, trackCountPerPage } from '../consts';
 import { Album } from '../models';
 import { ShowMode } from '../redux/store';
-import {
-    selectAllAlbumList,
-    selectCurrentPage,
-    selectShowMode,
-    selectTracks
-} from '../redux/selectors';
-import {
-    requestAllAlbums,
-    requestTracks, setCurrentPage,
-    setShowMode
-} from '../redux/actions';
+import { selectAllAlbumList, selectCurrentPage, selectShowMode, selectTracks } from '../redux/selectors';
+import { requestAllAlbums, requestTracks, setCurrentPage, setShowMode } from '../redux/actions';
 
 import ListTrackItem from '../components/ListTrackItem';
 import GenreTitleHeader from '../components/GenreTitleHeader';
@@ -31,7 +21,6 @@ export default function AllReleases() {
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
-    const refScrollArea = createRef<ScrollArea>();
 
     useEffect(() => {
         dispatch(setCurrentPage(0));
@@ -46,30 +35,21 @@ export default function AllReleases() {
     }, [showMode, dispatch, currentPage]);
 
     useEffect(() => {
-        refScrollArea.current?.scrollTop();
-    }, [tracks, albums, refScrollArea]);
+        window.scrollTo({top: 0});
+    }, [tracks, albums]);
 
     let albumContent;
     if (showMode === ShowMode.GRID) {
         albumContent = (
             <div className="album-content">
-                <ScrollArea
-                    ref={refScrollArea}
-                    className="scroll-area"
-                    verticalScrollbarStyle={scrollbarStyles}
-                    verticalContainerStyle={scrollbarStyles}
-                    horizontal={false}
-                    smoothScrolling= {true}
-                    minScrollSize={40}>
-                    <div className="d-flex flex-wrap">
-                        {
-                            albums.map((album: Album, index: number) =>
-                                <div className="col-20" key={index}>
-                                    <LargeAlbumItem album={album} />
-                                </div>)
-                        }
-                    </div>
-                </ScrollArea>
+                <div className="d-flex flex-wrap">
+                    {
+                        albums.map((album: Album, index: number) =>
+                            <div className="col-20" key={index}>
+                                <LargeAlbumItem album={album} />
+                            </div>)
+                    }
+                </div>
             </div>
         );
     } else {
@@ -86,21 +66,12 @@ export default function AllReleases() {
         albumContent = (
             <div className="album-content">
                 <Row className="album-header d-flex">
-                    <Col sm={6}>Artist & Title</Col>
-                    <Col sm={1}>Label</Col>
-                    <Col sm={1}>Genre</Col>
-                    <Col sm={4}/>
+                    <Col sm={5}>Artist & Title</Col>
+                    <Col sm={2}>Label</Col>
+                    <Col sm={2}>Genre</Col>
+                    <Col sm={3}/>
                 </Row>
-                <ScrollArea
-                    ref={refScrollArea}
-                    className="scroll-area"
-                    verticalScrollbarStyle={scrollbarStyles}
-                    verticalContainerStyle={scrollbarStyles}
-                    horizontal={false}
-                    smoothScrolling= {true}
-                    minScrollSize={40}>
-                    {elmTracks}
-                </ScrollArea>
+                {elmTracks}
             </div>
         );
     }

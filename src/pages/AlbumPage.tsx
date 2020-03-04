@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import ScrollArea from 'react-scrollbar';
 import { Col, Row } from 'reactstrap';
 
 import { Track } from '../models';
-import { scrollbarStyles } from '../consts';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentAlbumDetail, selectCurrentTrack, selectLoadingState, selectPlayStatus } from '../redux/selectors';
@@ -81,28 +79,19 @@ export default function AlbumPage() {
             <Row className="album-header d-flex pt-2">
                 <Col sm={5}>Artist & Title</Col>
                 <Col sm={2}>Genre</Col>
-                <Col sm={1}>BPM</Col>
-                <Col sm={1}>Length</Col>
+                <Col sm={2}>Length</Col>
                 <Col sm={3} className="d-flex justify-content-around align-items-center" />
             </Row>
             <div className="flex-grow-1 pb-2 tracks-container">
-                <ScrollArea
-                    className="scroll-area"
-                    verticalScrollbarStyle={scrollbarStyles}
-                    verticalContainerStyle={scrollbarStyles}
-                    horizontal={false}
-                    smoothScrolling= {true}
-                    minScrollSize={40}>
-                    {
-                        album?.tracks.map((track: Track, index: number) =>
-                            <ListTrackItemDetail
-                                track={track}
-                                key={index}
-                                album_slug={album?.slug}
-                                album_location={album?.location}
-                                artist={album?.artist}/>)
-                    }
-                </ScrollArea>
+                {
+                    album?.tracks.map((track: Track, index: number) =>
+                        <ListTrackItemDetail
+                            track={track}
+                            key={index}
+                            album_slug={album?.slug}
+                            album_location={album?.location}
+                            artist={album?.artist}/>)
+                }
             </div>
         </div>
     );
