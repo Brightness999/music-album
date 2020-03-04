@@ -1,4 +1,4 @@
-import React, { Component, createRef, useEffect } from 'react';
+import React, { Component, createRef, useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Marquee from 'react-text-marquee';
@@ -26,10 +26,13 @@ export default function PlayBar() {
     const playStatus = useSelector(selectPlayStatus);
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
+    const [playPosition, setPlayPosition] = useState(238000);
+    const [playDuration, setPlayDuration] = useState(0);
     const dispatch = useDispatch();
 
     const refPlayer = createRef<Component<ReactSoundProps>>();
     const refSeekBar = createRef<HTMLDivElement>();
+    const refPlayerWrapper = createRef<HTMLDivElement>();
 
     useEffect(() => {
         if (trackSlug !== '') {
@@ -82,7 +85,15 @@ export default function PlayBar() {
                         <div>Please select a track.</div>
                     }
                 </div>
-                <div className="wave-image-wrapper">
+                <div
+                    ref={refPlayerWrapper}
+                    onMouseDown={(event) => {
+                        if (!refPlayerWrapper.current) return;
+                        const playerRect = refPlayerWrapper.current.getBoundingClientRect();
+                        const pressedX = event.clientX - playerRect.x;
+                        setPlayPosition(Math.floor( playDuration * pressedX / playerRect.width));
+                    }}
+                    className="wave-image-wrapper">
                     {
                         track !== undefined?
                         <img src={`/uploads/audios/${track?.album.location}/wavefiles/${track?.slug}.png`}
@@ -95,10 +106,13 @@ export default function PlayBar() {
                     track !== undefined?
                         <ReactSound
                             ref={ refPlayer }
+                            position={ playPosition }
                             onPlaying={(params) => {
                                 if (refPlayer.current === null) return;
                                 if (!refSeekBar.current) return;
                                 refSeekBar.current.style.width = `${100 * params.position / params.duration}%`;
+                                setPlayPosition(params.position);
+                                setPlayDuration(params.duration);
                             }}
                             onFinishedPlaying={() => {
                                 dispatch(setPlayStatus(PlayStatus.STOPPED));
