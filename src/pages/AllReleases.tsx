@@ -5,15 +5,18 @@ import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import ScrollArea from 'react-scrollbar';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { scrollbarStyles } from '../consts';
+import { albumCountPerPage, scrollbarStyles } from '../consts';
 import { Album } from '../models';
 import { ShowMode } from '../redux/store';
-import { selectAllAlbumList, selectShowMode, selectTracks } from '../redux/selectors';
+import {
+    selectAllAlbumList,
+    selectCurrentPage,
+    selectShowMode,
+    selectTracks
+} from '../redux/selectors';
 import {
     requestAllAlbums,
     requestTracks,
-    setCurrentPage,
-    setPageCount,
     setShowMode
 } from '../redux/actions';
 
@@ -27,16 +30,15 @@ export default function AllReleases() {
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
-    dispatch(setPageCount(10));
-    dispatch(setCurrentPage(4));
+    const currentPage = useSelector(selectCurrentPage);
 
     useEffect(() => {
         if (showMode === ShowMode.GRID) {
-            dispatch(requestAllAlbums());
+            dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage));
         } else {
             dispatch(requestTracks())
         }
-    }, [showMode, dispatch]);
+    }, [showMode, dispatch, currentPage]);
     let albumContent;
     if (showMode === ShowMode.GRID) {
         albumContent = (

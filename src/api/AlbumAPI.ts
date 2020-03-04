@@ -11,15 +11,17 @@ import { environment } from '../environments/envrionment';
 
 interface AlbumsResponse {
     albums: Album[];
+    album_count: number;
 }
 
 interface DetailAlbumResponse {
     album: DetailAlbum;
 }
 
-export const apiFetchAllAlbums = async () => {
-    const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS);
-    return result.data.albums;
+export const apiFetchAllAlbums = async (skip: number, limit: number) => {
+    console.log(`skip=${skip}, limit=${limit}`);
+    const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit);
+    return [result.data.albums, result.data.album_count];
 };
 
 export const apiFetchFeaturedAlbums = async () => {

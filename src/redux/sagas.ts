@@ -4,7 +4,7 @@ import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED, CATEGORIES_REQUESTED,
     FEATURED_ALBUMS_REQUESTED, GENRE_TRACKS_REQUESTED,
-    RequestAlbumDetail, RequestGenreTracks,
+    RequestAlbumDetail, RequestAllAlbums, RequestGenreTracks,
     RequestTrack,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
@@ -12,7 +12,7 @@ import {
     setCurrentAlbumDetail,
     setCurrentTrack,
     setFeaturedAlbums,
-    setLoadingState,
+    setLoadingState, setPageCount,
     setPlayList,
     setTopAlbums,
     setTracks,
@@ -24,11 +24,13 @@ import { apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/Track
 import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
+import { albumCountPerPage } from '../consts';
 
-function* fetchAllAlbums() {
+function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
-        const albums = yield call(apiFetchAllAlbums);
+        const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit);
         yield put(setAllAlbums(albums));
+        yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
     } catch (e) {
         yield put(setAllAlbums([]));
     }

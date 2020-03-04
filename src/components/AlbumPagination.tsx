@@ -22,8 +22,8 @@ export default function AlbumPagination() {
     // '-1' is for '...'
     if (pageCount === 1) {
         pagenumArray = [0];
-    } else if (pageCount <= 6) {
-        pagenumArray = [0, 1, 2, 4, 5, -1, 6];
+    } else if (pageCount <= 7) {
+        pagenumArray = Array(pageCount).fill(0).map((v, i) => i);
     } else {
         if (currentPage <= 1) {
             pagenumArray = [0, 1, 2, -1, pageCount - 1];
@@ -50,7 +50,7 @@ export default function AlbumPagination() {
                     </PaginationItem>):<div/>
             }
             {
-                pagenumArray.map(pageNum => pageNum === -1 ? <div>...</div> : <AlbumPaginationItem pageNumber={pageNum} key={pageNum}/>)
+                pagenumArray.map((pageNum, index) => pageNum === -1 ? <div key={index}>...</div> : <AlbumPaginationItem pageNumber={pageNum} key={index}/>)
             }
             {
                 currentPage < pageCount-1?
