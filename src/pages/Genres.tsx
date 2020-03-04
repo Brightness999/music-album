@@ -14,7 +14,6 @@ import { requestGenreTracks, requestTracks, setCurrentPage } from '../redux/acti
 
 export default function GenresPage() {
     let { slug } = useParams();
-    console.log(`slug=${slug}`);
     const tracks = useSelector(selectTracks);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);

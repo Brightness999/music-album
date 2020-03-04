@@ -19,7 +19,6 @@ interface DetailAlbumResponse {
 }
 
 export const apiFetchAllAlbums = async (skip: number, limit: number) => {
-    console.log(`skip=${skip}, limit=${limit}`);
     const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit);
     return [result.data.albums, result.data.album_count];
 };

@@ -35,8 +35,8 @@ export default function PlayBar() {
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
     const muted = useSelector(selectMuted);
-    const [playPosition, setPlayPosition] = useState(238000);
-    const [playDuration] = useState(0);
+    const [playPosition, setPlayPosition] = useState(10000);
+    const [playDuration, setPlayDuration] = useState(0);
     const dispatch = useDispatch();
 
     const refPlayer = createRef<Component<ReactSoundProps>>();
@@ -73,6 +73,7 @@ export default function PlayBar() {
                         if (playStatus === PlayStatus.PLAYING) {
                             dispatch(setPlayStatus(PlayStatus.PAUSED));
                         } else {
+                            setPlayPosition(15000);
                             dispatch(setPlayStatus(PlayStatus.PLAYING));
                         }
                     }}>
@@ -101,7 +102,8 @@ export default function PlayBar() {
                         if (!refPlayerWrapper.current) return;
                         const playerRect = refPlayerWrapper.current.getBoundingClientRect();
                         const pressedX = event.clientX - playerRect.x;
-                        setPlayPosition(Math.floor(playDuration * pressedX / playerRect.width));
+                        const newPlayPosition = Math.floor(playDuration * pressedX / playerRect.width);
+                        setPlayPosition(newPlayPosition);
                     }}
                     className="wave-image-wrapper">
                     {
@@ -124,15 +126,18 @@ export default function PlayBar() {
                                 }
                                 refSeekBar.current.style.width = `${100 * params.position / params.duration}%`;
                                 setPlayPosition(params.position);
+                                setPlayDuration(params.duration);
                             }}
                             onFinishedPlaying={() => {
                                 dispatch(setPlayStatus(PlayStatus.STOPPED));
                                 dispatch(nextTrack());
                             }}
-                            url={composeMusicFilePath(track?.album.location, track?.slug)}
+                            url={composeMusicFilePath(track?.slug)}
                             playStatus={playStatus}/>
                         : <span/>
                 }
+            </div>
+            <div>
             </div>
             <div className="mute-control-wrapper">
                 <Button

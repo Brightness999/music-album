@@ -23,7 +23,7 @@ declare module 'react-sound' {
         autoLoad?: boolean;
         loop?: boolean;
         onError?: () => void;
-        onLoading?: () => void;
+        onLoading?: (aa: boolean) => void;
         onLoad?: () => void;
         onPlaying?: (params: OnPlayingParams) => void;
         onPause?: () => void;

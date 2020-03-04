@@ -27,7 +27,6 @@ export default function AlbumPage() {
         dispatch(requestAlbumDetail(slug));
     }, [slug, dispatch]);
 
-    console.log(`loadingState=${loadingState}`);
     if (loadingState === LoadingState.LOADING) {
         return <div>Loading...</div>;
     }

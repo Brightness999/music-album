@@ -15,7 +15,6 @@ import { requestCategories } from './redux/actions';
 import { useDispatch } from 'react-redux';
 
 export default function App() {
-  console.log(JSON.stringify(process.env));
   const dispatch = useDispatch();
   dispatch(requestCategories());
   return (
