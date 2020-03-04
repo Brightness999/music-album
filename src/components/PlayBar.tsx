@@ -37,6 +37,7 @@ export default function PlayBar() {
     const muted = useSelector(selectMuted);
     const [playPosition, setPlayPosition] = useState(0);
     const [playDuration, setPlayDuration] = useState(0);
+    const [mouseDown, setMouseDown] = useState(false);
     const dispatch = useDispatch();
 
     const refPlayer = createRef<Component<ReactSoundProps>>();
@@ -104,6 +105,18 @@ export default function PlayBar() {
                         const pressedX = event.clientX - playerRect.x;
                         const newPlayPosition = Math.floor(playDuration * pressedX / playerRect.width);
                         setPlayPosition(newPlayPosition);
+                        setMouseDown(true);
+                    }}
+                    onMouseMoveCapture={(event) => {
+                        if (!mouseDown) return;
+                        if (!refPlayerWrapper.current) return;
+                        const playerRect = refPlayerWrapper.current.getBoundingClientRect();
+                        const pressedX = event.clientX - playerRect.x;
+                        const newPlayPosition = Math.floor(playDuration * pressedX / playerRect.width);
+                        setPlayPosition(newPlayPosition);
+                    }}
+                    onMouseUp={() => {
+                        setMouseDown(false);
                     }}
                     className="wave-image-wrapper">
                     {
