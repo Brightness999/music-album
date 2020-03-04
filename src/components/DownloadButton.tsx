@@ -6,6 +6,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { Track } from '../models';
 import { formatFilesize } from '../utils';
 import { MusicFileType } from '../types';
+import { apiDownloadTrack } from '../api/TrackAPI';
 
 interface Props {
     track?: Track;
@@ -15,6 +16,7 @@ interface Props {
 
 export default function DownloadButton(props: Props) {
     const download = () => {
+        apiDownloadTrack(props.track?.slug, props.type);
     };
     const fileSize = props.type === MusicFileType.FLAC ?
         props.track?.flac_size :

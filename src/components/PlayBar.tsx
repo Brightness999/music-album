@@ -2,7 +2,7 @@ import React, { Component, createRef, useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Marquee from 'react-text-marquee';
-import ReactSound, { ReactSoundProps } from 'react-sound';
+import ReactSound, { OnPlayingParams, ReactSoundProps } from 'react-sound';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faKeyboard,
@@ -19,6 +19,7 @@ import { selectCurrentTrack, selectCurrentTrackSlug, selectPlayList, selectPlayS
 import { NavLink } from 'react-router-dom';
 import DownloadButton from './DownloadButton';
 import { MusicFileType } from '../types';
+import { composeAlbumImagePath, composeMusicFilePath, composeWaveformImagePath } from '../common';
 
 
 export default function PlayBar() {
@@ -27,7 +28,7 @@ export default function PlayBar() {
     const playList = useSelector(selectPlayList);
     const track = useSelector(selectCurrentTrack);
     const [playPosition, setPlayPosition] = useState(238000);
-    const [playDuration, setPlayDuration] = useState(0);
+    const [playDuration] = useState(0);
     const dispatch = useDispatch();
 
     const refPlayer = createRef<Component<ReactSoundProps>>();
@@ -38,13 +39,14 @@ export default function PlayBar() {
         if (trackSlug !== '') {
             dispatch(requestTrack(trackSlug));
         }
+
     }, [trackSlug, dispatch]);
     return (
         <div className="play-bar">
             <div className="img-wrapper">
                 <img className="img-fluid" src={
                     track !== undefined?
-                        `/uploads/albums/${track?.album.location}/thumb/${track?.album.slug}.jpg`:
+                        composeAlbumImagePath(track?.album.location, track?.album.slug) :
                         PlayBarAvatar
                 } alt="album"/>
             </div>
@@ -96,7 +98,7 @@ export default function PlayBar() {
                     className="wave-image-wrapper">
                     {
                         track !== undefined?
-                        <img src={`/uploads/audios/${track?.album.location}/wavefiles/${track?.slug}.png`}
+                        <img src={ composeWaveformImagePath(track?.album.location, track?.slug) }
                              alt="waveform"/>
                              :<div/>
                     }
@@ -107,18 +109,18 @@ export default function PlayBar() {
                         <ReactSound
                             ref={ refPlayer }
                             position={ playPosition }
-                            onPlaying={(params) => {
-                                if (refPlayer.current === null) return;
-                                if (!refSeekBar.current) return;
+                            onPlaying={(params: OnPlayingParams) => {
+                                if (!refSeekBar.current) {
+                                    return;
+                                }
                                 refSeekBar.current.style.width = `${100 * params.position / params.duration}%`;
                                 setPlayPosition(params.position);
-                                setPlayDuration(params.duration);
                             }}
                             onFinishedPlaying={() => {
                                 dispatch(setPlayStatus(PlayStatus.STOPPED));
                                 dispatch(nextTrack());
                             }}
-                            url={`/uploads/audios/${track?.album.location}/${track?.slug}.mp3`}
+                            url={ composeMusicFilePath(track?.album.location, track?.slug) }
                             playStatus={playStatus} />
                         :<span/>
                 }

@@ -7,6 +7,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import { Album } from '../models';
 import { selectAlbumAsPlaylist } from '../redux/actions';
+import { composeAlbumImagePath } from '../common';
 
 interface Props {
     album: Album;
@@ -20,7 +21,7 @@ export default function LargeAlbumItem(props: Props) {
                 onClick={ () => dispatch(selectAlbumAsPlaylist(props.album.slug)) }
                 className="position-relative d-flex">
                 <CardImg top
-                         src={ `/uploads/albums/${props.album.location}/thumb/${props.album.slug}.jpg` }
+                         src={ composeAlbumImagePath(props.album.location, props.album.slug) }
                          alt="album"/>
                 <div className="album-cover d-flex justify-content-center align-items-center">
                     <FontAwesomeIcon icon={
