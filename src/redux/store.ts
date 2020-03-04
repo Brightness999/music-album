@@ -32,7 +32,6 @@ export const initialState: StoreState = {
     topAlbums: [],
     loadingState: LoadingState.LOADED,
     categories: []
-
 };
 
 export interface StoreState {
