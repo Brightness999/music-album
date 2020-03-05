@@ -3,7 +3,7 @@ import { Col, Row } from 'reactstrap';
 import Marquee from 'react-text-marquee';
 
 import { Track } from '../models';
-import DownloadButton from './DownloadButton';
+import TrackDownloadButton from './TrackDownloadButton';
 import ListTrackPlayButton from './ListTrackPlayButton';
 import { MusicFileType } from '../types';
 import { composeAlbumImagePath, composeTrackName } from '../common';
@@ -32,8 +32,8 @@ export default function(props: IProps) {
                 <NavLink to={`/genres/${props.track.category.slug}`} className="genre-link">{ props.track.category.name }</NavLink>
             </Col>
             <Col sm="3" className="pr-1 d-flex">
-                <DownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
-                <DownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
+                <TrackDownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
+                <TrackDownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
             </Col>
         </Row>
     );

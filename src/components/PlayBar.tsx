@@ -23,7 +23,7 @@ import {
     selectPlayStatus,
 } from '../redux/selectors';
 import { NavLink } from 'react-router-dom';
-import DownloadButton from './DownloadButton';
+import TrackDownloadButton from './TrackDownloadButton';
 import { MusicFileType } from '../types';
 import { composeAlbumImagePath, composeMusicFilePath, composeTrackName, composeWaveformImagePath } from '../common';
 
@@ -178,8 +178,8 @@ export default function PlayBar() {
                     }
                 </div>
                 <div className="d-flex">
-                    <DownloadButton track={track} type={MusicFileType.MP3} className="mx-2"/>
-                    <DownloadButton track={track} type={MusicFileType.FLAC} className="mx-2"/>
+                    <TrackDownloadButton track={track} type={MusicFileType.MP3} className="mx-2"/>
+                    <TrackDownloadButton track={track} type={MusicFileType.FLAC} className="mx-2"/>
                 </div>
             </div>
         </div>

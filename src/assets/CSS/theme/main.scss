@@ -39,6 +39,16 @@ body {
     }
 }
 
+a {
+    &.genre-link {
+        color: white;
+        text-decoration: none;
+        &:hover {
+            color: #6B849C;
+        }
+    }
+}
+
 // header section
 header {
     z-index: 998;
@@ -96,7 +106,7 @@ header .dropdown-toggle { /* force override all bootstrap */
 
 header .sub-menu-wrapper {
     background-color: #6B849C;
-    top: 77px;
+    top: 70px;
     left: 50px;
     width: calc(100% - 100px);
     height: 100px;
@@ -199,7 +209,7 @@ header div.genres-menu:hover {
         width: $list-track-item-size;
         height: $list-track-item-size;
     }
-    .download-button {
+    .btn-download {
         padding: 0.3rem;
         height: 30px;
     }
@@ -256,16 +266,6 @@ header div.genres-menu:hover {
     }
 }
 
-a {
-    &.genre-link {
-        color: white;
-        text-decoration: none;
-        &:hover {
-            color: #6B849C;
-        }
-    }
-}
-
 // components: LargeAlbumItem
 .card {
     background-color: #00000000;
@@ -277,9 +277,6 @@ a {
         font-size: 0.8rem;
         .card-title {
             font-weight: 700;
-        }
-        a {
-            color: white;
         }
     }
 
@@ -376,13 +373,17 @@ a {
     }
 }
 
-.download-button {
+.btn-download {
     color: #fdb29b;
     font-size: 0.8rem;
     &:focus {
         color: #fdb29b;
         box-shadow: none;
     }
+}
+
+.btn-album-download {
+    min-width: 120px;
 }
 
 .wave-form-panel {

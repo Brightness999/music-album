@@ -3,6 +3,8 @@ import axios, { AxiosResponse } from 'axios';
 import { Album, DetailAlbum } from '../models';
 import { API_FETCH_ALBUM, API_FETCH_ALL_ALBUMS, API_FETCH_FEATURED_ALBUMS, API_FETCH_TOP_ALBUMS } from './apis';
 import { environment } from '../environments/envrionment';
+import { composeAlbumDownloadPath } from '../common';
+import { apiDownload } from './common';
 
 interface AlbumsResponse {
     albums: Album[];
@@ -31,4 +33,9 @@ export const apiFetchAlbumDetail = async(slug: string) => {
 export const apiFetchTopAlbums = async () => {
     const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_TOP_ALBUMS);
     return result.data.albums;
+};
+
+export const apiDownloadAlbum = (slug?: string, ext?: string) => {
+    const url = composeAlbumDownloadPath(slug, ext);
+    apiDownload(url);
 };

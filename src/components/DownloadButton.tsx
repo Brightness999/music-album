@@ -3,27 +3,24 @@ import { Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-import { Track } from '../models';
-import { formatFilesize } from '../utils';
+import { Album, Track } from '../models';
 import { MusicFileType } from '../types';
-import { apiDownloadTrack } from '../api/TrackAPI';
 
 interface Props {
-    track?: Track;
+    target?: Album | Track;
+    label: string;
+    disabled: boolean;
     className?: string;
     type: MusicFileType;
+    download: (target: Album | Track) => void
 }
 
 export default function DownloadButton(props: Props) {
-    const download = () => {
-        apiDownloadTrack(props.track?.slug, props.type);
-    };
-    const fileSize = props.type === MusicFileType.FLAC ?
-        props.track?.flac_size :
-        props.track?.mp3_size;
-    return (<Button
-        className={ "download-button w-100 "+props.className }
-        disabled={ props.track === undefined } onClick={ () => download() }>
-            .{props.type} ({ formatFilesize(fileSize) })&nbsp;&nbsp;<FontAwesomeIcon icon={ faDownload }/>
+    return (
+        <Button
+            className={ "btn-download w-100 "+props.className }
+            disabled={ props.disabled }
+            onClick={ () => props.target && props.download(props.target) }>
+                { props.label }&nbsp;&nbsp;<FontAwesomeIcon icon={ faDownload }/>
         </Button>);
 }

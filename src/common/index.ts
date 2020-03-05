@@ -5,8 +5,12 @@ export const composeAlbumImagePath = (albumLocation?: string, albumSlug?: string
     return `${environment.API_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
 };
 
-export const composeDownloadPath = (trackSlug?: string, ext?: string) => {
+export const composeTrackDownloadPath = (trackSlug?: string, ext?: string) => {
     return `${environment.API_URL}/api/download-track/${trackSlug}/as/${ext}`;
+};
+
+export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string) => {
+    return `${environment.API_URL}/api/download-album/${albumSlug}/as/${ext}`;
 };
 
 export const composeMusicFilePath = (albumSlug?: string) => {

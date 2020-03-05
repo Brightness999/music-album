@@ -11,6 +11,8 @@ import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import AlbumDownloadButton from '../components/AlbumDownloadButton';
+import { MusicFileType } from '../types';
 
 export default function AlbumPage() {
     let { slug } = useParams();
@@ -79,6 +81,10 @@ export default function AlbumPage() {
                     <div className="pb-2">Catalog #: {album?.catalog}</div>
                     <div className="pb-2">Date: {album?.release_date}</div>
                     <div className="pb-2">Genres: {genres}</div>
+                    <div className="d-flex">
+                        <AlbumDownloadButton type={MusicFileType.MP3} album={album} className="mr-2"/>
+                        <AlbumDownloadButton type={MusicFileType.FLAC} album={album} />
+                    </div>
                 </div>
             </Row>
             <Row className="album-header d-flex pt-2">

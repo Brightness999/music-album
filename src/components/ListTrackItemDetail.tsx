@@ -5,7 +5,7 @@ import Marquee from 'react-text-marquee';
 
 import { Artist, Track } from '../models';
 import { formatDuration } from '../utils';
-import DownloadButton from './DownloadButton';
+import TrackDownloadButton from './TrackDownloadButton';
 import ListTrackPlayButton from './ListTrackPlayButton';
 import { composeAlbumImagePath, composeTrackName } from '../common';
 import { MusicFileType } from '../types';
@@ -32,8 +32,8 @@ export default function(props: Props) {
                 { formatDuration(props.track.duration) }
             </Col>
             <Col sm="3" className="d-flex pr-1">
-                <DownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
-                <DownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
+                <TrackDownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>
+                <TrackDownloadButton track={ props.track } type={ MusicFileType.FLAC }/>
             </Col>
         </Row>
     );
