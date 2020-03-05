@@ -67,7 +67,7 @@ function* fetchFeaturedAlbums() {
 
 function* fetchTracks(action: RequestTracks) {
     try {
-        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit);
+        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisher);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {

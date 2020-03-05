@@ -155,6 +155,7 @@ export interface RequestTracks {
     type: TRACKS_REQUESTED;
     skip: number;
     limit: number;
+    publisher: string;
 }
 
 export interface RequestTrack {
@@ -206,7 +207,7 @@ export const previousTrack = () => ({ type: PREVIOUS_TRACK });
 export const requestAllAlbums = (skip: number, limit: number, publisherSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
-export const requestTracks = (skip: number, limit: number) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit });
+export const requestTracks = (skip: number, limit: number, publisher: string) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit, publisher: publisher });
 export const requestGenreTracks = (slug: string, skip: number, limit: number, publisher: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug, skip: skip, limit: limit, publisher: publisher });
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });

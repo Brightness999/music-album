@@ -20,7 +20,7 @@ export default function GenresPage() {
 
     useEffect(() => {
         if (slug === undefined) {
-            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
+            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage, ''));
         } else {
             dispatch(requestGenreTracks(slug, currentPage * trackCountPerPage, trackCountPerPage, slug));
         }

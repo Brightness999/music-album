@@ -15,8 +15,8 @@ interface TrackResponse {
     track: Track;
 }
 
-export const apiFetchTracks = async (skip: number, limit: number) => {
-    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit+'&publisher=');
+export const apiFetchTracks = async (skip: number, limit: number, publisher: string) => {
+    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit+'&publisher='+publisher);
     return [result.data.tracks, result.data.track_count];
 };
 

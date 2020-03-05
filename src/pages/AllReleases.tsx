@@ -36,7 +36,7 @@ export default function AllReleases() {
         if (showMode === ShowMode.GRID) {
             dispatch(requestAllAlbums(currentPage * albumCountPerPage, albumCountPerPage, publisherSlug || ''));
         } else {
-            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
+            dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage, publisherSlug || ''));
         }
     }, [showMode, publisherSlug, dispatch, currentPage]);
 
