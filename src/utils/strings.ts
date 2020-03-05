@@ -20,3 +20,7 @@ export const formatFilesize = (file_size: number): string => {
     }
     return Math.floor(file_size / (1024*1024)) + " Mb";
 };
+
+export const formatSimpleDate = (date: Date): string => {
+    return new Date(date).toDateString().substr(4);
+};

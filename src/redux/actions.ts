@@ -172,6 +172,7 @@ export interface RequestGenreTracks {
     slug: string;
     skip: number;
     limit: number;
+    publisher: string;
 }
 
 export type ActionType =
@@ -206,7 +207,7 @@ export const requestAllAlbums = (skip: number, limit: number, publisherSlug: str
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
 export const requestTracks = (skip: number, limit: number) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit });
-export const requestGenreTracks = (slug: string, skip: number, limit: number) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug, skip: skip, limit: limit });
+export const requestGenreTracks = (slug: string, skip: number, limit: number, publisher: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug, skip: skip, limit: limit, publisher: publisher });
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });
 export const setAllAlbums = (albums: Album[]) => ({ type: SET_ALL_ALBUMS, albums: albums });

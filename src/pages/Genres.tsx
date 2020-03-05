@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Col, Row } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 
 import { trackCountPerPage } from '../consts';
@@ -23,7 +22,7 @@ export default function GenresPage() {
         if (slug === undefined) {
             dispatch(requestTracks(currentPage * trackCountPerPage, trackCountPerPage));
         } else {
-            dispatch(requestGenreTracks(slug, currentPage * trackCountPerPage, trackCountPerPage));
+            dispatch(requestGenreTracks(slug, currentPage * trackCountPerPage, trackCountPerPage, slug));
         }
     }, [slug, dispatch, currentPage]);
 
@@ -33,15 +32,7 @@ export default function GenresPage() {
 
     return (
         <div className="page">
-            <div className="album-content">
-                <Row className="album-header d-flex">
-                    <Col sm={5}>Artist & Title</Col>
-                    <Col sm={2}>Label</Col>
-                    <Col sm={2}>Genre</Col>
-                    <Col sm={3}/>
-                </Row>
-                <TracksListView tracks={tracks}/>
-            </div>
+            <TracksListView tracks={tracks}/>
             <div className="d-flex justify-content-center align-items-center">
                 <AlbumPagination/>
             </div>

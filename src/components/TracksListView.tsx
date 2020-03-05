@@ -1,8 +1,9 @@
 import React from 'react';
-import { Category, Track } from '../models';
+import { Track } from '../models';
 import ListTrackItem from './ListTrackItem';
 import GenreTitleHeader from './GenreTitleHeader';
 import { Col, Row } from 'reactstrap';
+import { formatSimpleDate } from '../utils';
 
 interface Props {
     tracks: Track[];
@@ -11,20 +12,20 @@ interface Props {
 export default function TracksListView(props: Props) {
     let elmTracks: JSX.Element[] = [];
     let index = 0;
-    let elmTracksMap: Map<number, JSX.Element[]> = new Map();
-    let categoryMap: Map<number, Category> = new Map();
+    let lastGenreId = -1;
+    let strLastDate = '';
+
     props.tracks.forEach(track => {
-        if (!categoryMap.has(track.category.id)) {
-            categoryMap.set(track.category.id, track.category);
+        const strTrackDate = formatSimpleDate(track.created_at);
+        if (strLastDate !== strTrackDate) {
+            strLastDate = strTrackDate;
+            elmTracks.push(<div key={index++}>{strTrackDate}</div>);
         }
-        if (!elmTracksMap.has(track.category.id)) {
-            elmTracksMap.set(track.category.id, []);
+        if (lastGenreId !== track.category.id) {
+            lastGenreId = track.category.id;
+            elmTracks.push(<GenreTitleHeader category={track.category}/>);
         }
-        elmTracksMap.get(track.category.id)?.push(<ListTrackItem track={track} key={index++}/>);
-    });
-    elmTracksMap.forEach((_emlTracks, key ) => {
-        elmTracks.push(<GenreTitleHeader category={categoryMap.get(key)}/>);
-        elmTracks = elmTracks.concat(_emlTracks);
+        elmTracks.push(<ListTrackItem track={track} key={index++}/>);
     });
     return (
         <div className="album-content">
