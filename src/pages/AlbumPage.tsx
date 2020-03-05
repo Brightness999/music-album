@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import { Track } from '../models';
 import ListTrackItemDetail from '../components/ListTrackItemDetail';
@@ -9,8 +11,6 @@ import { selectCurrentAlbumDetail, selectCurrentTrack, selectLoadingState, selec
 import { requestAlbumDetail, selectAlbumAsPlaylist, setPlayStatus } from '../redux/actions';
 import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import AlbumDownloadButton from '../components/AlbumDownloadButton';
 import { MusicFileType } from '../types';
 

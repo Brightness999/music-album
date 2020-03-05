@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentPage, selectTracks } from '../redux/selectors';
 import { requestGenreTracks, requestTracks, setCurrentPage } from '../redux/actions';
 import TracksListView from '../components/TracksListView';
+import ShowModeSwitcher from '../components/ShowModeSwitcher';
 
 export default function GenresPage() {
     let { slug } = useParams();
@@ -32,6 +33,9 @@ export default function GenresPage() {
 
     return (
         <div className="page">
+            <div className="d-flex justify-content-end">
+                <ShowModeSwitcher/>
+            </div>
             <TracksListView tracks={tracks}/>
             <div className="d-flex justify-content-center align-items-center">
                 <AlbumPagination/>

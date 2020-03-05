@@ -1,7 +1,4 @@
 import React, { useEffect } from 'react';
-import { Button } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThLarge, faThList } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { albumCountPerPage, trackCountPerPage } from '../consts';
@@ -13,6 +10,7 @@ import AlbumPagination from '../components/AlbumPagination';
 import { useParams } from 'react-router-dom';
 import AlbumsGridView from '../components/AlbumsGridView';
 import TracksListView from '../components/TracksListView';
+import ShowModeSwitcher from '../components/ShowModeSwitcher';
 
 export default function AllReleases() {
     const showMode = useSelector(selectShowMode);
@@ -48,14 +46,7 @@ export default function AllReleases() {
         <div className="page">
             <div className="d-flex justify-content-between">
                 <p className="page-title">{publisherSlug?albums[0]?.publisher.name:'All releases'}</p>
-                <div className="d-flex align-items-center">
-                    <Button className="hl-control normal-control" active={showMode === ShowMode.GRID} onClick={() => dispatch && dispatch(setShowMode(ShowMode.GRID))}>
-                        <FontAwesomeIcon icon={faThLarge} />&nbsp;&nbsp;Grid
-                    </Button>
-                    <Button className="hl-control normal-control" active={showMode === ShowMode.LIST} onClick={() => dispatch && dispatch(setShowMode(ShowMode.LIST))}>
-                        <FontAwesomeIcon icon={faThList} />&nbsp;&nbsp;List
-                    </Button>
-                </div>
+                <ShowModeSwitcher/>
             </div>
             { showMode === ShowMode.GRID?<AlbumsGridView albums={albums}/>:<TracksListView tracks={tracks}/> }
             <div className="d-flex justify-content-center align-items-center">
