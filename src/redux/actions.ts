@@ -22,6 +22,7 @@ export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
+export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
 export const FEATURED_ALBUMS_REQUESTED = 'FEATURED_ALBUMS_REQUESTED';
 export const TRACKS_REQUESTED = 'TRACKS_REQUESTED';
 export const ALBUM_DETAIL_REQUESTED = ' ALBUM_DETAIL_REQUEST';
@@ -43,6 +44,7 @@ type SET_CURRENT_TRACK = typeof SET_CURRENT_TRACK;
 type SET_CURRENT_ALBUM_DETAIL = typeof SET_CURRENT_ALBUM_DETAIL;
 type SET_TOP_ALBUMS = typeof SET_TOP_ALBUMS;
 type ALBUM_DETAIL_REQUESTED = typeof ALBUM_DETAIL_REQUESTED;
+type GENRE_ALBUMS_REQUESTED = typeof GENRE_ALBUMS_REQUESTED;
 type ALL_ALBUMS_REQUESTED = typeof ALL_ALBUMS_REQUESTED;
 type TRACK_REQUESTED = typeof TRACK_REQUESTED;
 type TRACKS_REQUESTED = typeof TRACKS_REQUESTED;
@@ -151,11 +153,18 @@ export interface RequestAllAlbums {
     publisherSlug: string;
 }
 
+export interface RequestGenreAlbums {
+    type: GENRE_ALBUMS_REQUESTED;
+    skip: number;
+    limit: number;
+    categorySlug: string;
+}
+
 export interface RequestTracks {
     type: TRACKS_REQUESTED;
     skip: number;
     limit: number;
-    publisher: string;
+    publisherSlug: string;
 }
 
 export interface RequestTrack {
@@ -170,10 +179,9 @@ export interface SelectAlbumAsPlaylist {
 
 export interface RequestGenreTracks {
     type: GENRE_TRACKS_REQUESTED;
-    slug: string;
+    categorySlug: string;
     skip: number;
     limit: number;
-    publisher: string;
 }
 
 export type ActionType =
@@ -196,7 +204,8 @@ export type ActionType =
     SetCategories |
     SetMuted |
     SetPageCount |
-    SetCurrentPage;
+    SetCurrentPage |
+    RequestGenreAlbums;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -205,10 +214,11 @@ export const setPlayStatus = (playStatus: PlayStatus) => ({ type: SET_PLAY_STATU
 export const nextTrack = () => ({ type: NEXT_TRACK });
 export const previousTrack = () => ({ type: PREVIOUS_TRACK });
 export const requestAllAlbums = (skip: number, limit: number, publisherSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
+export const requestGenreAlbums = (skip: number, limit: number, category: string) => ({ type: GENRE_ALBUMS_REQUESTED, skip: skip, limit: limit, categorySlug: category });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
-export const requestTracks = (skip: number, limit: number, publisher: string) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit, publisher: publisher });
-export const requestGenreTracks = (slug: string, skip: number, limit: number, publisher: string) => ({ type: GENRE_TRACKS_REQUESTED, slug: slug, skip: skip, limit: limit, publisher: publisher });
+export const requestTracks = (skip: number, limit: number, publisherSlug: string) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
+export const requestGenreTracks = (categorySlug: string, skip: number, limit: number) => ({ type: GENRE_TRACKS_REQUESTED, categorySlug: categorySlug, skip: skip, limit: limit});
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });
 export const setAllAlbums = (albums: Album[]) => ({ type: SET_ALL_ALBUMS, albums: albums });

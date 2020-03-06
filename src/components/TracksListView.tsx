@@ -23,7 +23,7 @@ export default function TracksListView(props: Props) {
         }
         if (lastGenreId !== track.category.id) {
             lastGenreId = track.category.id;
-            elmTracks.push(<GenreTitleHeader category={track.category}/>);
+            elmTracks.push(<GenreTitleHeader category={track.category} key={index++}/>);
         }
         elmTracks.push(<ListTrackItem track={track} key={index++}/>);
     });

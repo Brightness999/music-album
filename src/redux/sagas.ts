@@ -1,13 +1,21 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { apiFetchAlbumDetail, apiFetchAllAlbums, apiFetchFeaturedAlbums, apiFetchTopAlbums } from '../api/AlbumAPI';
+import {
+    apiFetchAlbumDetail,
+    apiFetchAllAlbums,
+    apiFetchFeaturedAlbums,
+    apiFetchGenreAlbums,
+    apiFetchTopAlbums
+} from '../api/AlbumAPI';
 import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     CATEGORIES_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
+    GENRE_ALBUMS_REQUESTED,
     GENRE_TRACKS_REQUESTED,
     RequestAlbumDetail,
     RequestAllAlbums,
+    RequestGenreAlbums,
     RequestGenreTracks,
     RequestTrack,
     RequestTracks,
@@ -47,6 +55,19 @@ function* fetchAllAlbums(action: RequestAllAlbums) {
     }
 }
 
+function* fetchGenreAlbums(action: RequestGenreAlbums) {
+    try {
+        const [albums, albumCount] = yield call(apiFetchGenreAlbums, action.skip, action.limit, action.categorySlug);
+        yield put(setAllAlbums(albums));
+        yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
+        if (albums.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+    } catch (e) {
+        yield put(setAllAlbums([]));
+    }
+}
+
 function* fetchTopAlbums() {
     try {
         const albums = yield call(apiFetchTopAlbums);
@@ -67,7 +88,7 @@ function* fetchFeaturedAlbums() {
 
 function* fetchTracks(action: RequestTracks) {
     try {
-        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisher);
+        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
@@ -80,7 +101,7 @@ function* fetchTracks(action: RequestTracks) {
 
 function* fetchGenreTracks(action: RequestGenreTracks) {
     try {
-        const [tracks, trackCount] = yield call(apiFetchGenreTracks, action.slug, action.skip, action.limit, action.publisher);
+        const [tracks, trackCount] = yield call(apiFetchGenreTracks, action.skip, action.limit, action.categorySlug);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
@@ -130,6 +151,7 @@ function* appSaga() {
     yield takeLatest(TOP_ALBUMS_REQUESTED, fetchTopAlbums);
     yield takeLatest(GENRE_TRACKS_REQUESTED, fetchGenreTracks);
     yield takeLatest(CATEGORIES_REQUESTED, fetchCategories);
+    yield takeLatest(GENRE_ALBUMS_REQUESTED, fetchGenreAlbums);
 }
 
 export default appSaga;

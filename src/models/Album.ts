@@ -12,4 +12,5 @@ export interface Album {
     categories: Category[];
     artist: Artist;
     publisher: Publisher;
+    created_at: string;
 }

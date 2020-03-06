@@ -15,8 +15,8 @@ interface TrackResponse {
     track: Track;
 }
 
-export const apiFetchTracks = async (skip: number, limit: number, publisher: string) => {
-    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit+'&publisher='+publisher);
+export const apiFetchTracks = async (skip: number, limit: number, publisherSlug: string) => {
+    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit+'&publisher='+publisherSlug);
     return [result.data.tracks, result.data.track_count];
 };
 
@@ -25,8 +25,8 @@ export const apiFetchTrack = async(slug: string) => {
     return result.data.track;
 };
 
-export const apiFetchGenreTracks = async(slug: string, skip: number, limit: number, publisher: string) => {
-    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_GENRE_TRACKS + slug + '?skip='+skip+'&limit='+limit+'&publisher='+publisher);
+export const apiFetchGenreTracks = async(skip: number, limit: number, categorySlug: string) => {
+    const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_GENRE_TRACKS + categorySlug + '?skip='+skip+'&limit='+limit);
     return [result.data.tracks, result.data.track_count];
 };
 

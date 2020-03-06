@@ -7,3 +7,4 @@ export const API_FETCH_TRACK = '/api/track/';
 export const API_FETCH_GENRE_TRACKS = '/api/genre-tracks/';
 export const API_FETCH_CATEGORIES = '/api/categories';
 export const API_LOGIN = '/api/login';
+export const API_FETCH_GENRE_ALBUMS = '/api/genre-albums/';
