@@ -7,13 +7,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectShowMode } from '../redux/selectors';
 
-export default function ShowModeSwitcher() {
+interface Props {
+    disableGridMode?: boolean;
+}
+
+export default function ShowModeSwitcher(props: Props) {
     const dispatch = useDispatch();
     const showMode = useSelector(selectShowMode);
     return (<div className="d-flex align-items-center">
         <Button
             className="hl-control normal-control"
             active={showMode === ShowMode.GRID}
+            disabled={ props.disableGridMode !== undefined && props.disableGridMode }
             onClick={() => dispatch && dispatch(setShowMode(ShowMode.GRID))}>
             <FontAwesomeIcon icon={faThLarge}/>&nbsp;&nbsp;Grid
         </Button>

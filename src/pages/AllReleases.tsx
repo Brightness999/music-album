@@ -21,6 +21,7 @@ export default function AllReleases() {
     const currentPage = useSelector(selectCurrentPage);
 
     useEffect(() => {
+        dispatch(setShowMode(ShowMode.GRID));
         dispatch(setCurrentPage(0));
     }, [dispatch]);
 
