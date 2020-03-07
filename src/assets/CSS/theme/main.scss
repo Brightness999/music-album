@@ -42,6 +42,7 @@ body {
 a {
     &.genre-link {
         color: white;
+        cursor: pointer;
         text-decoration: none;
         &:hover {
             color: #6B849C;

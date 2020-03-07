@@ -2,15 +2,17 @@ import React, { createRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
+import { faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { selectCategories } from '../redux/selectors';
+import { selectCategories, selectLoggedIn } from '../redux/selectors';
+import { setLoggedIn } from '../redux/actions';
 
 export function Header() {
     const categories = useSelector(selectCategories);
     const genresMenuWrapper = createRef<HTMLDivElement>();
-
+    const loggedIn = useSelector(selectLoggedIn);
+    const dispatch = useDispatch();
     return (
         <header className="d-flex position-fixed align-items-center justify-content-between">
             <div className="header-wrapper d-flex justify-content-around">
@@ -48,6 +50,11 @@ export function Header() {
                     <NavLink to="/premium" activeClassName="active">Premium</NavLink>
                     <NavLink to="/account" activeClassName="active">Account</NavLink>
                     <NavLink to="/contact" activeClassName="active">Contact</NavLink>
+                    {loggedIn?
+                    <a href="/" className="genre-link" onClick={() => {
+                        localStorage.removeItem('token');
+                        dispatch(setLoggedIn(false));
+                    }}><FontAwesomeIcon icon={faSignOutAlt}/></a>:(<span/>)}
                 </div>
             </div>
         </header>
