@@ -12,7 +12,7 @@ export function Header() {
     const genresMenuWrapper = createRef<HTMLDivElement>();
 
     return (
-        <header className="d-flex position-fixed align-items-center justify-content-between w-100">
+        <header className="d-flex position-fixed align-items-center justify-content-between">
             <div className="header-wrapper d-flex justify-content-around">
                 <div className="d-flex align-items-center">
                     <NavLink to="/home" activeClassName="active">Home</NavLink>

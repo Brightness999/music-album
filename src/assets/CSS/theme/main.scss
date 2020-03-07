@@ -54,6 +54,7 @@ header {
     z-index: 998;
     height: $navbar-height;
     background-color: $color-default-bg;
+    width: calc(100% - #{$sidebar-width});
 }
 
 @mixin custom-responsive-container {
@@ -152,13 +153,14 @@ header div.genres-menu:hover {
     }
 }
 
-@media(max-width: $page-width) {
-    .sidebar {
-        display: none;
-    }
+@media(max-width: $page-width+$sidebar-width) {
     .custom-container {
-        width: 100%;
-        margin-left: 20px;
+        width: calc(100% - #{$sidebar-width});
+        margin-left: 0;
+    }
+
+    .header-wrapper {
+        margin-left: 0;
     }
 }
 
