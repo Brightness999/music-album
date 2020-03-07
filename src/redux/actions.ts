@@ -20,6 +20,7 @@ export const SET_MUTED = 'SET_MUTED';
 export const SET_PAGE_COUNT = 'SET_PAGE_COUNT';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
+export const SET_LOGIN_ERROR_MESSAGE = 'SET_LOGIN_ERROR_MESSAGE';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -58,6 +59,7 @@ type SET_CURRENT_PAGE = typeof SET_CURRENT_PAGE;
 type SET_PAGE_COUNT = typeof SET_PAGE_COUNT;
 type SET_LOGGED_IN = typeof SET_LOGGED_IN;
 type LOGIN_REQUESTED = typeof LOGIN_REQUESTED;
+type SET_LOGIN_ERROR_MESSAGE = typeof SET_LOGIN_ERROR_MESSAGE;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -147,6 +149,11 @@ interface SetLoggedIn {
     loggedIn: boolean;
 }
 
+interface SetLoginErrorMessage {
+    type: SET_LOGIN_ERROR_MESSAGE;
+    loginErrorMessage: string;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -221,7 +228,8 @@ export type ActionType =
     SetCurrentPage |
     RequestGenreAlbums |
     SetLoggedIn |
-    RequestLogin;
+    RequestLogin |
+    SetLoginErrorMessage;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -252,3 +260,4 @@ export const setCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE
 export const setPageCount = (pageCount: number) => ({ type: SET_PAGE_COUNT, pageCount: pageCount });
 export const setLoggedIn  = (loggedIn: boolean) => ({ type: SET_LOGGED_IN, loggedIn: loggedIn});
 export const requestLogin = (userId: string, password: string) => ({ type: LOGIN_REQUESTED, userId: userId, password: password});
+export const setLoginErrorMessage = (loginErrorMessage: string) => ({ type: SET_LOGIN_ERROR_MESSAGE, loginErrorMessage: loginErrorMessage});

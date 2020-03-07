@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Input } from 'reactstrap';
 import jwt_decode from 'jwt-decode';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestLogin, setLoggedIn } from '../redux/actions';
-import { selectLoggedIn } from '../redux/selectors';
+import { requestLogin, setLoggedIn, setLoginErrorMessage } from '../redux/actions';
+import { selectLoggedIn, selectLoginErrorMessage } from '../redux/selectors';
 
 interface Token {
     userId: string;
@@ -16,6 +16,7 @@ export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const loggedIn = useSelector(selectLoggedIn);
+    const loginErrorMessage = useSelector(selectLoginErrorMessage);
     const dispatch = useDispatch();
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -38,9 +39,14 @@ export default function LoginPage() {
                 <Input placeholder="Username or Email" className="mb-3" value={username} onChange={evt => setUsername(evt.target.value)}/>
                 <Input type="password" placeholder="Password" className="mb-4" value={password} onChange={evt => setPassword(evt.target.value)}/>
             </div>
+            <div className="login-error px-4">{ loginErrorMessage }</div>
             <div className="login-footer p-4">
                 <Button
                     onClick={() => {
+                        if (username === '' || password === '') {
+                            dispatch(setLoginErrorMessage('Please fill out above fields.'));
+                            return;
+                        }
                         dispatch(requestLogin(username, password));
                     }}
                     className="w-100 btn-login"

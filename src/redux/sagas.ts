@@ -31,6 +31,7 @@ import {
     setFeaturedAlbums,
     setLoadingState,
     setLoggedIn,
+    setLoginErrorMessage,
     setPageCount,
     setPlayList,
     setTopAlbums,
@@ -153,8 +154,7 @@ function* tryLogin(action: RequestLogin) {
             localStorage.setItem('token', token);
             yield put(setLoggedIn(true));
         } else {
-            // failed
-            console.log('login failed');
+            yield put(setLoginErrorMessage('Please provide valid credential.'));
         }
     } catch (e) { }
 }

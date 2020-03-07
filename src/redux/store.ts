@@ -35,7 +35,8 @@ export const initialState: StoreState = {
     muted: false,
     pageCount: 0,
     currentPage: 0,
-    loggedIn: false
+    loggedIn: false,
+    loginErrorMessage: ''
 };
 
 export interface StoreState {
@@ -55,6 +56,7 @@ export interface StoreState {
     pageCount: number;
     currentPage: number;
     loggedIn: boolean;
+    loginErrorMessage: string;
 }
 
 // saga middleware

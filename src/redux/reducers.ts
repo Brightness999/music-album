@@ -12,6 +12,7 @@ import {
     SET_FEATURED_ALBUMS,
     SET_LOADING_STATE,
     SET_LOGGED_IN,
+    SET_LOGIN_ERROR_MESSAGE,
     SET_MUTED,
     SET_PAGE_COUNT,
     SET_PLAY_LIST,
@@ -84,6 +85,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_LOGGED_IN: {
             return Object.assign({}, state, {...state, loggedIn: action.loggedIn});
+        }
+        case SET_LOGIN_ERROR_MESSAGE: {
+            return Object.assign({}, state, {...state, loginErrorMessage: action.loginErrorMessage});
         }
         default:
             return state;
