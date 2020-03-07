@@ -36,7 +36,9 @@ export const initialState: StoreState = {
     pageCount: 0,
     currentPage: 0,
     loggedIn: false,
-    loginErrorMessage: ''
+    loginErrorMessage: '',
+    downloadErrorMessage: '',
+    hasDownloadError: false
 };
 
 export interface StoreState {
@@ -57,6 +59,8 @@ export interface StoreState {
     currentPage: number;
     loggedIn: boolean;
     loginErrorMessage: string;
+    downloadErrorMessage: string;
+    hasDownloadError: boolean;
 }
 
 // saga middleware

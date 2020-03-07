@@ -5,8 +5,8 @@ export const composeAlbumImagePath = (albumLocation?: string, albumSlug?: string
     return `${environment.API_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
 };
 
-export const composeTrackDownloadPath = (trackSlug?: string, ext?: string) => {
-    return `${environment.API_URL}/api/download-track/${trackSlug}/as/${ext}`;
+export const composeTrackDownloadPath = (trackSlug?: string, ext?: string, check?: string) => {
+    return `${environment.API_URL}/api/download-track/${trackSlug}/as/${ext}/${check}?token=${localStorage.getItem('token')}`;
 };
 
 export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string) => {

@@ -10,12 +10,14 @@ import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     CATEGORIES_REQUESTED,
+    DOWNLOAD_TRACK_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
     GENRE_ALBUMS_REQUESTED,
     GENRE_TRACKS_REQUESTED,
     LOGIN_REQUESTED,
     RequestAlbumDetail,
     RequestAllAlbums,
+    RequestDownloadTrack,
     RequestGenreAlbums,
     RequestGenreTracks,
     RequestLogin,
@@ -28,7 +30,9 @@ import {
     setCurrentAlbumDetail,
     setCurrentPage,
     setCurrentTrack,
+    setDownloadErrorMessage,
     setFeaturedAlbums,
+    setHasDownloadError,
     setLoadingState,
     setLoggedIn,
     setLoginErrorMessage,
@@ -40,7 +44,7 @@ import {
     TRACK_REQUESTED,
     TRACKS_REQUESTED
 } from './actions';
-import { apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
+import { apiDownloadTrack, apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
@@ -146,6 +150,20 @@ function* fetchCategories() {
     } catch (e) { }
 }
 
+function* downloadTrack(action: RequestDownloadTrack) {
+    try {
+        const [result, message] = yield call(apiDownloadTrack, action.trackSlug, action.fileType, 'check');
+        if (result !== 0) {
+            yield put(setDownloadErrorMessage(message));
+            yield put(setHasDownloadError(true));
+        } else {
+            yield call(apiDownloadTrack, action.trackSlug, action.fileType, 'download');
+        }
+    } catch (e) {
+
+    }
+}
+
 function* tryLogin(action: RequestLogin) {
     try {
         const [result, token] = yield call(apiLogin, action.userId, action.password);
@@ -171,6 +189,7 @@ function* appSaga() {
     yield takeLatest(CATEGORIES_REQUESTED, fetchCategories);
     yield takeLatest(GENRE_ALBUMS_REQUESTED, fetchGenreAlbums);
     yield takeLatest(LOGIN_REQUESTED, tryLogin);
+    yield takeLatest(DOWNLOAD_TRACK_REQUESTED, downloadTrack);
 }
 
 export default appSaga;

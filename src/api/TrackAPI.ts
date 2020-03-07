@@ -15,6 +15,11 @@ interface TrackResponse {
     track: Track;
 }
 
+interface DownloadTrackResponse {
+    result: number;
+    message: string;
+}
+
 export const apiFetchTracks = async (skip: number, limit: number, publisherSlug: string) => {
     const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_TRACKS + '?skip=' + skip + '&limit='+limit+'&publisher='+publisherSlug);
     return [result.data.tracks, result.data.track_count];
@@ -30,7 +35,14 @@ export const apiFetchGenreTracks = async(skip: number, limit: number, categorySl
     return [result.data.tracks, result.data.track_count];
 };
 
-export const apiDownloadTrack = (slug: string, ext: string) => {
-    const url = composeTrackDownloadPath(slug, ext);
-    apiDownload(url);
+export const apiDownloadTrack = async(slug: string, ext: string, check: string) => {
+    const url = composeTrackDownloadPath(slug, ext, check);
+    if (check === 'check') {
+        const result: AxiosResponse<DownloadTrackResponse> = await axios(url);
+        return [result.data.result, result.data.message];
+    }
+
+    if (check !== 'check') {
+        apiDownload(url);
+    }
 };

@@ -17,3 +17,5 @@ export const selectCurrentPage = (state: StoreState) => state.currentPage;
 export const selectPageCount = (state: StoreState) => state.pageCount;
 export const selectLoggedIn = (state: StoreState) => state.loggedIn;
 export const selectLoginErrorMessage = (state: StoreState) => state.loginErrorMessage;
+export const selectHasDownloadError = (state: StoreState) => state.hasDownloadError;
+export const selectDownloadErrorMessage = (state: StoreState) => state.downloadErrorMessage;

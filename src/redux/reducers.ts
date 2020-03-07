@@ -9,7 +9,9 @@ import {
     SET_CURRENT_PAGE,
     SET_CURRENT_TRACK,
     SET_CURRENT_TRACK_SLUG,
+    SET_DOWNLOAD_ERROR_MESSAGE,
     SET_FEATURED_ALBUMS,
+    SET_HAS_DOWNLOAD_ERROR,
     SET_LOADING_STATE,
     SET_LOGGED_IN,
     SET_LOGIN_ERROR_MESSAGE,
@@ -88,6 +90,12 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_LOGIN_ERROR_MESSAGE: {
             return Object.assign({}, state, {...state, loginErrorMessage: action.loginErrorMessage});
+        }
+        case SET_DOWNLOAD_ERROR_MESSAGE: {
+            return Object.assign({}, state, {...state, downloadErrorMessage: action.downloadErrorMessage});
+        }
+        case SET_HAS_DOWNLOAD_ERROR: {
+            return Object.assign({}, state, {...state, hasDownloadError: action.hasDownloadError});
         }
         default:
             return state;

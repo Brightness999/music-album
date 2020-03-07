@@ -3,8 +3,9 @@ import React from 'react';
 import { Track } from '../models';
 import { formatFilesize } from '../utils';
 import { MusicFileType } from '../types';
-import { apiDownloadTrack } from '../api/TrackAPI';
 import DownloadButton from './DownloadButton';
+import { useDispatch } from 'react-redux';
+import { requestDownloadTrack } from '../redux/actions';
 
 interface Props {
     track?: Track;
@@ -14,6 +15,7 @@ interface Props {
 
 export default function TrackDownloadButton(props: Props) {
     let fileSize: number = -1;
+    const dispatch = useDispatch();
     if (props.track) {
         fileSize = props.type === MusicFileType.FLAC ?
             props.track.flac_size :
@@ -24,6 +26,6 @@ export default function TrackDownloadButton(props: Props) {
         type={props.type}
         disabled={ props.track === undefined }
         target={props.track}
-        download={() => props.track && apiDownloadTrack(props.track.slug, props.type)}
+        download={() => props.track && dispatch(requestDownloadTrack(props.track.slug, props.type))}
         className={props.className}/>;
 }

@@ -1,5 +1,6 @@
 import { LoadingState, PlayStatus, ShowMode } from './store';
 import { Album, Category, DetailAlbum, Track } from '../models';
+import { MusicFileType } from '../types';
 
 export const SET_SHOW_MODE = 'SET_SHOW_MODE';
 export const SET_PLAY_LIST = 'SET_PLAY_LIST';
@@ -21,6 +22,8 @@ export const SET_PAGE_COUNT = 'SET_PAGE_COUNT';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 export const SET_LOGIN_ERROR_MESSAGE = 'SET_LOGIN_ERROR_MESSAGE';
+export const SET_DOWNLOAD_ERROR_MESSAGE = 'SET_DOWNLOAD_ERROR_MESSAGE';
+export const SET_HAS_DOWNLOAD_ERROR = 'SET_HAS_DOWNOAD_ERROR';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -32,6 +35,7 @@ export const TOP_ALBUMS_REQUESTED = 'TOP_ALBUMS_REQUESTED';
 export const GENRE_TRACKS_REQUESTED = 'GENRE_TRACKS_REQUESTED';
 export const CATEGORIES_REQUESTED = 'CATEGORIES_REQUESTED';
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
+export const DOWNLOAD_TRACK_REQUESTED = 'DOWNLOAD_TRACK_REQUESTED';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -60,6 +64,9 @@ type SET_PAGE_COUNT = typeof SET_PAGE_COUNT;
 type SET_LOGGED_IN = typeof SET_LOGGED_IN;
 type LOGIN_REQUESTED = typeof LOGIN_REQUESTED;
 type SET_LOGIN_ERROR_MESSAGE = typeof SET_LOGIN_ERROR_MESSAGE;
+type DOWNLOAD_TRACK_REQUESTED = typeof DOWNLOAD_TRACK_REQUESTED;
+type SET_HAS_DOWNLOAD_ERROR = typeof SET_HAS_DOWNLOAD_ERROR;
+type SET_DOWNLOAD_ERROR_MESSAGE = typeof SET_DOWNLOAD_ERROR_MESSAGE;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -154,6 +161,16 @@ interface SetLoginErrorMessage {
     loginErrorMessage: string;
 }
 
+interface SetHasDownloadError {
+    type: SET_HAS_DOWNLOAD_ERROR;
+    hasDownloadError: boolean;
+}
+
+interface SetDownloadErrorMessage {
+    type: SET_DOWNLOAD_ERROR_MESSAGE;
+    downloadErrorMessage: string;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -205,6 +222,12 @@ export interface RequestLogin {
     password: string;
 }
 
+export interface RequestDownloadTrack {
+    type: DOWNLOAD_TRACK_REQUESTED;
+    trackSlug: string;
+    fileType: MusicFileType;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -229,7 +252,10 @@ export type ActionType =
     RequestGenreAlbums |
     SetLoggedIn |
     RequestLogin |
-    SetLoginErrorMessage;
+    SetLoginErrorMessage |
+    RequestDownloadTrack |
+    SetHasDownloadError |
+    SetDownloadErrorMessage;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -261,3 +287,6 @@ export const setPageCount = (pageCount: number) => ({ type: SET_PAGE_COUNT, page
 export const setLoggedIn  = (loggedIn: boolean) => ({ type: SET_LOGGED_IN, loggedIn: loggedIn});
 export const requestLogin = (userId: string, password: string) => ({ type: LOGIN_REQUESTED, userId: userId, password: password});
 export const setLoginErrorMessage = (loginErrorMessage: string) => ({ type: SET_LOGIN_ERROR_MESSAGE, loginErrorMessage: loginErrorMessage});
+export const requestDownloadTrack = (trackSlug: string, fileType: MusicFileType) => ({ type: DOWNLOAD_TRACK_REQUESTED, trackSlug: trackSlug, fileType: fileType});
+export const setHasDownloadError = (hasDownloadError: boolean) => ({ type: SET_HAS_DOWNLOAD_ERROR, hasDownloadError: hasDownloadError});
+export const setDownloadErrorMessage = (downloadErrorMessage: string) => ({ type: SET_DOWNLOAD_ERROR_MESSAGE, downloadErrorMessage: downloadErrorMessage});
