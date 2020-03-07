@@ -19,7 +19,7 @@ export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const SET_MUTED = 'SET_MUTED';
 export const SET_PAGE_COUNT = 'SET_PAGE_COUNT';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-
+export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -30,6 +30,7 @@ export const TRACK_REQUESTED = 'TRACK_REQUESTED';
 export const TOP_ALBUMS_REQUESTED = 'TOP_ALBUMS_REQUESTED';
 export const GENRE_TRACKS_REQUESTED = 'GENRE_TRACKS_REQUESTED';
 export const CATEGORIES_REQUESTED = 'CATEGORIES_REQUESTED';
+export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -55,6 +56,8 @@ type SET_CATEGORIES = typeof SET_CATEGORIES;
 type SET_MUTED = typeof SET_MUTED;
 type SET_CURRENT_PAGE = typeof SET_CURRENT_PAGE;
 type SET_PAGE_COUNT = typeof SET_PAGE_COUNT;
+type SET_LOGGED_IN = typeof SET_LOGGED_IN;
+type LOGIN_REQUESTED = typeof LOGIN_REQUESTED;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -139,6 +142,11 @@ interface SetCurrentPage {
     currentPage: number;
 }
 
+interface SetLoggedIn {
+    type: SET_LOGGED_IN;
+    loggedIn: boolean;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -184,6 +192,12 @@ export interface RequestGenreTracks {
     limit: number;
 }
 
+export interface RequestLogin {
+    type: LOGIN_REQUESTED;
+    userId: string;
+    password: string;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -205,7 +219,9 @@ export type ActionType =
     SetMuted |
     SetPageCount |
     SetCurrentPage |
-    RequestGenreAlbums;
+    RequestGenreAlbums |
+    SetLoggedIn |
+    RequestLogin;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -234,3 +250,5 @@ export const requestCategories = () => ({ type: CATEGORIES_REQUESTED });
 export const setMuted = (muted: boolean) => ({ type: SET_MUTED, muted: muted });
 export const setCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage: currentPage });
 export const setPageCount = (pageCount: number) => ({ type: SET_PAGE_COUNT, pageCount: pageCount });
+export const setLoggedIn  = (loggedIn: boolean) => ({ type: SET_LOGGED_IN, loggedIn: loggedIn});
+export const requestLogin = (userId: string, password: string) => ({ type: LOGIN_REQUESTED, userId: userId, password: password});

@@ -15,3 +15,4 @@ export const selectCategories = (state: StoreState) => state.categories;
 export const selectMuted = (state: StoreState) => state.muted;
 export const selectCurrentPage = (state: StoreState) => state.currentPage;
 export const selectPageCount = (state: StoreState) => state.pageCount;
+export const selectLoggedIn = (state: StoreState) => state.loggedIn;

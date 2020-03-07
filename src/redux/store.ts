@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
@@ -34,7 +34,8 @@ export const initialState: StoreState = {
     categories: [],
     muted: false,
     pageCount: 0,
-    currentPage: 0
+    currentPage: 0,
+    loggedIn: false
 };
 
 export interface StoreState {
@@ -53,7 +54,7 @@ export interface StoreState {
     muted: boolean;
     pageCount: number;
     currentPage: number;
-
+    loggedIn: boolean;
 }
 
 // saga middleware

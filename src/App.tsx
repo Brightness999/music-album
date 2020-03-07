@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import PremiumPage from './pages/Premium';
 import AccountPage from './pages/Account';
 import ContactPage from './pages/Contact';
+import LoginPage from './pages/Login';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function App() {
   return (
     <Router>
       <Sidebar/>
+      <LoginPage/>
       <Header/>
       <div className="custom-container pl-5 pr-5">
         <Switch>

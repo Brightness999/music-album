@@ -13,10 +13,12 @@ import {
     FEATURED_ALBUMS_REQUESTED,
     GENRE_ALBUMS_REQUESTED,
     GENRE_TRACKS_REQUESTED,
+    LOGIN_REQUESTED,
     RequestAlbumDetail,
     RequestAllAlbums,
     RequestGenreAlbums,
     RequestGenreTracks,
+    RequestLogin,
     RequestTrack,
     RequestTracks,
     SELECT_ALBUM_AS_PLAY_LIST,
@@ -28,6 +30,7 @@ import {
     setCurrentTrack,
     setFeaturedAlbums,
     setLoadingState,
+    setLoggedIn,
     setPageCount,
     setPlayList,
     setTopAlbums,
@@ -41,6 +44,7 @@ import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
 import { albumCountPerPage, trackCountPerPage } from '../consts';
+import { apiLogin } from '../api/AuthAPI';
 
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
@@ -141,6 +145,20 @@ function* fetchCategories() {
     } catch (e) { }
 }
 
+function* tryLogin(action: RequestLogin) {
+    try {
+        const [result, token] = yield call(apiLogin, action.userId, action.password);
+        if (result === 0) {
+            // success
+            localStorage.setItem('token', token);
+            yield put(setLoggedIn(true));
+        } else {
+            // failed
+            console.log('login failed');
+        }
+    } catch (e) { }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
@@ -152,6 +170,7 @@ function* appSaga() {
     yield takeLatest(GENRE_TRACKS_REQUESTED, fetchGenreTracks);
     yield takeLatest(CATEGORIES_REQUESTED, fetchCategories);
     yield takeLatest(GENRE_ALBUMS_REQUESTED, fetchGenreAlbums);
+    yield takeLatest(LOGIN_REQUESTED, tryLogin);
 }
 
 export default appSaga;
