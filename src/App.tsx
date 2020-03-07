@@ -29,7 +29,7 @@ export default function App() {
       autoDismiss: true,
     });
     setTimeout(() => dispatch(setHasDownloadError(false)), 1000);
-  }, [hasDownloadError]);
+  }, [downloadErrorMessage, hasDownloadError, addToast, dispatch]);
   dispatch(requestCategories());
   return (
     <Router>

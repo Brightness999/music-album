@@ -36,6 +36,7 @@ export const GENRE_TRACKS_REQUESTED = 'GENRE_TRACKS_REQUESTED';
 export const CATEGORIES_REQUESTED = 'CATEGORIES_REQUESTED';
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const DOWNLOAD_TRACK_REQUESTED = 'DOWNLOAD_TRACK_REQUESTED';
+export const DOWNLOAD_ALBUM_REQUESTED = 'DOWNLOAD_ALBUM_REQUESTED';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -65,6 +66,7 @@ type SET_LOGGED_IN = typeof SET_LOGGED_IN;
 type LOGIN_REQUESTED = typeof LOGIN_REQUESTED;
 type SET_LOGIN_ERROR_MESSAGE = typeof SET_LOGIN_ERROR_MESSAGE;
 type DOWNLOAD_TRACK_REQUESTED = typeof DOWNLOAD_TRACK_REQUESTED;
+type DOWNLOAD_ALBUM_REQUESTED = typeof DOWNLOAD_ALBUM_REQUESTED;
 type SET_HAS_DOWNLOAD_ERROR = typeof SET_HAS_DOWNLOAD_ERROR;
 type SET_DOWNLOAD_ERROR_MESSAGE = typeof SET_DOWNLOAD_ERROR_MESSAGE;
 
@@ -228,6 +230,12 @@ export interface RequestDownloadTrack {
     fileType: MusicFileType;
 }
 
+export interface RequestDownloadAlbum {
+    type: DOWNLOAD_ALBUM_REQUESTED;
+    albumSlug: string;
+    fileType: MusicFileType;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -288,5 +296,6 @@ export const setLoggedIn  = (loggedIn: boolean) => ({ type: SET_LOGGED_IN, logge
 export const requestLogin = (userId: string, password: string) => ({ type: LOGIN_REQUESTED, userId: userId, password: password});
 export const setLoginErrorMessage = (loginErrorMessage: string) => ({ type: SET_LOGIN_ERROR_MESSAGE, loginErrorMessage: loginErrorMessage});
 export const requestDownloadTrack = (trackSlug: string, fileType: MusicFileType) => ({ type: DOWNLOAD_TRACK_REQUESTED, trackSlug: trackSlug, fileType: fileType});
+export const requestDownloadAlbum = (albumSlug: string, fileType: MusicFileType) =>({ type: DOWNLOAD_ALBUM_REQUESTED, albumSlug: albumSlug, fileType: fileType});
 export const setHasDownloadError = (hasDownloadError: boolean) => ({ type: SET_HAS_DOWNLOAD_ERROR, hasDownloadError: hasDownloadError});
 export const setDownloadErrorMessage = (downloadErrorMessage: string) => ({ type: SET_DOWNLOAD_ERROR_MESSAGE, downloadErrorMessage: downloadErrorMessage});

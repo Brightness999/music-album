@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import {
+    apiDownloadAlbum,
     apiFetchAlbumDetail,
     apiFetchAllAlbums,
     apiFetchFeaturedAlbums,
@@ -10,6 +11,7 @@ import {
     ALBUM_DETAIL_REQUESTED,
     ALL_ALBUMS_REQUESTED,
     CATEGORIES_REQUESTED,
+    DOWNLOAD_ALBUM_REQUESTED,
     DOWNLOAD_TRACK_REQUESTED,
     FEATURED_ALBUMS_REQUESTED,
     GENRE_ALBUMS_REQUESTED,
@@ -17,6 +19,7 @@ import {
     LOGIN_REQUESTED,
     RequestAlbumDetail,
     RequestAllAlbums,
+    RequestDownloadAlbum,
     RequestDownloadTrack,
     RequestGenreAlbums,
     RequestGenreTracks,
@@ -159,9 +162,19 @@ function* downloadTrack(action: RequestDownloadTrack) {
         } else {
             yield call(apiDownloadTrack, action.trackSlug, action.fileType, 'download');
         }
-    } catch (e) {
+    } catch (e) { }
+}
 
-    }
+function* downloadAlbum(action: RequestDownloadAlbum) {
+    try {
+        const [result, message] = yield call(apiDownloadAlbum, action.albumSlug, action.fileType, 'check');
+        if (result !== 0) {
+            yield put(setDownloadErrorMessage(message));
+            yield put(setHasDownloadError(true));
+        } else {
+            yield call(apiDownloadAlbum, action.albumSlug, action.fileType, 'download');
+        }
+    } catch (e) { }
 }
 
 function* tryLogin(action: RequestLogin) {
@@ -190,6 +203,7 @@ function* appSaga() {
     yield takeLatest(GENRE_ALBUMS_REQUESTED, fetchGenreAlbums);
     yield takeLatest(LOGIN_REQUESTED, tryLogin);
     yield takeLatest(DOWNLOAD_TRACK_REQUESTED, downloadTrack);
+    yield takeLatest(DOWNLOAD_ALBUM_REQUESTED, downloadAlbum);
 }
 
 export default appSaga;

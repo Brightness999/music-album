@@ -21,6 +21,11 @@ interface DetailAlbumResponse {
     album: DetailAlbum;
 }
 
+interface DownloadAlbumResponse {
+    result: number;
+    message: string;
+}
+
 export const apiFetchAllAlbums = async (skip: number, limit: number, publisherSlug: string) => {
     const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit+'&publisher='+publisherSlug);
     return [result.data.albums, result.data.album_count];
@@ -46,7 +51,14 @@ export const apiFetchTopAlbums = async () => {
     return result.data.albums;
 };
 
-export const apiDownloadAlbum = (slug?: string, ext?: string) => {
-    const url = composeAlbumDownloadPath(slug, ext);
-    apiDownload(url);
+export const apiDownloadAlbum = async(slug: string, ext: string, check: string) => {
+    const url = composeAlbumDownloadPath(slug, ext, check);
+    if (check === 'check') {
+        const result: AxiosResponse<DownloadAlbumResponse> = await axios(url);
+        return [result.data.result, result.data.message];
+    }
+
+    if (check !== 'check') {
+        apiDownload(url);
+    }
 };
