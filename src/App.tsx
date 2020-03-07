@@ -9,6 +9,9 @@ import AllReleases from './pages/AllReleases';
 import AlbumPage from './pages/AlbumPage';
 import { requestCategories } from './redux/actions';
 import { useDispatch } from 'react-redux';
+import PremiumPage from './pages/Premium';
+import AccountPage from './pages/Account';
+import ContactPage from './pages/Contact';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -33,6 +36,15 @@ export default function App() {
           </Route>
           <Route path="/album/:slug">
             <AlbumPage/>
+          </Route>
+          <Route path="/premium">
+            <PremiumPage/>
+          </Route>
+          <Route path="/account">
+            <AccountPage/>
+          </Route>
+          <Route path="/contact">
+            <ContactPage/>
           </Route>
           <Route path="/">
             <Home/>
