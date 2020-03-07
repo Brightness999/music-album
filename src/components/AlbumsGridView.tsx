@@ -15,18 +15,23 @@ export default function AlbumsGridView(props: Props) {
             latestReleaseDate = createdAt;
         }
     });
+
+    let elmAlbums: JSX.Element[] = [];
+    let lastDate = '';
+    let index = 0;
+    props.albums.forEach(album => {
+        const albumDate = formatSimpleDate(new Date(album.created_at));
+        if (lastDate !== albumDate) {
+            lastDate = albumDate;
+            elmAlbums.push(<div className="w-100 pl-3 py-1 albums-grid-date-separator" key={index++}>{lastDate}</div>);
+        }
+        elmAlbums.push(<div className="col-20" key={index++}><LargeAlbumItem album={album} /></div>);
+    });
+
     return (
         <div className="album-content">
-            <div className="text-right">
-                { formatSimpleDate(latestReleaseDate) }
-            </div>
             <div className="d-flex flex-wrap">
-                {
-                    props.albums.map((album: Album, index: number) =>
-                        <div className="col-20" key={index}>
-                            <LargeAlbumItem album={album} />
-                        </div>)
-                }
+                { elmAlbums }
             </div>
         </div>
     )

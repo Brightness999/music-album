@@ -50,7 +50,7 @@ export default function GenresPage() {
                 setCategory(category.name);
             }
         });
-    }, [albums]);
+    }, [albums, categorySlug]);
 
     return (
         <div className="page">

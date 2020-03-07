@@ -17,11 +17,11 @@ export function Header() {
                 <div className="d-flex align-items-center">
                     <NavLink to="/home" activeClassName="active">Home</NavLink>
                     <div className="genres-menu">
-                        <NavLink to="/genres" className="genres-link" onMouseOver={() => {
+                        <span className="genres-link pr-4" onMouseOver={() => {
                             if (genresMenuWrapper.current !== null) {
                                 genresMenuWrapper.current.hidden = false;
                             }
-                        }}>Genres</NavLink>
+                        }}>Genres</span>
                         <div className="position-absolute sub-menu-wrapper" ref={genresMenuWrapper}>
                             {
                                 categories.map(((category, index) =>
