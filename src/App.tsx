@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
-import { useToasts } from 'react-toast-notifications'
+import { useToasts } from 'react-toast-notifications';
+import LoadingBar from 'react-top-loading-bar';
 
 import { Header } from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -15,12 +16,15 @@ import PremiumPage from './pages/Premium';
 import AccountPage from './pages/Account';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
-import { selectDownloadErrorMessage, selectHasDownloadError } from './redux/selectors';
+import { selectDownloadErrorMessage, selectHasDownloadError, selectLoadingState } from './redux/selectors';
+import { LoadingState } from './redux/store';
 
 export default function App() {
   const dispatch = useDispatch();
   const hasDownloadError = useSelector(selectHasDownloadError);
   const downloadErrorMessage = useSelector(selectDownloadErrorMessage);
+  const [loadProgress, setLoadProgress] = useState(50);
+  const loadingState = useSelector(selectLoadingState);
   const { addToast } = useToasts();
   useEffect(() => {
     if (!hasDownloadError) return;
@@ -31,8 +35,21 @@ export default function App() {
     setTimeout(() => dispatch(setHasDownloadError(false)), 1000);
   }, [downloadErrorMessage, hasDownloadError, addToast, dispatch]);
   dispatch(requestCategories());
+  useEffect(() => {
+    if (loadingState === LoadingState.LOADING) {
+      setLoadProgress(20);
+    } else {
+      setLoadProgress(100);
+    }
+  }, [loadingState]);
   return (
     <Router>
+      <LoadingBar
+          progress={loadProgress}
+          height={3}
+          color='white'
+          onLoaderFinished={() => setLoadProgress(0)}
+      />
       <Sidebar/>
       <LoginPage/>
       <Header/>

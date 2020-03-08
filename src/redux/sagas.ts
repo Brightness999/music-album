@@ -56,12 +56,15 @@ import { apiLogin } from '../api/AuthAPI';
 
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {
             yield put(setCurrentPage(0));
         }
+        yield put(setLoadingState(LoadingState.LOADED));
+
     } catch (e) {
         yield put(setAllAlbums([]));
     }
@@ -69,12 +72,15 @@ function* fetchAllAlbums(action: RequestAllAlbums) {
 
 function* fetchGenreAlbums(action: RequestGenreAlbums) {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const [albums, albumCount] = yield call(apiFetchGenreAlbums, action.skip, action.limit, action.categorySlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {
             yield put(setCurrentPage(0));
         }
+        yield put(setLoadingState(LoadingState.LOADED));
+
     } catch (e) {
         yield put(setAllAlbums([]));
     }
@@ -91,8 +97,10 @@ function* fetchTopAlbums() {
 
 function* fetchFeaturedAlbums() {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const albums = yield call(apiFetchFeaturedAlbums);
         yield put(setFeaturedAlbums(albums));
+        yield put(setLoadingState(LoadingState.LOADED));
     } catch (e) {
         yield put(setFeaturedAlbums([]));
     }
@@ -100,12 +108,14 @@ function* fetchFeaturedAlbums() {
 
 function* fetchTracks(action: RequestTracks) {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
             yield put(setCurrentPage(0));
         }
+        yield put(setLoadingState(LoadingState.LOADED));
     } catch (e) {
         yield put(setTracks([]));
     }
@@ -113,12 +123,15 @@ function* fetchTracks(action: RequestTracks) {
 
 function* fetchGenreTracks(action: RequestGenreTracks) {
     try {
+        yield put(setLoadingState(LoadingState.LOADING));
         const [tracks, trackCount] = yield call(apiFetchGenreTracks, action.skip, action.limit, action.categorySlug);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
             yield put(setCurrentPage(0));
         }
+        yield put(setLoadingState(LoadingState.LOADED));
+
     } catch (e) {
         yield put(setTracks([]));
     }
