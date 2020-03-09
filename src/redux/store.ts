@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
 import appSaga from './sagas';
 import { Album, Category, DetailAlbum, Track } from '../models';
+import { UserInfo } from '../types';
 
 export enum PlayStatus {
     PLAYING = 'PLAYING',
@@ -38,7 +39,14 @@ export const initialState: StoreState = {
     loggedIn: false,
     loginErrorMessage: '',
     downloadErrorMessage: '',
-    hasDownloadError: false
+    hasDownloadError: false,
+    userInfo: {
+        downloadLimit: 0,
+        downloadedData: 0,
+        email: '',
+        name: '',
+        expirationDate: 0
+    }
 };
 
 export interface StoreState {
@@ -61,6 +69,7 @@ export interface StoreState {
     loginErrorMessage: string;
     downloadErrorMessage: string;
     hasDownloadError: boolean;
+    userInfo: UserInfo;
 }
 
 // saga middleware

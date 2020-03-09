@@ -51,10 +51,10 @@ export function Header() {
                     <NavLink to="/account" activeClassName="active">Account</NavLink>
                     <NavLink to="/contact" activeClassName="active">Contact</NavLink>
                     {loggedIn?
-                    <a href="/" className="genre-link" onClick={() => {
+                    <div className="genre-link" onClick={() => {
                         localStorage.removeItem('token');
                         dispatch(setLoggedIn(false));
-                    }}><FontAwesomeIcon icon={faSignOutAlt}/></a>:(<span/>)}
+                    }}><FontAwesomeIcon icon={faSignOutAlt}/></div>:(<span/>)}
                 </div>
             </div>
         </header>

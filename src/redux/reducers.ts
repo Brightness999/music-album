@@ -21,7 +21,8 @@ import {
     SET_PLAY_STATUS,
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
-    SET_TRACKS
+    SET_TRACKS,
+    SET_USER_INFO
 } from './actions';
 
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
@@ -96,6 +97,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_HAS_DOWNLOAD_ERROR: {
             return Object.assign({}, state, {...state, hasDownloadError: action.hasDownloadError});
+        }
+        case SET_USER_INFO: {
+            return Object.assign({}, state, {...state, userInfo: action.userInfo});
         }
         default:
             return state;

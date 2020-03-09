@@ -43,16 +43,18 @@ import {
     setPlayList,
     setTopAlbums,
     setTracks,
+    setUserInfo,
     TOP_ALBUMS_REQUESTED,
     TRACK_REQUESTED,
-    TRACKS_REQUESTED
+    TRACKS_REQUESTED,
+    USER_INFO_REQUESTED
 } from './actions';
 import { apiDownloadTrack, apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
 import { albumCountPerPage, trackCountPerPage } from '../consts';
-import { apiLogin } from '../api/AuthAPI';
+import { apiFetchUserInfo, apiLogin } from '../api/AuthAPI';
 
 function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
@@ -203,6 +205,15 @@ function* tryLogin(action: RequestLogin) {
     } catch (e) { }
 }
 
+function* fetchUserInfo() {
+    try {
+        const [result, userInfo] = yield call(apiFetchUserInfo);
+        if (result === 0) {
+            yield put(setUserInfo(userInfo));
+        }
+    } catch (e) { }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
@@ -217,6 +228,7 @@ function* appSaga() {
     yield takeLatest(LOGIN_REQUESTED, tryLogin);
     yield takeLatest(DOWNLOAD_TRACK_REQUESTED, downloadTrack);
     yield takeLatest(DOWNLOAD_ALBUM_REQUESTED, downloadAlbum);
+    yield takeLatest(USER_INFO_REQUESTED, fetchUserInfo);
 }
 
 export default appSaga;
