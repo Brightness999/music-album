@@ -13,7 +13,7 @@ export default function PremiumPage() {
         }
     }, [dispatch]);
     return <div className="page">
-        <Row>
+        <Row className="cards-wrapper">
             <Col><PremiumCard dayLimit={30} downloadPerDay={30} price={10.95}/></Col>
             <Col><PremiumCard dayLimit={30} downloadPerDay={50} price={15.95}/></Col>
             <Col><PremiumCard dayLimit={30} downloadPerDay={100} price={21.95}/></Col>

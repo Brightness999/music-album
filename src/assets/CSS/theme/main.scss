@@ -69,6 +69,14 @@ header {
     margin-left: calc((100% - #{$sidebar-width} - #{$page-width}) / 2);
 }
 
+.wide-page {
+    margin-left: 0 !important;
+    width: 100% !important;
+    .page {
+        width: 100% !important;
+    }
+}
+
 .header-wrapper {
     @include custom-responsive-container;
 }
@@ -243,6 +251,11 @@ header div.genres-menu:hover {
     padding: 0.5rem;
 }
 
+// pages: Premium
+.cards-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
 
 // pages: Home
 .scroll-area {

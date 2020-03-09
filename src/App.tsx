@@ -17,10 +17,10 @@ import AccountPage from './pages/Account';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
 import {
-    selectDownloadErrorMessage,
-    selectHasDownloadError,
-    selectLoadingState,
-    selectWideScreen
+  selectDownloadErrorMessage,
+  selectHasDownloadError,
+  selectLoadingState,
+  selectWideScreen
 } from './redux/selectors';
 import { LoadingState } from './redux/store';
 
@@ -48,7 +48,7 @@ export default function App() {
       setLoadProgress(100);
     }
   }, [loadingState]);
-  const classWide = wideScreen?' w-100':'';
+  const classWide = wideScreen?' wide-page':'';
   return (
     <Router>
       <LoadingBar
