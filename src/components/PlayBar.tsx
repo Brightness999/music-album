@@ -22,7 +22,7 @@ import {
     selectPlayList,
     selectPlayStatus,
 } from '../redux/selectors';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import TrackDownloadButton from './TrackDownloadButton';
 import { MusicFileType } from '../types';
 import { composeAlbumImagePath, composeMusicFilePath, composeTrackName, composeWaveformImagePath } from '../common';
@@ -49,6 +49,16 @@ export default function PlayBar() {
         }
         setPlayPosition(0);
     }, [trackSlug, dispatch]);
+
+    const match = useRouteMatch({
+        path: '/premium',
+        strict: true,
+        sensitive: true
+    });
+    if (match && match.isExact) {
+        return <div/>;
+    }
+
     return (
         <div className="play-bar position-fixed d-flex align-items-center w-100">
             <div className="img-wrapper">

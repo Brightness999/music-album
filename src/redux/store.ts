@@ -40,6 +40,7 @@ export const initialState: StoreState = {
     loginErrorMessage: '',
     downloadErrorMessage: '',
     hasDownloadError: false,
+    wideScreen: false,
     userInfo: {
         downloadLimit: 0,
         downloadedData: 0,
@@ -70,6 +71,7 @@ export interface StoreState {
     downloadErrorMessage: string;
     hasDownloadError: boolean;
     userInfo: UserInfo;
+    wideScreen: boolean;
 }
 
 // saga middleware

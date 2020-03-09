@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectCategories, selectLoggedIn } from '../redux/selectors';
+import { selectCategories, selectLoggedIn, selectWideScreen } from '../redux/selectors';
 import { setLoggedIn } from '../redux/actions';
 
 export function Header() {
@@ -13,8 +13,10 @@ export function Header() {
     const genresMenuWrapper = createRef<HTMLDivElement>();
     const loggedIn = useSelector(selectLoggedIn);
     const dispatch = useDispatch();
+    const wideScreen = useSelector(selectWideScreen);
+    const classWide = wideScreen?' w-100 black-thin-bar':'';
     return (
-        <header className="d-flex position-fixed align-items-center justify-content-between">
+        <header className={"d-flex position-fixed align-items-center justify-content-between" + classWide}>
             <div className="header-wrapper d-flex justify-content-around">
                 <div className="d-flex align-items-center">
                     <NavLink to="/home" activeClassName="active">Home</NavLink>

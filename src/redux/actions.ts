@@ -25,6 +25,7 @@ export const SET_LOGIN_ERROR_MESSAGE = 'SET_LOGIN_ERROR_MESSAGE';
 export const SET_DOWNLOAD_ERROR_MESSAGE = 'SET_DOWNLOAD_ERROR_MESSAGE';
 export const SET_HAS_DOWNLOAD_ERROR = 'SET_HAS_DOWNLOAD_ERROR';
 export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_WIDE_SCREEN = 'SET_WIDE_SCREEN';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -72,6 +73,7 @@ type DOWNLOAD_ALBUM_REQUESTED = typeof DOWNLOAD_ALBUM_REQUESTED;
 type SET_HAS_DOWNLOAD_ERROR = typeof SET_HAS_DOWNLOAD_ERROR;
 type SET_DOWNLOAD_ERROR_MESSAGE = typeof SET_DOWNLOAD_ERROR_MESSAGE;
 type SET_USER_INFO = typeof SET_USER_INFO;
+type SET_WIDE_SCREEN = typeof SET_WIDE_SCREEN;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -181,6 +183,11 @@ interface SetUserInfo {
     userInfo: UserInfo;
 }
 
+interface SetWideScreen {
+    type: SET_WIDE_SCREEN;
+    wideScreen: boolean;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -272,7 +279,8 @@ export type ActionType =
     RequestDownloadTrack |
     SetHasDownloadError |
     SetDownloadErrorMessage |
-    SetUserInfo;
+    SetUserInfo |
+    SetWideScreen;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -310,3 +318,4 @@ export const setHasDownloadError = (hasDownloadError: boolean) => ({ type: SET_H
 export const setDownloadErrorMessage = (downloadErrorMessage: string) => ({ type: SET_DOWNLOAD_ERROR_MESSAGE, downloadErrorMessage: downloadErrorMessage});
 export const setUserInfo = (userInfo: UserInfo) => ({ type: SET_USER_INFO, userInfo: userInfo});
 export const requestUserInfo = () => ({ type: USER_INFO_REQUESTED});
+export const setWideScreen = (wideScreen: boolean) => ({ type: SET_WIDE_SCREEN, wideScreen: wideScreen});

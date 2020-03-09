@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import LoadingBar from 'react-top-loading-bar';
 
@@ -16,7 +16,12 @@ import PremiumPage from './pages/Premium';
 import AccountPage from './pages/Account';
 import ContactPage from './pages/Contact';
 import LoginPage from './pages/Login';
-import { selectDownloadErrorMessage, selectHasDownloadError, selectLoadingState } from './redux/selectors';
+import {
+    selectDownloadErrorMessage,
+    selectHasDownloadError,
+    selectLoadingState,
+    selectWideScreen
+} from './redux/selectors';
 import { LoadingState } from './redux/store';
 
 export default function App() {
@@ -26,6 +31,7 @@ export default function App() {
   const [loadProgress, setLoadProgress] = useState(50);
   const loadingState = useSelector(selectLoadingState);
   const { addToast } = useToasts();
+  const wideScreen = useSelector(selectWideScreen);
   useEffect(() => {
     if (!hasDownloadError) return;
     addToast(downloadErrorMessage, {
@@ -42,6 +48,7 @@ export default function App() {
       setLoadProgress(100);
     }
   }, [loadingState]);
+  const classWide = wideScreen?' w-100':'';
   return (
     <Router>
       <LoadingBar
@@ -53,7 +60,7 @@ export default function App() {
       <Sidebar/>
       <LoginPage/>
       <Header/>
-      <div className="custom-container pl-5 pr-5">
+      <div className={"custom-container pl-5 pr-5" + classWide}>
         <Switch>
           <Route path="/genres/:slug">
             <Genres/>

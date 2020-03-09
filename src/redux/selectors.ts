@@ -20,3 +20,4 @@ export const selectLoginErrorMessage = (state: StoreState) => state.loginErrorMe
 export const selectHasDownloadError = (state: StoreState) => state.hasDownloadError;
 export const selectDownloadErrorMessage = (state: StoreState) => state.downloadErrorMessage;
 export const selectUserInfo = (state: StoreState) => state.userInfo;
+export const selectWideScreen = (state: StoreState) => state.wideScreen;

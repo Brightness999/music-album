@@ -22,7 +22,8 @@ import {
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
     SET_TRACKS,
-    SET_USER_INFO
+    SET_USER_INFO,
+    SET_WIDE_SCREEN
 } from './actions';
 
 export const reducer = (state: StoreState = initialState, action: ActionType): StoreState => {
@@ -100,6 +101,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_USER_INFO: {
             return Object.assign({}, state, {...state, userInfo: action.userInfo});
+        }
+        case SET_WIDE_SCREEN: {
+            return Object.assign({}, state, {...state, wideScreen: action.wideScreen});
         }
         default:
             return state;
