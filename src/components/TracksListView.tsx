@@ -35,7 +35,7 @@ export default function TracksListView(props: Props) {
                 <Col sm={2}>Genre</Col>
                 <Col sm={3}/>
             </Row>
-            {elmTracks}
+            {elmTracks.length !== 0?elmTracks:<div className="text-center pt-3">Nothing to display.</div>}
         </div>
     );
 }

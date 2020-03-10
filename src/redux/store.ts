@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+
 import { reducer } from './reducers';
 import appSaga from './sagas';
 import { Album, Category, DetailAlbum, Track } from '../models';
@@ -41,6 +42,7 @@ export const initialState: StoreState = {
     downloadErrorMessage: '',
     hasDownloadError: false,
     wideScreen: false,
+    searchModeValue: '',
     userInfo: {
         downloadLimit: 0,
         downloadedData: 0,
@@ -71,6 +73,7 @@ export interface StoreState {
     downloadErrorMessage: string;
     hasDownloadError: boolean;
     userInfo: UserInfo;
+    searchModeValue: string;
     wideScreen: boolean;
 }
 
@@ -84,5 +87,4 @@ export const store = createStore(
         applyMiddleware(sagaMiddleware)
     )
 );
-
 sagaMiddleware.run(appSaga);

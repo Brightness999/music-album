@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React, { createRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectCategories, selectLoggedIn, selectWideScreen } from '../redux/selectors';
 import { setLoggedIn } from '../redux/actions';
+import history from '../history';
 
 export function Header() {
     const categories = useSelector(selectCategories);
+    const [keyword, setKeyword] = useState('');
     const genresMenuWrapper = createRef<HTMLDivElement>();
     const loggedIn = useSelector(selectLoggedIn);
     const dispatch = useDispatch();
@@ -45,7 +47,11 @@ export function Header() {
                     <NavLink to="/all-releases" activeClassName="active">All releases</NavLink>
                     <div className="d-flex align-items-center">
                         <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
-                        <Input placeholder="Search here..." id="iSearch"/>
+                        <Input placeholder="Search here..." id="iSearch" value={keyword} onChange={event => setKeyword(event.target.value)} onKeyDown={event => {
+                            if (event.key === 'Enter') {
+                                history.push(`/search/${keyword}`);
+                            }
+                        }}/>
                     </div>
                 </div>
                 <div className="d-flex align-items-center">

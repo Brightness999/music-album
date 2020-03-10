@@ -21,3 +21,4 @@ export const selectHasDownloadError = (state: StoreState) => state.hasDownloadEr
 export const selectDownloadErrorMessage = (state: StoreState) => state.downloadErrorMessage;
 export const selectUserInfo = (state: StoreState) => state.userInfo;
 export const selectWideScreen = (state: StoreState) => state.wideScreen;
+export const selectSearchModeValue = (state: StoreState) => state.searchModeValue;

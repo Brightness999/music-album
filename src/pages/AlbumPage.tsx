@@ -32,12 +32,13 @@ export default function AlbumPage() {
     }
 
     let genres: JSX.Element[] = [];
+    let index = 0;
     const categoryCount = album?.categories.length || 0;
     for (let i = 0; i < categoryCount; i++)
     {
-        genres.push(<NavLink to={`/genres/${album?.categories[i].slug}`} key={i} className="genre-link">{album?.categories[i].name}</NavLink>);
+        genres.push(<NavLink to={`/genres/${album?.categories[i].slug}`} key={index++} className="genre-link">{album?.categories[i].name}</NavLink>);
         if (i !== categoryCount-1) {
-            genres.push(<span>, </span>);
+            genres.push(<span key={index++}>, </span>);
         }
     }
 

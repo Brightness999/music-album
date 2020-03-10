@@ -26,6 +26,7 @@ export const SET_DOWNLOAD_ERROR_MESSAGE = 'SET_DOWNLOAD_ERROR_MESSAGE';
 export const SET_HAS_DOWNLOAD_ERROR = 'SET_HAS_DOWNLOAD_ERROR';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_WIDE_SCREEN = 'SET_WIDE_SCREEN';
+export const SET_SEARCH_MODE_VALUE = 'SET_SEARCH_MODE_VALUE';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -40,6 +41,7 @@ export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const DOWNLOAD_TRACK_REQUESTED = 'DOWNLOAD_TRACK_REQUESTED';
 export const DOWNLOAD_ALBUM_REQUESTED = 'DOWNLOAD_ALBUM_REQUESTED';
 export const USER_INFO_REQUESTED = 'USER_INFO_REQUESTED';
+export const SEARCH_REQUESTED = 'SEARCH_REQUESTED';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -74,6 +76,8 @@ type SET_HAS_DOWNLOAD_ERROR = typeof SET_HAS_DOWNLOAD_ERROR;
 type SET_DOWNLOAD_ERROR_MESSAGE = typeof SET_DOWNLOAD_ERROR_MESSAGE;
 type SET_USER_INFO = typeof SET_USER_INFO;
 type SET_WIDE_SCREEN = typeof SET_WIDE_SCREEN;
+type SEARCH_REQUESTED = typeof SEARCH_REQUESTED;
+type SET_SEARCH_MODE_VALUE = typeof SET_SEARCH_MODE_VALUE;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -188,6 +192,11 @@ interface SetWideScreen {
     wideScreen: boolean;
 }
 
+interface SetSearchModeValue {
+    type: SET_SEARCH_MODE_VALUE;
+    searchModeValue: string;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -214,6 +223,7 @@ export interface RequestTracks {
     skip: number;
     limit: number;
     publisherSlug: string;
+    title: string;
 }
 
 export interface RequestTrack {
@@ -251,6 +261,13 @@ export interface RequestDownloadAlbum {
     fileType: MusicFileType;
 }
 
+export interface RequestSearch {
+    type: SEARCH_REQUESTED;
+    keyword: string;
+    skip: number;
+    limit: number;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -280,7 +297,9 @@ export type ActionType =
     SetHasDownloadError |
     SetDownloadErrorMessage |
     SetUserInfo |
-    SetWideScreen;
+    SetWideScreen |
+    RequestSearch |
+    SetSearchModeValue;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -319,3 +338,5 @@ export const setDownloadErrorMessage = (downloadErrorMessage: string) => ({ type
 export const setUserInfo = (userInfo: UserInfo) => ({ type: SET_USER_INFO, userInfo: userInfo});
 export const requestUserInfo = () => ({ type: USER_INFO_REQUESTED});
 export const setWideScreen = (wideScreen: boolean) => ({ type: SET_WIDE_SCREEN, wideScreen: wideScreen});
+export const requestSearch = (keyword: string, skip: number, limit: number) => ({ type: SEARCH_REQUESTED, keyword: keyword, skip: skip, limit: limit});
+export const setSearchModeValue = (searchModeValue: string) => ({ type: SET_SEARCH_MODE_VALUE, searchModeValue: searchModeValue});

@@ -1,4 +1,5 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects';
+
 import {
     apiDownloadAlbum,
     apiFetchAlbumDetail,
@@ -24,8 +25,10 @@ import {
     RequestGenreAlbums,
     RequestGenreTracks,
     RequestLogin,
+    RequestSearch,
     RequestTrack,
     RequestTracks,
+    SEARCH_REQUESTED,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
     setAllAlbums,
@@ -41,6 +44,7 @@ import {
     setLoginErrorMessage,
     setPageCount,
     setPlayList,
+    setSearchModeValue,
     setTopAlbums,
     setTracks,
     setUserInfo,
@@ -49,7 +53,7 @@ import {
     TRACKS_REQUESTED,
     USER_INFO_REQUESTED
 } from './actions';
-import { apiDownloadTrack, apiFetchGenreTracks, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
+import { apiDownloadTrack, apiFetchGenreTracks, apiFetchSearch, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
@@ -111,7 +115,7 @@ function* fetchFeaturedAlbums() {
 function* fetchTracks(action: RequestTracks) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
-        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug);
+        const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug, action.title);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
@@ -214,6 +218,22 @@ function* fetchUserInfo() {
     } catch (e) { }
 }
 
+function* fetchSearch(action: RequestSearch) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [tracks, trackCount, searchModeValue] = yield call(apiFetchSearch, action.skip, action.limit, action.keyword);
+        yield put(setTracks(tracks));
+        yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
+        if (tracks.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setSearchModeValue(searchModeValue));
+        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setTracks([]));
+    }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
@@ -229,6 +249,7 @@ function* appSaga() {
     yield takeLatest(DOWNLOAD_TRACK_REQUESTED, downloadTrack);
     yield takeLatest(DOWNLOAD_ALBUM_REQUESTED, downloadAlbum);
     yield takeLatest(USER_INFO_REQUESTED, fetchUserInfo);
+    yield takeLatest(SEARCH_REQUESTED, fetchSearch);
 }
 
 export default appSaga;

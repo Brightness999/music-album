@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 import LoadingBar from 'react-top-loading-bar';
 
@@ -23,6 +23,8 @@ import {
   selectWideScreen
 } from './redux/selectors';
 import { LoadingState } from './redux/store';
+import history from './history';
+import SearchPage from './pages/SearchPage';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -50,7 +52,7 @@ export default function App() {
   }, [loadingState]);
   const classWide = wideScreen?' wide-page':'';
   return (
-    <Router>
+    <Router history={history}>
       <LoadingBar
           progress={loadProgress}
           height={3}
@@ -85,6 +87,9 @@ export default function App() {
           </Route>
           <Route path="/contact">
             <ContactPage/>
+          </Route>
+          <Route path="/search/:keyword">
+            <SearchPage/>
           </Route>
           <Route path="/">
             <Home/>

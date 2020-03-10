@@ -19,6 +19,7 @@ import {
     SET_PAGE_COUNT,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
+    SET_SEARCH_MODE_VALUE,
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
     SET_TRACKS,
@@ -104,6 +105,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_WIDE_SCREEN: {
             return Object.assign({}, state, {...state, wideScreen: action.wideScreen});
+        }
+        case SET_SEARCH_MODE_VALUE: {
+            return Object.assign({}, state, {...state, searchModeValue: action.searchModeValue});
         }
         default:
             return state;
