@@ -1,17 +1,15 @@
 export const formatDuration = (length: number): string => {
-    let secs = Math.floor(length / 1000);
-    const sec = secs % 60;
-    secs = Math.floor(secs / 60);
-    const min = secs % 60;
-    secs = Math.floor(secs / 60);
-    const hr = secs / 60;
-    if (hr !== 0) {
-        return `${hr}:${min}:${sec}`;
+    let sec_num = Math.ceil(length / 1000);
+    let hours   = Math.floor(sec_num / 3600);
+    let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds = sec_num - (hours * 3600) - (minutes * 60);
+    if (hours > 0) {
+        return hours + ':' + minutes + ':' + seconds;
     }
-    if (min !== 0) {
-        return `${min}:${sec}`;
+    if (minutes > 0) {
+        return minutes + ':' + seconds;
     }
-    return `${sec}`;
+    return '' + seconds;
 };
 
 export const formatFilesize = (file_size: number): string => {

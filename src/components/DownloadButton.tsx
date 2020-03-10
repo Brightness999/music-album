@@ -18,7 +18,7 @@ interface Props {
 export default function DownloadButton(props: Props) {
     return (
         <Button
-            className={ "btn-download w-100 "+props.className }
+            className={ "btn-download "+props.className }
             disabled={ props.disabled }
             onClick={ () => props.target && props.download(props.target) }>
                 { props.label }&nbsp;&nbsp;<FontAwesomeIcon icon={ faDownload }/>

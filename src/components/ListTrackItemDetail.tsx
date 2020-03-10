@@ -23,7 +23,7 @@ export default function(props: Props) {
             <Col sm="5" className="d-flex align-items-center">
                 <img src={ composeAlbumImagePath(props.album_location, props.album_slug) } alt="album"/>
                 <ListTrackPlayButton track={props.track}/>
-                <Marquee text={ composeTrackName(props.track, props.artist) } className="ml-2 mr-2"/>
+                <Marquee text={ composeTrackName(props.track) } className="ml-2 mr-2"/>
             </Col>
             <Col sm="2">
                 <NavLink to={`/genres/${props.track.category.slug}`} className="genre-link">{ props.track.category.name }</NavLink>

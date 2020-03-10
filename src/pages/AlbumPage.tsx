@@ -31,9 +31,7 @@ export default function AlbumPage() {
         return <div>Loading...</div>;
     }
 
-    let artists: string|undefined;
     let genres: JSX.Element[] = [];
-    artists = album?.artist.name;
     const categoryCount = album?.categories.length || 0;
     for (let i = 0; i < categoryCount; i++)
     {
@@ -71,7 +69,6 @@ export default function AlbumPage() {
                 </div>
 
                 <div className="pl-3 pt-3 description">
-                    <div className="pb-2">Artists: {artists}</div>
                     <div className="pb-2">
                         Label:&nbsp;
                         <NavLink to={`/all-releases/${album?.publisher.slug}`} className="genre-link">
@@ -84,6 +81,7 @@ export default function AlbumPage() {
                     <div className="d-flex">
                         <AlbumDownloadButton type={MusicFileType.MP3} album={album} className="mr-2"/>
                         <AlbumDownloadButton type={MusicFileType.FLAC} album={album} />
+                        <div className="flex-grow-1"/>
                     </div>
                 </div>
             </Row>
