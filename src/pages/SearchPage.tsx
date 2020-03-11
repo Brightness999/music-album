@@ -12,7 +12,6 @@ import TracksListView from '../components/TracksListView';
 export default function SearchPage() {
     const tracks = useSelector(selectTracks);
     let { keyword, page } = useParams();
-    console.log(`keyword=${keyword}`);
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
     const searchModeValue = useSelector(selectSearchModeValue);

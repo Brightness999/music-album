@@ -1,5 +1,7 @@
 import { environment } from '../environments/envrionment';
 import { Artist, Track } from '../models';
+import { ShowMode } from '../redux/store';
+import history from '../history';
 
 export const composeAlbumImagePath = (albumLocation?: string, albumSlug?: string) => {
     return `${environment.API_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
@@ -91,6 +93,18 @@ export function composeNextPageLink(pathName: string, pageCount: number) {
         } else {
             return `${address}0`;
         }
+    }
+    // assume unreachable
+    return pathName;
+}
+
+export function changeShowModeLink(showMode: ShowMode) {
+    const pathName = history.location.pathname;
+    const matches = pathName.match(/(.*)\/s\/.+\/p\/(\d+)/);
+    if (matches && matches.length) {
+        const address = matches[1];
+        const page = +matches[2];
+        return `${address}/s/${showMode}/p/${page}`;
     }
     // assume unreachable
     return pathName;

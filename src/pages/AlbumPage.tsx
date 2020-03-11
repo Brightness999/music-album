@@ -36,7 +36,7 @@ export default function AlbumPage() {
     const categoryCount = album?.categories.length || 0;
     for (let i = 0; i < categoryCount; i++)
     {
-        genres.push(<NavLink to={`/genres/${album?.categories[i].slug}`} key={index++} className="genre-link">{album?.categories[i].name}</NavLink>);
+        genres.push(<NavLink to={`/genres/${album?.categories[i].slug}/s/LIST/p/0`} key={index++} className="genre-link">{album?.categories[i].name}</NavLink>);
         if (i !== categoryCount-1) {
             genres.push(<span key={index++}>, </span>);
         }
@@ -72,7 +72,7 @@ export default function AlbumPage() {
                 <div className="pl-3 pt-3 description">
                     <div className="pb-2">
                         Label:&nbsp;
-                        <NavLink to={`/all-releases/${album?.publisher.slug}`} className="genre-link">
+                        <NavLink to={`/all-releases/${album?.publisher.slug}/s/GRID/p/0`} className="genre-link">
                             { album?.publisher.name }
                         </NavLink>
                     </div>

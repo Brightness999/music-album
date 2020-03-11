@@ -3,13 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { albumCountPerPage, trackCountPerPage } from '../consts';
 import { ShowMode } from '../redux/store';
-import {
-    selectAllAlbumList,
-    selectCurrentPage,
-    selectPageCount,
-    selectShowMode,
-    selectTracks
-} from '../redux/selectors';
+import { selectAllAlbumList, selectCurrentPage, selectPageCount, selectTracks } from '../redux/selectors';
 import { requestAllAlbums, requestTracks, setCurrentPage, setShowMode } from '../redux/actions';
 
 import AlbumPagination from '../components/AlbumPagination';
@@ -19,16 +13,20 @@ import TracksListView from '../components/TracksListView';
 import ShowModeSwitcher from '../components/ShowModeSwitcher';
 
 export default function AllReleases() {
-    const showMode = useSelector(selectShowMode);
     const albums = useSelector(selectAllAlbumList);
     const tracks = useSelector(selectTracks);
-    let { publisherSlug, page } = useParams();
+    let { publisherSlug, showMode, page } = useParams();
     const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
     const pageCount = useSelector(selectPageCount);
     if (page && +page >= pageCount) {
         page = '0';
     }
+    useEffect(() => {
+        if (showMode === ShowMode.GRID || showMode === ShowMode.LIST) {
+            dispatch(setShowMode(showMode));
+        }
+    }, [showMode, dispatch]);
 
     useEffect(() => {
         page && dispatch(setCurrentPage(+page));

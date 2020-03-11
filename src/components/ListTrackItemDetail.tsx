@@ -26,7 +26,7 @@ export default function(props: Props) {
                 <Marquee text={ composeTrackName(props.track) } className="ml-2 mr-2"/>
             </Col>
             <Col sm="2">
-                <NavLink to={`/genres/${props.track.category.slug}/p/0`} className="genre-link">{ props.track.category.name }</NavLink>
+                <NavLink to={`/genres/${props.track.category.slug}/s/LIST/p/0`} className="genre-link">{ props.track.category.name }</NavLink>
             </Col>
             <Col sm="2">
                 { formatDuration(props.track.duration) }

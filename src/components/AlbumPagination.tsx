@@ -58,7 +58,6 @@ export default function AlbumPagination() {
                                 const loc = history.location;
                                 const pathName = loc.pathname;
                                 const newPath = composeNextPageLink(pathName, pageCount);
-                                console.log(newPath);
                                 history.push(newPath);
                             }}>
                             <FontAwesomeIcon icon={faChevronRight}/>

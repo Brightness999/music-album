@@ -168,10 +168,10 @@ export default function PlayBar() {
                                 <NavLink to={`/album/${track.album.slug}`}>
                                     {track.album.title}
                                 </NavLink>&nbsp;by&nbsp;
-                                <NavLink to={`/all-releases/${track.album.publisher.slug}`}>
+                                <NavLink to={`/all-releases/${track.album.publisher.slug}/s/GRID/p/0`}>
                                     {track.album.publisher.name}
                                 </NavLink>&nbsp;in&nbsp;
-                                <NavLink to={`/genres/${track?.category.slug}`}>
+                                <NavLink to={`/genres/${track?.category.slug}/s/LIST/p/0`}>
                                     {track?.category.name}
                                 </NavLink>
                             </div> :

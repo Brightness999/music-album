@@ -30,7 +30,7 @@ export default function TopAlbumItem(props: Props) {
                 </div>
                 <div className="desc">{props.album.artist.name}</div>
                 <div className="desc">
-                    <NavLink to={`/all-releases/${props.album.publisher.slug}`} className="genre-link">
+                    <NavLink to={`/all-releases/${props.album.publisher.slug}/s/GRID/p/0`} className="genre-link">
                         { props.album.publisher.name }
                     </NavLink>
                 </div>

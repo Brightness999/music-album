@@ -35,14 +35,14 @@ export function Header() {
                                                 genresMenuWrapper.current.hidden = true;
                                             }
                                         } }
-                                        to={`/genres/${category.slug}/p/0`}
+                                        to={`/genres/${category.slug}/s/LIST/p/0`}
                                         key={index}
                                     >{category.name}</NavLink>))
                             }
                         </div>
                     </div>
 
-                    <NavLink to="/all-releases/p/0" activeClassName="active">All releases</NavLink>
+                    <NavLink to="/all-releases/s/GRID/p/0" activeClassName="active">All releases</NavLink>
                     <div className="d-flex align-items-center">
                         <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
                         <Input placeholder="Search here..." id="iSearch" value={keyword} onChange={event => setKeyword(event.target.value)} onKeyDown={event => {
