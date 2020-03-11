@@ -25,7 +25,7 @@ export default function TopAlbumItem(props: Props) {
                 </div>
             </div>
             <div className="content ml-2">
-                <div className="title">
+                <div className="title pr-2">
                     <NavLink to={"/album/"+props.album.slug}>{props.album.title}</NavLink>
                 </div>
                 <div className="desc">{props.album.artist.name}</div>
