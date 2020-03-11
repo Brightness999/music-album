@@ -78,10 +78,7 @@ export default function App() {
           <Route path="/contact">
             <ContactPage/>
           </Route>
-          <Route path="/search/:keyword">
-            <SearchPage/>
-          </Route>
-          <Route path="/search/">
+          <Route path="/search/:keyword/p/:page">
             <SearchPage/>
           </Route>
           <Route path="/">

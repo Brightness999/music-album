@@ -47,7 +47,7 @@ export function Header() {
                         <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
                         <Input placeholder="Search here..." id="iSearch" value={keyword} onChange={event => setKeyword(event.target.value)} onKeyDown={event => {
                             if (event.key === 'Enter') {
-                                history.push(`/search/${keyword}`);
+                                history.push(`/search/${keyword}/p/0`);
                             }
                         }}/>
                     </div>
