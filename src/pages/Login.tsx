@@ -32,7 +32,7 @@ export default function LoginPage() {
     return loggedIn?<div/>:(<div className="login-page d-flex justify-content-center align-items-center">
         <div className="login-wrapper">
             <div className="login-header pt-5 pb-4 px-4">
-                <h3 className="text-center">Login</h3>
+                <h3 className="text-center">SIGNIN</h3>
             </div>
             <div className="login-body pt-4 px-4">
             <div className="mb-2">Login with your email Address.</div>
@@ -49,8 +49,7 @@ export default function LoginPage() {
                         }
                         dispatch(requestLogin(username, password));
                     }}
-                    className="w-100 btn-login"
-                    color="danger">Login</Button>
+                    className="w-100 btn-login">SIGN IN</Button>
             </div>
         </div>
     </div>);

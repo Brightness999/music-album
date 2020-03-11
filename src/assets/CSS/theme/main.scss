@@ -302,12 +302,6 @@ header div.genres-menu:hover {
     .description {
         font-size: 1rem;
     }
-    .tracks-container {
-        height: 300px;
-        .scroll-area {
-            height: 100%;
-        }
-    }
 }
 
 // pages: LoginPage
@@ -317,16 +311,17 @@ header div.genres-menu:hover {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #17212AA0;
+    background-color: #16191e;
     z-index: 1000;
 }
 
 .login-wrapper {
-    background-color: #1d518acc;
+    background-color: #1b2026;
     border-radius: .5rem;
     width: 40%;
     height: 40%;
     color: #ccc;
+    border: 5px solid #21262a;
 }
 
 .login-error {
@@ -456,6 +451,15 @@ header div.genres-menu:hover {
 
 .btn-download {
     min-width: 120px;
+}
+
+.btn-login {
+    background-color: #1daf88;
+    border-color: #1daf88;
+}
+
+.btn-login.btn-secondary:hover, .btn-login.btn-secondary:active {
+    background-color: #1daf88a0;
 }
 
 .wave-form-panel {
