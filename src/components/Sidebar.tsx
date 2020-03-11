@@ -5,7 +5,6 @@ import { Album } from '../models';
 import TopAlbumItem from './TopAlbumItem';
 import { selectTopAlbums } from '../redux/selectors';
 import { requestTopAlbums } from '../redux/actions';
-import { useRouteMatch } from 'react-router-dom';
 
 export default function Sidebar() {
     const topAlbums = useSelector(selectTopAlbums);
@@ -13,15 +12,6 @@ export default function Sidebar() {
     useEffect(() => {
         dispatch(requestTopAlbums());
     }, [dispatch]);
-    const match = useRouteMatch({
-        path: '/premium',
-        strict: true,
-        sensitive: true
-    });
-    if (match && match.isExact) {
-        return <div/>;
-    }
-
     return(
         <div className="sidebar position-fixed position-absolute">
             <div className="pt-4 pl-4 pb-5">Top {topAlbums.length} albums</div>
