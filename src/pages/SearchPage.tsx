@@ -16,9 +16,7 @@ export default function SearchPage() {
     const currentPage = useSelector(selectCurrentPage);
     const searchModeValue = useSelector(selectSearchModeValue);
     useEffect(() => {
-        if (keyword) {
-            dispatch(requestSearch(keyword, currentPage * trackCountPerPage, trackCountPerPage));
-        }
+        dispatch(requestSearch(keyword?keyword:'', currentPage * trackCountPerPage, trackCountPerPage));
     }, [dispatch, keyword, currentPage]);
 
     useEffect(() => {

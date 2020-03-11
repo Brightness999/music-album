@@ -91,6 +91,9 @@ export default function App() {
           <Route path="/search/:keyword">
             <SearchPage/>
           </Route>
+          <Route path="/search/">
+            <SearchPage/>
+          </Route>
           <Route path="/">
             <Home/>
           </Route>
