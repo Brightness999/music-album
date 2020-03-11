@@ -24,12 +24,12 @@ export default function(props: IProps) {
                 <Marquee text={ composeTrackName(props.track) } className="ml-2 mr-2" />
             </Col>
             <Col sm="2">
-                <NavLink to={`/all-releases/${props.track.album.publisher.slug}`} className="genre-link">
+                <NavLink to={`/all-releases/${props.track.album.publisher.slug}/p/0`} className="genre-link">
                     { props.track.album.publisher.name }
                 </NavLink>
             </Col>
             <Col sm="2">
-                <NavLink to={`/genres/${props.track.category.slug}`} className="genre-link">{ props.track.category.name }</NavLink>
+                <NavLink to={`/genres/${props.track.category.slug}/p/0`} className="genre-link">{ props.track.category.name }</NavLink>
             </Col>
             <Col sm="3" className="pr-1 d-flex">
                 <TrackDownloadButton className="mr-1" track={ props.track } type={ MusicFileType.MP3 }/>

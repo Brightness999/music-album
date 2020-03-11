@@ -57,16 +57,13 @@ export default function App() {
       <Header/>
       <div className="custom-container pl-5 pr-5">
         <Switch>
-          <Route path="/genres/:slug">
+          <Route path="/genres/:slug/p/:page">
             <Genres/>
           </Route>
-          <Route path="/genres">
-            <Genres/>
-          </Route>
-          <Route path="/all-releases/:publisherSlug">
+          <Route path="/all-releases/p/:page">
             <AllReleases/>
           </Route>
-          <Route path="/all-releases">
+          <Route path="/all-releases/:publisherSlug/p/:page">
             <AllReleases/>
           </Route>
           <Route path="/album/:slug">

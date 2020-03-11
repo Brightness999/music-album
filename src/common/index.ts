@@ -27,3 +27,71 @@ export function composeTrackName(track?: Track, artist?: Artist) {
     }
     return `${artist?.name} - ${track?.title}`;
 }
+
+export function composePreviousPageLink(pathName: string, pageCount: number) {
+    const matches = pathName.match(/(.*\/)(\d+)/);
+    if (matches && matches.length) {
+        const address = matches[1];
+        const page = +matches[2];
+        if (pageCount > 1) {
+            if (page-1 >= 0) {
+                return `${address}${page - 1}`;
+            } else {
+                return pathName;
+            }
+        } else {
+            return `${address}0`;
+        }
+    }
+    // assume unreachable
+    return pathName;
+}
+
+export function composeValidPageLink(pathName: string, pageCount: number) {
+    const matches = pathName.match(/(.*\/)(\d+)/);
+    if (matches && matches.length) {
+        const address = matches[1];
+        const page = +matches[2];
+        if (page < 0 || page >= pageCount) {
+            return `${address}0`;
+        } else {
+            return pathName;
+        }
+    }
+    // assume unreachable
+    return pathName;
+}
+
+export function composePageLink(pathName: string, pageCount: number, pageNum: number) {
+    const matches = pathName.match(/(.*\/)(\d+)/);
+    if (matches && matches.length) {
+        const address = matches[1];
+        if (pageNum < 0 || pageNum >= pageCount) {
+            return `${address}0`;
+        } else {
+            return `${address}${pageNum}`;
+        }
+
+    }
+    // assume unreachable
+    return pathName;
+}
+
+export function composeNextPageLink(pathName: string, pageCount: number) {
+    const matches = pathName.match(/(.*\/)(\d+)/);
+    if (matches && matches.length) {
+        const address = matches[1];
+        const page = +matches[2];
+        if (pageCount > 1) {
+            if (page+1 < pageCount) {
+                return `${address}${page + 1}`;
+            } else {
+                return pathName;
+            }
+        } else {
+            return `${address}0`;
+        }
+    }
+    // assume unreachable
+    return pathName;
+}

@@ -1,17 +1,23 @@
 import React from 'react';
 import { PaginationItem, PaginationLink } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPage } from '../redux/actions';
-import { selectCurrentPage } from '../redux/selectors';
+import { useSelector } from 'react-redux';
+import { selectCurrentPage, selectPageCount } from '../redux/selectors';
+import { composePageLink } from '../common';
+import history from '../history';
 
 interface Props {
     pageNumber: number;
 }
 
 export default function AlbumPaginationItem(props: Props) {
-    const dispatch = useDispatch();
     const currentPage = useSelector(selectCurrentPage);
+    const pageCount = useSelector(selectPageCount);
     return (<PaginationItem active={props.pageNumber === currentPage}>
-        <PaginationLink onClick={() => dispatch && dispatch(setCurrentPage(props.pageNumber))}>{props.pageNumber+1}</PaginationLink>
+        <PaginationLink onClick={() => {
+            const loc = history.location;
+            const pathName = loc.pathname;
+            const newPath = composePageLink(pathName, pageCount, props.pageNumber);
+            history.push(newPath);
+        }}>{props.pageNumber+1}</PaginationLink>
     </PaginationItem>);
 }

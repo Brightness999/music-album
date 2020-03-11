@@ -4,7 +4,13 @@ import { useParams } from 'react-router-dom';
 import { albumCountPerPage, trackCountPerPage } from '../consts';
 import AlbumPagination from '../components/AlbumPagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllAlbumList, selectCurrentPage, selectShowMode, selectTracks } from '../redux/selectors';
+import {
+    selectAllAlbumList,
+    selectCurrentPage,
+    selectPageCount,
+    selectShowMode,
+    selectTracks
+} from '../redux/selectors';
 import { requestGenreAlbums, requestGenreTracks, requestTracks, setCurrentPage, setShowMode } from '../redux/actions';
 import TracksListView from '../components/TracksListView';
 import ShowModeSwitcher from '../components/ShowModeSwitcher';
@@ -12,13 +18,22 @@ import { ShowMode } from '../redux/store';
 import AlbumsGridView from '../components/AlbumsGridView';
 
 export default function GenresPage() {
-    let { slug: categorySlug } = useParams();
+    let { slug: categorySlug, page } = useParams();
     const tracks = useSelector(selectTracks);
     const albums = useSelector(selectAllAlbumList);
     const [category, setCategory] = useState('');
     const dispatch = useDispatch();
     const showMode = useSelector(selectShowMode);
     const currentPage = useSelector(selectCurrentPage);
+    const pageCount = useSelector(selectPageCount);
+
+    if (page && +page >= pageCount) {
+        page = '0';
+    }
+
+    useEffect(() => {
+        page && dispatch(setCurrentPage(+page));
+    }, [page, dispatch]);
 
     useEffect(() => {
         dispatch(setCurrentPage(0));
