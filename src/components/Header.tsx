@@ -1,6 +1,6 @@
 import React, { createRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Input } from 'reactstrap';
+import { Col, Input, Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,31 @@ export function Header() {
     const genresMenuWrapper = createRef<HTMLDivElement>();
     const loggedIn = useSelector(selectLoggedIn);
     const dispatch = useDispatch();
+    let categoryLinks: JSX.Element[] = [];
+    const categoryCount = categories.length;
+    for (let i = 0; i < categoryCount; i += 2) {
+        
+        const category1 = categories[i];
+        const category2 = categories[i+1];
+        categoryLinks.push(<Row className="py-2" key={i}>
+            <Col><NavLink
+                onClick={ () => {
+                    if (genresMenuWrapper.current !== null) {
+                        genresMenuWrapper.current.hidden = true;
+                    }
+                } }
+                to={`/genres/${category1.slug}/s/LIST/p/0`}
+            >{category1.name}</NavLink></Col>
+            <Col><NavLink
+                onClick={ () => {
+                    if (genresMenuWrapper.current !== null) {
+                        genresMenuWrapper.current.hidden = true;
+                    }
+                } }
+                to={`/genres/${category2?.slug}/s/LIST/p/0`}
+            >{category2?.name}</NavLink></Col>
+        </Row>)
+    }
     return (
         <header className={"d-flex position-fixed align-items-center justify-content-between"}>
             <div className="header-wrapper d-flex justify-content-around">
@@ -28,16 +53,7 @@ export function Header() {
                         }}>Genres</span>
                         <div className="position-absolute sub-menu-wrapper" ref={genresMenuWrapper}>
                             {
-                                categories.map(((category, index) =>
-                                    <NavLink
-                                        onClick={ () => {
-                                            if (genresMenuWrapper.current !== null) {
-                                                genresMenuWrapper.current.hidden = true;
-                                            }
-                                        } }
-                                        to={`/genres/${category.slug}/s/LIST/p/0`}
-                                        key={index}
-                                    >{category.name}</NavLink>))
+                                categoryLinks
                             }
                         </div>
                     </div>
@@ -48,6 +64,7 @@ export function Header() {
                         <Input placeholder="Search here..." id="iSearch" value={keyword} onChange={event => setKeyword(event.target.value)} onKeyDown={event => {
                             if (event.key === 'Enter') {
                                 history.push(`/search/${keyword}/p/0`);
+                                setKeyword('');
                             }
                         }}/>
                     </div>

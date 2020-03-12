@@ -29,6 +29,15 @@ export default function LoginPage() {
             }
         }
     });
+
+    const login = () => {
+        if (username === '' || password === '') {
+            dispatch(setLoginErrorMessage('Please fill out above fields.'));
+            return;
+        }
+        dispatch(requestLogin(username, password));
+    };
+
     return loggedIn?<div/>:(<div className="login-page d-flex justify-content-center align-items-center">
         <div className="login-wrapper">
             <div className="login-header pt-5 pb-4 px-4">
@@ -37,18 +46,16 @@ export default function LoginPage() {
             <div className="login-body pt-4 px-4">
             <div className="mb-2">Login with your email Address.</div>
                 <Input placeholder="Username or Email" className="mb-3" value={username} onChange={evt => setUsername(evt.target.value)}/>
-                <Input type="password" placeholder="Password" className="mb-4" value={password} onChange={evt => setPassword(evt.target.value)}/>
+                <Input type="password" placeholder="Password" className="mb-4" value={password} onChange={evt => setPassword(evt.target.value)} onKeyDown={event => {
+                    if (event.key === 'Enter') {
+                        login();
+                    }
+                }}/>
             </div>
             <div className="login-error px-4">{ loginErrorMessage }</div>
             <div className="login-footer p-4">
                 <Button
-                    onClick={() => {
-                        if (username === '' || password === '') {
-                            dispatch(setLoginErrorMessage('Please fill out above fields.'));
-                            return;
-                        }
-                        dispatch(requestLogin(username, password));
-                    }}
+                    onClick={login}
                     className="w-100 btn-login">SIGN IN</Button>
             </div>
         </div>

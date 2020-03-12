@@ -121,11 +121,10 @@ header .dropdown-toggle { /* force override all bootstrap */
 }
 
 header .sub-menu-wrapper {
-    background-color: #6B849C;
+    background-color: #3a3a3a;
     top: 70px;
     left: 50px;
-    width: calc(100% - 100px);
-    height: 100px;
+    width: 600px;
     z-index: 999;
     display: none;
     padding: 10px 20px 10px 20px;
