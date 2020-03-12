@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCategories, selectLoggedIn } from '../redux/selectors';
 import { setLoggedIn } from '../redux/actions';
 import history from '../history';
+import { environment } from '../environments/envrionment';
 
 export function Header() {
     const categories = useSelector(selectCategories);
@@ -71,7 +72,7 @@ export function Header() {
                 </div>
                 <div className="d-flex align-items-center">
                     <NavLink to="/premium" activeClassName="active">Premium</NavLink>
-                    <NavLink to="/account" activeClassName="active">Account</NavLink>
+                    { !environment.TEST_MODE && <NavLink to="/account" activeClassName="active">Account</NavLink> }
                     <NavLink to="/contact" activeClassName="active">Contact</NavLink>
                     {loggedIn?
                     <div className="genre-link" onClick={() => {

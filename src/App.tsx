@@ -20,6 +20,7 @@ import { selectDownloadErrorMessage, selectHasDownloadError, selectLoadingState 
 import { LoadingState } from './redux/store';
 import history from './history';
 import SearchPage from './pages/SearchPage';
+import { environment } from './environments/envrionment';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -53,7 +54,9 @@ export default function App() {
           onLoaderFinished={() => setLoadProgress(0)}
       />
       <Sidebar/>
-      <LoginPage/>
+      {
+        !environment.TEST_MODE && <LoginPage/>
+      }
       <Header/>
       <div className="custom-container pl-5 pr-5">
         <Switch>

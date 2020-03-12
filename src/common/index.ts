@@ -4,7 +4,7 @@ import { ShowMode } from '../redux/store';
 import history from '../history';
 
 export const composeAlbumImagePath = (albumLocation?: string, albumSlug?: string) => {
-    return `${environment.API_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
+    return `${environment.CDN_URL}/uploads/albums/${albumLocation}/thumb/${albumSlug}.jpg`;
 };
 
 export const composeTrackDownloadPath = (trackSlug?: string, ext?: string, check?: string) => {
@@ -16,11 +16,11 @@ export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string, check
 };
 
 export const composeMusicFilePath = (albumSlug?: string) => {
-    return `${environment.API_URL}/api/stream-mp3/${albumSlug}`;
+    return `${environment.CDN_URL}/api/stream-mp3/${albumSlug}`;
 };
 
 export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: string) => {
-    return `${environment.API_URL}/uploads/audios/${albumLocation}/wavefiles/${trackSlug}.png`;
+    return `${environment.CDN_URL}/uploads/audios/${albumLocation}/wavefiles/${trackSlug}.png`;
 };
 
 export function composeTrackName(track?: Track, artist?: Artist) {
