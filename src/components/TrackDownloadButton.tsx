@@ -6,6 +6,7 @@ import { MusicFileType } from '../types';
 import DownloadButton from './DownloadButton';
 import { useDispatch } from 'react-redux';
 import { requestDownloadTrack } from '../redux/actions';
+import { environment } from '../environments/envrionment';
 
 interface Props {
     track?: Track;
@@ -21,8 +22,9 @@ export default function TrackDownloadButton(props: Props) {
             props.track.flac_size :
             props.track.mp3_size;
     }
+    const label = environment.TEST_MODE ? `.${props.type}` : `.${props.type} (${formatFilesize(fileSize)})`;
     return <DownloadButton
-        label={ `.${props.type} (${formatFilesize(fileSize)})` }
+        label={ label }
         type={props.type}
         disabled={ props.track === undefined }
         target={props.track}

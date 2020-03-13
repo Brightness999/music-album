@@ -37,7 +37,9 @@ export default function App() {
     });
     setTimeout(() => dispatch(setHasDownloadError(false)), 1000);
   }, [downloadErrorMessage, hasDownloadError, addToast, dispatch]);
-  dispatch(requestCategories());
+  useEffect(() => {
+    dispatch(requestCategories());
+  });
   useEffect(() => {
     if (loadingState === LoadingState.LOADING) {
       setLoadProgress(20);
