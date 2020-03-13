@@ -1,0 +1,410 @@
+.contact {
+  padding: 20px;
+
+  .legend {
+    margin-top: 0
+  }
+
+  .app-form .app-name:before, .app-forms .app-name:before {
+    font-style: normal;
+    font-weight: normal;
+    vertical-align: -1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\E151";
+  }
+
+  .g-recaptcha {
+    min-height: 78px;
+  }
+  .panel-heading {
+    color: #FFF;
+    background-color: #92a1ad;
+    border-color: transparent;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  .panel-heading a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .panel {
+    margin-bottom: 20px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  }
+
+  .panel-title {
+    font-family: "Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+
+  .panel-body {
+    padding: 5px;
+    line-height: 0;
+    border: 4px solid white;
+  }
+
+  .form-container {
+    padding: 20px;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /*********** CSS Theme **********/
+
+  color: #7b8291;
+
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    body {
+      padding: 50px;
+    }
+  }
+
+  strong {
+    color: #FFFFFF;
+  }
+
+  .legend {
+    font-family: "helvetica", "arial", "sans-serif";
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #fff;
+    margin: 0 0 5px;
+  }
+
+  p.description {
+    color: #1ec185;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAPCAYAAAAyPTUwAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4JpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpEQUIyQTJGOUZCNzZERTExQkFGNUUxNDNCMEI4NkZGMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFREYxQURBODk5N0YxMUU0OTU0N0EzNkVCREUxQzBFRCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFREYxQURBNzk5N0YxMUU0OTU0N0EzNkVCREUxQzBFRCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmNlOWNlZGU1LTM1YTYtNDFiNi04NDA4LTM2YmIxMjY4NjdhNSIgc3RSZWY6ZG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOmI2Nzk5MjljLWRmZTMtMTE3Ny1iOGNhLTlmM2YyOWFkM2Y1YiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoBOvTYAAACrSURBVHjaYpE72MqABKSA2B+IZYH4ERBvAOIXMEkWJIUhQLwIiDmRxHqBOBqqiYEJKiiJpvA/lOaCiosgK/ZFUhgIxKxAHAHl8wKxF7IzZJGs3gCl16L5BW4ystth4A+6AEgRIxBzIIkJYtHICVN8HIjNkSTeYVFcB8QOTGgK8QE7JgYSwCBS/JNItV9BQecJxD5ArAPEikDMB8RsUEM+A/E9IL4EilGAAAMAaCsYB5gwb+gAAAAASUVORK5CYII=") 0 40% no-repeat;
+    font-size: 14px;
+    padding-left: 20px;
+    display: inline-block;
+    margin: 5px auto 0;
+  }
+
+  .form-group,
+  .form-action {
+    font-size: 14px;
+    color: #7b8291;
+    margin: 27px 0 9px;
+  }
+
+  .control-label {
+    font-size: 16px;
+    color: #fff;
+    margin: 0 5px 9px 0;
+  }
+
+  .required-control .control-label:after {
+    color: #e55;
+    margin-left: 5px;
+  }
+
+  .form-control {
+    background: #363e51;
+    border-color: transparent;
+    border-radius: 3px;
+    color: #fff;
+    margin: 0;
+    height: 36px;
+    width: 100%;
+    -webkit-transition: background .08s linear;
+    -moz-transition: background .08s linear;
+    -o-transition: background .08s linear;
+    transition: background .08s linear;
+  }
+
+  .form-control:hover {
+    background: #424a5b
+  }
+
+  .form-control:focus {
+    background: #fff;
+    color: #212a3e
+  }
+
+  .form-control::-webkit-input-placeholder {
+    color: #7b8291
+  }
+
+  .form-control::-moz-placeholder {
+    color: #7b8291
+  }
+
+  .form-control:-ms-input-placeholder {
+    color: #7b8291
+  }
+
+  .form-control::placeholder {
+    color: #7b8291
+  }
+
+  .btn {
+    border-radius: 4px;
+    border: 0 !important;
+    font-size: 18px;
+    font-weight: 500;
+    width: auto;
+    height: 55px;
+    line-height: 55px;
+    margin: 0;
+    padding: 0 30px;
+    -webkit-transition: background-color .1s ease;
+    -moz-transition: background-color .1s ease;
+    -o-transition: background-color .1s ease;
+    transition: background-color .1s ease;
+  }
+
+  .btn-primary {
+    background-color: #1ec185;
+  }
+
+  .btn-primary:focus,
+  .btn-primary:active,
+  .btn-primary:hover {
+    background-color: #1baf79 !important;
+    color: #fff;
+    border: 0 !important;
+    outline: 0 none !important;
+    box-shadow: none !important;
+  }
+
+  /*********** Theme Designer **********/
+  .form-container {
+  }
+
+  #form-app {
+  }
+
+  #form-app .form-group {
+  }
+
+  #form-app .form-control {
+  }
+
+  #form-app .form-control:focus {
+  }
+
+  #form-app .btn.btn-primary {
+  }
+
+  #form-app .btn.btn-primary:hover,
+  #form-app .btn.btn-primary:active,
+  #form-app .btn.btn-primary:focus {
+  }
+
+  #form-app .btn.btn-default {
+  }
+
+  #form-app .btn.btn-default:hover,
+  #form-app .btn.btn-default:active,
+  #form-app .btn.btn-default:focus {
+  }
+
+  #form-app .btn.btn-warning {
+  }
+
+  #form-app .btn.btn-warning:hover,
+  #form-app .btn.btn-warning:active,
+  #form-app .btn.btn-warning:focus {
+  }
+
+  #form-app .btn.btn-danger {
+  }
+
+  #form-app .btn.btn-danger:hover,
+  #form-app .btn.btn-danger:active,
+  #form-app .btn.btn-danger:focus {
+  }
+
+  #form-app .btn.btn-info:hover,
+  #form-app .btn.btn-info:active,
+  #form-app .btn.btn-info:focus {
+  }
+
+  #form-app .control-label {
+  }
+
+  #form-app ::placeholder {
+  }
+
+  #form-app h1,
+  #form-app h2,
+  #form-app h3,
+  #form-app h4,
+  #form-app h5,
+  #form-app h6,
+  #form-app .legend {
+  }
+
+  #form-app p {
+  }
+
+  #form-app .help-block {
+  }
+
+  #form-app a {
+  }
+
+  #form-app a:hover {
+  }
+
+  #form-app .steps .step .stage,
+  #form-app .steps .step:before,
+  #form-app .steps .step:after {
+  }
+
+  #form-app .steps .step .stage {
+  }
+
+  #form-app .steps .step:after,
+  #form-app .steps .step:before {
+  }
+
+  #form-app .steps .step.current .stage,
+  #form-app .steps .step.current:after,
+  #form-app .steps .step.current:before {
+  }
+
+  #form-app .steps .step.success .stage,
+  #form-app .steps .step.success:after,
+  #form-app .steps .step.success:before {
+  }
+
+  #form-app .steps .step .title {
+  }
+
+  #form-app .steps .step.current .title {
+  }
+
+  #form-app .steps .step.success .title {
+  }
+
+  .alert {
+  }
+
+  .alert-success {
+  }
+
+  .alert-danger {
+  }
+
+  .alert-info {
+  }
+
+  .alert-warning {
+  }
+
+  .has-error .form-control {
+  }
+
+  .has-error .help-block,
+  .has-error .control-label,
+  .has-error .radio,
+  .has-error .checkbox,
+  .has-error .radio-inline,
+  .has-error .checkbox-inline,
+  .has-error.radio label,
+  .has-error.checkbox label,
+  .has-error.radio-inline label,
+  .has-error.checkbox-inline label {
+  }
+
+  .required .control-label:after,
+  .required-control .control-label:after {
+  }
+
+  #recaptcha,
+  .g-recaptcha {
+  }
+
+  .signature-pad {
+  }
+
+  .signature-pad canvas {
+  }
+
+  input[type=checkbox] {
+  }
+
+  .checkbox-inline {
+  }
+
+  input[type=radio] {
+  }
+
+  .custom-control .checkbox label::before,
+  .custom-control .inline-control-checkbox label::before {
+  }
+
+  .custom-control .checkbox label::after,
+  .custom-control .inline-control-checkbox label::after {
+  }
+
+  .custom-control .checkbox input:checked + label::before,
+  .custom-control .inline-control-checkbox input:checked + label::before {
+  }
+
+  .custom-control .checkbox input:checked + label::after,
+  .custom-control .inline-control-checkbox input:checked + label::after {
+  }
+
+  .custom-control .radio label::before,
+  .custom-control .inline-control-radio label::before {
+  }
+
+  .custom-control .radio label::after,
+  .custom-control .inline-control-radio label::after {
+  }
+
+  .custom-control .radio input:checked + label::before,
+  .custom-control .inline-control-radio input:checked + label::before {
+  }
+
+  .custom-control .radio input:checked + label::after,
+  .custom-control .inline-control-radio input:checked + label::after {
+  }
+
+  .btn.prev {
+  }
+
+  #form-app .btn.prev:hover,
+  #form-app .btn.prev:active,
+  #form-app .btn.prev:focus {
+  }
+
+  .btn.next {
+  }
+
+  #form-app .btn.next:hover,
+  #form-app .btn.next:active,
+  #form-app .btn.next:focus {
+  }
+
+  .progress {
+    display: none;
+  }
+
+  .progress-bar {
+  }
+
+  .table {
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  #textarea_2 {
+    height: 90px;
+  }
+
+  .well {
+  }
+}
