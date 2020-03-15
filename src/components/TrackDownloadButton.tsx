@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Track } from '../models';
-import { formatFilesize } from '../utils';
+import { formatFileSize } from '../utils';
 import { MusicFileType } from '../types';
 import DownloadButton from './DownloadButton';
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,7 @@ export default function TrackDownloadButton(props: Props) {
             props.track.flac_size :
             props.track.mp3_size;
     }
-    const label = environment.TEST_MODE ? `.${props.type}` : `.${props.type} (${formatFilesize(fileSize)})`;
+    const label = environment.TEST_MODE ? `.${props.type}` : `.${props.type} (${formatFileSize(fileSize)})`;
     return <DownloadButton
         label={ label }
         type={props.type}
