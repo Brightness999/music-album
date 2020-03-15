@@ -42,7 +42,7 @@ export default function ListTrackPlayButton(props: Props) {
                 let playListTracks;
                 if (currentRoute.startsWith('/album')) {
                     playListTracks = album?.tracks;
-                } else if (currentRoute.startsWith('/all-releases')) {
+                } else if (currentRoute.startsWith('/all-releases') || currentRoute.startsWith('/genres') || currentRoute.startsWith('/search')) {
                     playListTracks = tracks;
                 }
                 if (playListTracks) {
