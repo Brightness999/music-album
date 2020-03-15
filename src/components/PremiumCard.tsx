@@ -6,6 +6,7 @@ import VisaIcon from '../assets/images/visa.png';
 import PayPalIcon from '../assets/images/paypal.png';
 import MasterCardIcon from '../assets/images/mastercard.png';
 import {Button} from "reactstrap";
+import {environment} from "../environments/envrionment";
 
 interface Props {
     dayLimit: number;
@@ -13,6 +14,7 @@ interface Props {
     downloadSpeed?: number;
     price: number;
     onClickRegistration: () => void;
+    link?: string;
 }
 
 export default function PremiumCard(props: Props) {
@@ -37,7 +39,14 @@ export default function PremiumCard(props: Props) {
                 <img className="mx-2" src={PayPalIcon} height={25} alt="paypal"/>
             </div>
             <div className="text-center py-2">{ props.price } &euro;</div>
-            <Button color="primary" onClick={props.onClickRegistration}>Registration</Button>
+            {
+                environment.TEST_MODE ?
+                    <Button color="primary" onClick={props.onClickRegistration}>Registration</Button>:
+                    <Button color="primary" onClick={() => {
+                        window.open(props.link, '_blank');
+                    }
+                    }>Buy Now</Button>
+            }
         </div>
     </div>);
 }

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import {setPremium, setWideScreen} from '../redux/actions';
 import PremiumPopup from "../components/PremiumPopup";
 import {Premium} from "../types";
+import {premiums} from "../consts";
 
 export default function PremiumPage() {
     const dispatch = useDispatch();
@@ -23,9 +24,17 @@ export default function PremiumPage() {
     };
     return <div className="page">
         <Row className="cards-wrapper">
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_30)} dayLimit={30} downloadPerDay={30} price={20}/></Col>
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_50)} dayLimit={30} downloadPerDay={50} price={30}/></Col>
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_100)} dayLimit={30} downloadPerDay={100} price={45}/></Col>
+            {
+                premiums.map((premium, index) => (
+                    <Col key={index}><PremiumCard
+                        onClickRegistration={() => onClickRegistration(premium.premium)}
+                        dayLimit={premium.dayLimit}
+                        downloadPerDay={premium.downloadPerDay}
+                        link={premium.link}
+                        price={premium.price}/></Col>
+
+                ))
+            }
         </Row>
         <PremiumPopup isOpen={modal} toggle={toggle} className="easy-form"/>
     </div>;

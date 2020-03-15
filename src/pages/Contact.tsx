@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useToasts } from 'react-toast-notifications';
 import parseHtml from 'html-react-parser';
 import { Button, Col } from 'reactstrap';
+import {environment} from "../environments/envrionment";
 
 export default function ContactPage() {
 
@@ -71,7 +72,7 @@ export default function ContactPage() {
         <div className="row justify-content-center">
             <Col sm="12" md="12" lg="6" className="contact-box panel panel-default">
                 <form method="post"
-                      action="https://mail.house-language.com/app/f?id=3"
+                      action={ environment.TEST_MODE ? "https://mail.house-language.com/app/f?id=3" : "https://mail.house-language.com/app/f?id=4" }
                       onSubmit={contact}
                       encType="multipart/form-data" id="form-app">
                     <fieldset className="row flex-column">
