@@ -44,7 +44,7 @@ export default function AlbumPage() {
 
     return (
         <div className="page album-page">
-            <p className="album-title">{album?.title}</p>
+            <p className="album-title">{album?.title.replace('&amp;', '&')}</p>
             <Row>
                 <div
                     onClick={() => {
