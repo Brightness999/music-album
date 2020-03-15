@@ -8,6 +8,7 @@ import ListTrackPlayButton from './ListTrackPlayButton';
 import { MusicFileType } from '../types';
 import { composeAlbumImagePath, composeTrackName } from '../common';
 import { NavLink } from 'react-router-dom';
+import history from '../history';
 
 interface IProps {
     track: Track;
@@ -18,7 +19,14 @@ export default function(props: IProps) {
         <Row className="list-track-item d-flex align-items-center justify-content-around mt-3 mb-3">
             <Col sm="5" className="d-flex align-items-center">
                 <div className="position-relative d-flex">
-                    <img src={ composeAlbumImagePath(props.track.album.location, props.track.album.slug) } alt="album" />
+                    <img
+                        src={ composeAlbumImagePath(props.track.album.location, props.track.album.slug) }
+                        alt="album"
+                        className="img-album"
+                        onClick={ () => {
+                            history.push(`/album/${props.track.album.slug}`);
+                        } }
+                    />
                 </div>
                 <ListTrackPlayButton track={ props.track }/>
                 <Marquee text={ composeTrackName(props.track) } className="ml-2 mr-2" />
