@@ -25,9 +25,9 @@ export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: str
 
 export function composeTrackName(track?: Track, artist?: Artist) {
     if (artist === undefined) {
-        return `${track?.artist.name} - ${track?.title}`;
+        return `${track?.artist.name} - ${track?.title}`.replace('&amp;', '&');
     }
-    return `${artist?.name} - ${track?.title}`;
+    return `${artist?.name} - ${track?.title}`.replace('&amp;', '&');
 }
 
 export function composePreviousPageLink(pathName: string, pageCount: number) {
