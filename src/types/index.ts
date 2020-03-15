@@ -10,3 +10,9 @@ export interface UserInfo {
     downloadLimit: number;
     downloadedData: number;
 }
+
+export enum Premium {
+    PREMIUM_30 = 'Premium 30',
+    PREMIUM_50 = 'Premium 50',
+    PREMIUM_100 = 'Premium 100'
+}

@@ -1,4 +1,4 @@
-import { initialState, PlayStatus, StoreState } from './store';
+import {initialState, PlayStatus, StoreState} from './store';
 import {
     ActionType,
     NEXT_TRACK,
@@ -19,6 +19,7 @@ import {
     SET_PAGE_COUNT,
     SET_PLAY_LIST,
     SET_PLAY_STATUS,
+    SET_PREMIUM,
     SET_SEARCH_MODE_VALUE,
     SET_SHOW_MODE,
     SET_TOP_ALBUMS,
@@ -108,6 +109,9 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
         }
         case SET_SEARCH_MODE_VALUE: {
             return Object.assign({}, state, {...state, searchModeValue: action.searchModeValue});
+        }
+        case SET_PREMIUM: {
+            return Object.assign({}, state, {...state, premium: action.premium});
         }
         default:
             return state;

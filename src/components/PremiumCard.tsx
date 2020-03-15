@@ -5,18 +5,20 @@ import { faCalendarAlt, faDownload, faSignal } from '@fortawesome/free-solid-svg
 import VisaIcon from '../assets/images/visa.png';
 import PayPalIcon from '../assets/images/paypal.png';
 import MasterCardIcon from '../assets/images/mastercard.png';
+import {Button} from "reactstrap";
 
 interface Props {
     dayLimit: number;
     downloadPerDay: number;
     downloadSpeed?: number;
     price: number;
+    onClickRegistration: () => void;
 }
 
 export default function PremiumCard(props: Props) {
     return (<div className="premium-card">
         <div className="premium-card-header text-center">PREMIUM { props.downloadPerDay }</div>
-        <div className="premium-card-body">
+        <div className="premium-card-body d-flex flex-column justify-content-center">
             <div className="d-flex align-items-center pt-4 pb-2">
                 <FontAwesomeIcon icon={ faCalendarAlt }/>
                 <div className="pl-1">{ props.dayLimit } Days</div>
@@ -35,6 +37,7 @@ export default function PremiumCard(props: Props) {
                 <img className="mx-2" src={PayPalIcon} height={25} alt="paypal"/>
             </div>
             <div className="text-center py-2">{ props.price }&euro;</div>
+            <Button color="primary" onClick={props.onClickRegistration}>Registration</Button>
         </div>
     </div>);
 }

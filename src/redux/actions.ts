@@ -1,6 +1,6 @@
 import { LoadingState, PlayStatus, ShowMode } from './store';
 import { Album, Category, DetailAlbum, Track } from '../models';
-import { MusicFileType, UserInfo } from '../types';
+import {MusicFileType, Premium, UserInfo} from '../types';
 
 export const SET_SHOW_MODE = 'SET_SHOW_MODE';
 export const SET_PLAY_LIST = 'SET_PLAY_LIST';
@@ -27,6 +27,7 @@ export const SET_HAS_DOWNLOAD_ERROR = 'SET_HAS_DOWNLOAD_ERROR';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_WIDE_SCREEN = 'SET_WIDE_SCREEN';
 export const SET_SEARCH_MODE_VALUE = 'SET_SEARCH_MODE_VALUE';
+export const SET_PREMIUM = 'SET_PREMIUM';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
@@ -78,6 +79,7 @@ type SET_USER_INFO = typeof SET_USER_INFO;
 type SET_WIDE_SCREEN = typeof SET_WIDE_SCREEN;
 type SEARCH_REQUESTED = typeof SEARCH_REQUESTED;
 type SET_SEARCH_MODE_VALUE = typeof SET_SEARCH_MODE_VALUE;
+type SET_PREMIUM = typeof SET_PREMIUM;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -197,6 +199,11 @@ interface SetSearchModeValue {
     searchModeValue: string;
 }
 
+interface SetPremium {
+    type: SET_PREMIUM;
+    premium: Premium;
+}
+
 // saga interfaces
 // saga actions with parameters need interface for the action type and must be exported
 export interface RequestAlbumDetail {
@@ -299,7 +306,8 @@ export type ActionType =
     SetUserInfo |
     SetWideScreen |
     RequestSearch |
-    SetSearchModeValue;
+    SetSearchModeValue |
+    SetPremium;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -340,3 +348,4 @@ export const requestUserInfo = () => ({ type: USER_INFO_REQUESTED});
 export const setWideScreen = (wideScreen: boolean) => ({ type: SET_WIDE_SCREEN, wideScreen: wideScreen});
 export const requestSearch = (keyword: string, skip: number, limit: number) => ({ type: SEARCH_REQUESTED, keyword: keyword, skip: skip, limit: limit});
 export const setSearchModeValue = (searchModeValue: string) => ({ type: SET_SEARCH_MODE_VALUE, searchModeValue: searchModeValue});
+export const setPremium = (premium: Premium) => ({ type: SET_PREMIUM, premium: premium});

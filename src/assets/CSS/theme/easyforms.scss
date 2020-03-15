@@ -1,8 +1,19 @@
-.contact {
+.easy-form {
   padding: 20px;
-
   .legend {
     margin-top: 0
+  }
+
+  .modal-header, .modal-body {
+    background-color: #2a3343;
+  }
+
+  .modal-title {
+    color: white;
+  }
+
+  .modal-header .close {
+    color: white;
   }
 
   .app-form .app-name:before, .app-forms .app-name:before {

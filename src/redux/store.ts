@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import { reducer } from './reducers';
 import appSaga from './sagas';
 import { Album, Category, DetailAlbum, Track } from '../models';
-import { UserInfo } from '../types';
+import {Premium, UserInfo} from '../types';
 
 export enum PlayStatus {
     PLAYING = 'PLAYING',
@@ -49,7 +49,8 @@ export const initialState: StoreState = {
         email: '',
         name: '',
         expirationDate: 0
-    }
+    },
+    premium: Premium.PREMIUM_30
 };
 
 export interface StoreState {
@@ -75,6 +76,7 @@ export interface StoreState {
     userInfo: UserInfo;
     searchModeValue: string;
     wideScreen: boolean;
+    premium: Premium;
 }
 
 // saga middleware
