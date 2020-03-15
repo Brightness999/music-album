@@ -472,10 +472,27 @@ header div.genres-menu:hover {
 
 .btn-download {
     color: #fdb29b;
+    background-color: #304456;
+    border-color: #304456;
     font-size: 0.8rem;
     &:focus {
-        color: #fdb29b;
-        box-shadow: none;
+        background-color: #304456 !important;
+        box-shadow: none !important;
+        border-color: #304456;
+    }
+    &:active {
+        background-color: #304444 !important;
+        outline: none;
+        border: #304456;
+        box-shadow: none !important;
+    }
+    &:hover{
+        border: #304456;
+        background-color: #304456;
+    }
+    &:disabled {
+        background-color: #304456 !important;
+        border-color: #304456 !important;
     }
 }
 

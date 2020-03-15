@@ -166,7 +166,7 @@ export default function PlayBar() {
                         track !== undefined ?
                             <div>
                                 <NavLink to={`/album/${track.album.slug}`}>
-                                    {track.album.title}
+                                    { track.album.title.replace('&amp;', '&') }
                                 </NavLink>&nbsp;by&nbsp;
                                 <NavLink to={`/all-releases/${track.album.publisher.slug}/s/GRID/p/0`}>
                                     {track.album.publisher.name}

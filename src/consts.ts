@@ -27,6 +27,6 @@ export const premiums = [
         dayLimit: 30,
         downloadPerDay: 100,
         price: 45,
-        link: 'http://tiny.cc/premium50'
+        link: 'http://tiny.cc/premium100'
     }
 ];
