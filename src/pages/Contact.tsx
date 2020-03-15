@@ -80,21 +80,21 @@ export default function ContactPage() {
                             <Col xs="12"><h3 className="legend">Contact</h3></Col>
                             <Col xs="12">
                                 <div className="form-group required-control">
-                                    <label className="control-label" htmlFor="text_2">Your name</label>
+                                    <label className="control-label pb-1" htmlFor="text_2">Your name<span className='required'>*</span></label>
                                     <input type="text" id="text_2" name="text_2" data-alias=""
                                            className="form-control" value={text_2} onChange={evt => setText_2(evt.target.value)} required/>
                                 </div>
                             </Col>
                             <Col xs="12">
                                 <div className="form-group required-control">
-                                    <label className="control-label" htmlFor="email_2">Your email</label>
+                                    <label className="control-label pb-1" htmlFor="email_2">Your email<span className='required'>*</span></label>
                                     <input type="email" id="email_2" name="email_2" data-alias=""
                                            className="form-control" value={email_2} onChange={evt => setEmail_2(evt.target.value)} required/>
                                 </div>
                             </Col>
                             <Col xs="12">
                                 <div className="form-group required-control">
-                                    <label className="control-label" htmlFor="textarea_2">Message</label>
+                                    <label className="control-label pb-1" htmlFor="textarea_2">Message<span className='required'>*</span></label>
                                     <textarea id="textarea_2" name="textarea_2" data-alias=""
                                               className="form-control" value={textArea_2} onChange={evt => setTextArea_2(evt.target.value)} rows={3} required/>
                                 </div>
