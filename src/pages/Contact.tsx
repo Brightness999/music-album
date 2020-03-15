@@ -70,13 +70,6 @@ export default function ContactPage() {
     return <div className="page contact">
         <div className="row justify-content-center">
             <Col sm="12" md="12" lg="6" className="contact-box panel panel-default">
-                <div className="panel-heading">
-                    <h3 className="panel-title">
-                        <a href="https://mail.house-language.com/">
-                            <span className="app-name">Mail</span>
-                        </a>
-                    </h3>
-                </div>
                 <div className="panel-body form-container">
                     <div id="messages"/>
                     <form method="post"
