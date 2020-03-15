@@ -25,7 +25,7 @@ export default function PremiumCard(props: Props) {
             </div>
             <div className="d-flex align-items-center pb-2">
                 <FontAwesomeIcon icon={ faDownload }/>
-                <div className="pl-1">{ props.downloadPerDay } downloads per day</div>
+                <div className="pl-1">{ props.downloadPerDay } GB download quota</div>
             </div>
             <div className="d-flex align-items-center pb-2">
                 <FontAwesomeIcon icon={ faSignal }/>
@@ -36,7 +36,7 @@ export default function PremiumCard(props: Props) {
                 <img className="mx-2" src={MasterCardIcon} height={25} alt="mastercard"/>
                 <img className="mx-2" src={PayPalIcon} height={25} alt="paypal"/>
             </div>
-            <div className="text-center py-2">{ props.price }&euro;</div>
+            <div className="text-center py-2">{ props.price } &euro;</div>
             <Button color="primary" onClick={props.onClickRegistration}>Registration</Button>
         </div>
     </div>);

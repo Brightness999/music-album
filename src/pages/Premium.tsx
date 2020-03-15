@@ -23,9 +23,9 @@ export default function PremiumPage() {
     };
     return <div className="page">
         <Row className="cards-wrapper">
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_30)} dayLimit={30} downloadPerDay={30} price={10.95}/></Col>
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_50)} dayLimit={30} downloadPerDay={50} price={15.95}/></Col>
-            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_100)} dayLimit={30} downloadPerDay={100} price={21.95}/></Col>
+            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_30)} dayLimit={30} downloadPerDay={30} price={20}/></Col>
+            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_50)} dayLimit={30} downloadPerDay={50} price={30}/></Col>
+            <Col><PremiumCard onClickRegistration={() => onClickRegistration(Premium.PREMIUM_100)} dayLimit={30} downloadPerDay={100} price={45}/></Col>
         </Row>
         <PremiumPopup isOpen={modal} toggle={toggle} className="easy-form"/>
     </div>;
