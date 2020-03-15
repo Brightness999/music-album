@@ -13,20 +13,20 @@ export const premiums = [
         dayLimit: 30,
         downloadPerDay: 30,
         price: 20,
-        link: 'https://some-host.com/some-link-1'
+        link: 'http://tiny.cc/premium30'
     },
     {
         premium: Premium.PREMIUM_50,
         dayLimit: 30,
         downloadPerDay: 50,
         price: 30,
-        link: 'https://some-host.com/some-link-2'
+        link: 'http://tiny.cc/premium50'
     },
     {
         premium: Premium.PREMIUM_100,
         dayLimit: 30,
         downloadPerDay: 100,
         price: 45,
-        link: 'https://some-host.com/some-link-3'
+        link: 'http://tiny.cc/premium50'
     }
 ];
