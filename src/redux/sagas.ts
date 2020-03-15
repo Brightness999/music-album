@@ -35,7 +35,7 @@ import {
     setCategories,
     setCurrentAlbumDetail,
     setCurrentPage,
-    setCurrentTrack,
+    setCurrentTrack, setCurrentTrackSlug,
     setDownloadErrorMessage,
     setFeaturedAlbums,
     setHasDownloadError,
@@ -163,6 +163,7 @@ function* selectAlbumAsPlaylist(action: SelectAlbumAsPlaylist) {
     const album = yield call(apiFetchAlbumDetail, action.slug);
     const play_list = album.tracks.map((track: Track) => track.slug);
     yield put(setPlayList(play_list));
+    yield put(setCurrentTrackSlug(play_list[0]));
 }
 
 function* fetchCategories() {

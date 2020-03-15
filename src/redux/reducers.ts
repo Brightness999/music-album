@@ -39,7 +39,7 @@ export const reducer = (state: StoreState = initialState, action: ActionType): S
             return Object.assign({}, state, {...state, currentTrackSlug: action.trackSlug});
         }
         case SET_PLAY_LIST:
-            return Object.assign({}, state, { ...state, playList: action.playList, currentTrackSlug: action.playList[0] });
+            return Object.assign({}, state, { ...state, playList: action.playList});
         case SET_PLAY_STATUS:
             return Object.assign({}, state, { ...state, playStatus: action.playStatus });
         case NEXT_TRACK: {

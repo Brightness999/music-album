@@ -4,15 +4,33 @@ export const formatDuration = (length: number): string => {
     let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     let seconds = sec_num - (hours * 3600) - (minutes * 60);
     if (hours > 0) {
-        return hours + ':' + minutes + ':' + seconds;
+        let sMin, sSec;
+        if (minutes < 10) {
+            sMin = '0' + minutes;
+        } else {
+            sMin = '' + minutes;
+        }
+        if (seconds < 10) {
+            sSec = '0' + seconds;
+        } else {
+            sSec = '' + seconds;
+        }
+
+        return hours + ':' + sMin + ':' + sSec;
     }
     if (minutes > 0) {
-        return minutes + ':' + seconds;
+        let sSec;
+        if (seconds < 10) {
+            sSec = '0' + seconds;
+        } else {
+            sSec = '' + seconds;
+        }
+        return minutes + ':' + sSec;
     }
     return '' + seconds;
 };
 
-export const formatFilesize = (file_size: number): string => {
+export const formatFileSize = (file_size: number): string => {
     if (file_size === undefined || file_size === -1) {
         return "NaN";
     }

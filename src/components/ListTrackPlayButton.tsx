@@ -13,13 +13,15 @@ import {
 import { Track } from '../models';
 import { PlayStatus } from '../redux/store';
 import {
+    selectCurrentAlbumDetail,
     selectCurrentTrackSlug,
-    selectPlayStatus
+    selectPlayStatus, selectTracks
 } from '../redux/selectors';
 import {
-    setCurrentTrackSlug,
+    setCurrentTrackSlug, setPlayList,
     setPlayStatus
 } from '../redux/actions';
+import history from '../history';
 
 interface Props {
     track: Track;
@@ -29,11 +31,23 @@ export default function ListTrackPlayButton(props: Props) {
     const dispatch = useDispatch();
     const trackSlug = useSelector(selectCurrentTrackSlug);
     const playStatus = useSelector(selectPlayStatus);
+    const album = useSelector(selectCurrentAlbumDetail);
+    const tracks = useSelector(selectTracks);
     return (<Button
         className="hl-control normal-control"
         onClick={() => {
             if (!dispatch) return;
             if (props.track.slug !== trackSlug) {
+                const currentRoute = history.location.pathname;
+                let playListTracks;
+                if (currentRoute.startsWith('/album')) {
+                    playListTracks = album?.tracks;
+                } else if (currentRoute.startsWith('/all-releases')) {
+                    playListTracks = tracks;
+                }
+                if (playListTracks) {
+                    dispatch(setPlayList(playListTracks.map(track => track.slug)));
+                }
                 dispatch(setCurrentTrackSlug(props.track.slug));
                 return;
             }
