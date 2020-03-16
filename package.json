@@ -28,6 +28,7 @@
     "@types/react-google-recaptcha": "^1.1.1",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "env-cmd": "^10.1.0",
     "html-react-parser": "^0.10.2",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.13.1",
@@ -52,6 +53,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "start:com": "env-cmd -f .env.house-language.com react-scripts start",
+    "start:me": "env-cmd -f .env.house-language.me react-scripts start",
+    "build:com": "env-cmd -f .env.house-language.com react-scripts build",
+    "build:me": "env-cmd -f .env.house-language.me react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
