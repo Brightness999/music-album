@@ -1,12 +1,7 @@
 # House Language
 
-## summary
-
-Front end for [https://house-language.com](https://house-language.com), [https://house-language.me](https://house-language.me).
-
-house-language.me has limited function compared to house-language.com.
-
-It works with [https://github.com/captain328/music-album](https://github.com/captain328/music-album) as backend.
+This project is frontend part of House Language([https://house-language.com](https://house-language.com), [https://house-language.me](https://house-language.me)) website. <br/>
+Backend can be found in [https://github.com/captain328/music-album](https://github.com/captain328/music-album).
 
 ## Available Scripts
 
