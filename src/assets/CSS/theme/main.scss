@@ -185,8 +185,6 @@ header div.genres-menu:hover {
     padding-top: $navbar-height;
     padding-bottom: $playbar-height;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .page-title {
@@ -233,6 +231,10 @@ header div.genres-menu:hover {
         padding: 0.3rem;
         height: 30px;
     }
+}
+
+.card-img, .card-img-bottom, .card-img-top {
+    height: 100%;
 }
 
 // components: PremiumCard
