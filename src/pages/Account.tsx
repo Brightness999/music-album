@@ -14,7 +14,7 @@ export default function AccountPage() {
     }, [dispatch]);
     return (<div className="page">
         <div className="pt-5 pb-3">User Name: { userInfo.name }</div>
-        <div className="pb-3">Expiration Date: { formatSimpleDate(expireDate) }</div>
+        <div className="pb-3">Expiration Date: { formatSimpleDate(expireDate.toString()) }</div>
         <div>Download: { userInfo.downloadedData }Mb / { userInfo.downloadLimit }Mb</div>
     </div>);
 }

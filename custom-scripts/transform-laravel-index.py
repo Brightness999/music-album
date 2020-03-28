@@ -6,7 +6,7 @@ if __name__ == '__main__':
         print(f'index.html not found in build directory. Exiting...')
         exit()
     f = open(f_path, 'r')
-    data = f.read().replace('href="/static/', 'href="/assets/spa/')
+    data = f.read().replace('/static/', '/assets/spa/')
     f.close()
     f = open(f_path, 'w')
     f.write(data)
