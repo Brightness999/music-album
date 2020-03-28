@@ -16,7 +16,7 @@ export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string, check
 };
 
 export const composeMusicFilePath = (albumSlug?: string) => {
-    return `${environment.CDN_URL}/api/stream-mp3/${albumSlug}`;
+    return `${environment.CDN_URL}/api/stream-mp3/${albumSlug}.mp3`;
 };
 
 export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: string) => {
