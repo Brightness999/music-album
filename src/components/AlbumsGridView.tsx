@@ -20,7 +20,7 @@ export default function AlbumsGridView(props: Props) {
     let lastDate = '';
     let index = 0;
     props.albums.forEach(album => {
-        const albumDate = formatSimpleDate(new Date(album.created_at));
+        const albumDate = formatSimpleDate(album.created_at);
         if (lastDate !== albumDate) {
             lastDate = albumDate;
             elmAlbums.push(<div className="w-100 pl-3 py-1 albums-grid-date-separator" key={index++}>{lastDate}</div>);

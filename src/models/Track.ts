@@ -14,5 +14,5 @@ export interface Track {
     album: Album;
     category: Category;
     artist: Artist;
-    created_at: Date;
+    created_at: string;
 }

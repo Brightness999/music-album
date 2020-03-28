@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const formatDuration = (length: number): string => {
     let sec_num = Math.ceil(length / 1000);
     let hours   = Math.floor(sec_num / 3600);
@@ -37,6 +39,6 @@ export const formatFileSize = (file_size: number): string => {
     return Math.floor(file_size / (1024*1024)) + " Mb";
 };
 
-export const formatSimpleDate = (date: Date): string => {
-    return new Date(date).toDateString().substr(4);
+export const formatSimpleDate = (date: string): string => {
+    return moment(date).format('MMM D YYYY');
 };
