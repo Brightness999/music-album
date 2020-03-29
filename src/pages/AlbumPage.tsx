@@ -38,7 +38,7 @@ export default function AlbumPage() {
     {
         genres.push(<NavLink to={`/genres/${album?.categories[i].slug}/s/LIST/p/0`} key={index++} className="genre-link">{album?.categories[i].name}</NavLink>);
         if (i !== categoryCount-1) {
-            genres.push(<span key={index++}>, </span>);
+            genres.push(<span key={index++}>,&nbsp;</span>);
         }
     }
 
@@ -69,7 +69,7 @@ export default function AlbumPage() {
                     </div>
                 </div>
 
-                <div className="pl-3 pt-3 description">
+                <div className="pl-3 pt-3 description w-50">
                     <div className="pb-2">
                         Label:&nbsp;
                         <NavLink to={`/all-releases/${album?.publisher.slug}/s/GRID/p/0`} className="genre-link">
@@ -78,7 +78,7 @@ export default function AlbumPage() {
                     </div>
                     <div className="pb-2">Catalog #: {album?.catalog}</div>
                     <div className="pb-2">Date: {album?.release_date}</div>
-                    <div className="pb-2">Genres: {genres}</div>
+                    <div className="pb-2 flex-wrap">Genres: {genres}</div>
                     <div className="d-flex">
                         <AlbumDownloadButton type={MusicFileType.MP3} album={album} className="mr-2"/>
                         <AlbumDownloadButton type={MusicFileType.FLAC} album={album} />

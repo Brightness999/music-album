@@ -4,7 +4,7 @@ export const scrollbarStyles = {
     borderRadius: 5
 };
 
-export const albumCountPerPage = 20;
+export const albumCountPerPage = 40;
 export const trackCountPerPage = 50;
 
 export const premiums = [
