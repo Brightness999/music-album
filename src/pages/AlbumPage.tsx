@@ -49,6 +49,7 @@ export default function AlbumPage() {
       genres.push(<span key={index++}>,&nbsp;</span>);
     }
   }
+  const albumImagePath = composeAlbumImagePath(album?.location, album?.slug);
 
   const albumTitle = album?.title.replace('&amp;', '&');
 
@@ -59,6 +60,10 @@ export default function AlbumPage() {
         <meta name="description" content={`Check out ${albumTitle} album`}/>
         <meta name="robots" content="index, follow"/>
         <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
+        <meta name="og:url" content={`https://house-language.me/album/${slug}`} />
+        <meta name="og:type" content="website"/>
+        <meta name="og:title" content={`${albumTitle}, ${album?.publisher.name}`}/>
+        <meta name="og:image" content={albumImagePath}/>
       </Helmet>
       <p className="album-title">{albumTitle}</p>
       <Row>
@@ -75,7 +80,7 @@ export default function AlbumPage() {
             }
           }}
           className="album-image-wrapper position-relative">
-          <img src={composeAlbumImagePath(album?.location, album?.slug)} alt="album"/>
+          <img src={albumImagePath} alt="album"/>
           <div className="album-cover d-flex justify-content-center align-items-center">
             <FontAwesomeIcon icon={
               (album?.slug === currentTrack?.album.slug && playStatus === PlayStatus.PLAYING) ?
