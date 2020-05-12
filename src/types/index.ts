@@ -9,6 +9,7 @@ export interface UserInfo {
     expirationDate: number;
     downloadLimit: number;
     downloadedData: number;
+    admin: number;
 }
 
 export enum Premium {

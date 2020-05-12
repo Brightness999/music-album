@@ -13,4 +13,5 @@ export interface Album {
     artist: Artist;
     publisher: Publisher;
     created_at: string;
+    top_album: number;
 }

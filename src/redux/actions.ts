@@ -43,6 +43,7 @@ export const DOWNLOAD_TRACK_REQUESTED = 'DOWNLOAD_TRACK_REQUESTED';
 export const DOWNLOAD_ALBUM_REQUESTED = 'DOWNLOAD_ALBUM_REQUESTED';
 export const USER_INFO_REQUESTED = 'USER_INFO_REQUESTED';
 export const SEARCH_REQUESTED = 'SEARCH_REQUESTED';
+export const SET_ALBUM_TOP = 'SET_ALBUM_TOP';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -80,6 +81,7 @@ type SET_WIDE_SCREEN = typeof SET_WIDE_SCREEN;
 type SEARCH_REQUESTED = typeof SEARCH_REQUESTED;
 type SET_SEARCH_MODE_VALUE = typeof SET_SEARCH_MODE_VALUE;
 type SET_PREMIUM = typeof SET_PREMIUM;
+type SET_ALBUM_TOP = typeof SET_ALBUM_TOP;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -275,6 +277,12 @@ export interface RequestSearch {
     limit: number;
 }
 
+export interface SetAlbumTop {
+    type: SET_ALBUM_TOP;
+    albumId: string;
+    onoff: number;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -307,7 +315,8 @@ export type ActionType =
     SetWideScreen |
     RequestSearch |
     SetSearchModeValue |
-    SetPremium;
+    SetPremium |
+    SetAlbumTop;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -349,3 +358,4 @@ export const setWideScreen = (wideScreen: boolean) => ({ type: SET_WIDE_SCREEN, 
 export const requestSearch = (keyword: string, skip: number, limit: number) => ({ type: SEARCH_REQUESTED, keyword: keyword, skip: skip, limit: limit});
 export const setSearchModeValue = (searchModeValue: string) => ({ type: SET_SEARCH_MODE_VALUE, searchModeValue: searchModeValue});
 export const setPremium = (premium: Premium) => ({ type: SET_PREMIUM, premium: premium});
+export const setAlbumOnTop = (albumId: string, onoff: number) => ({ type: SET_ALBUM_TOP, albumId, onoff });

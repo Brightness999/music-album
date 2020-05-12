@@ -27,15 +27,18 @@ import {
     RequestLogin,
     RequestSearch,
     RequestTrack,
-    RequestTracks,
+    RequestTracks, requestUserInfo,
     SEARCH_REQUESTED,
     SELECT_ALBUM_AS_PLAY_LIST,
     SelectAlbumAsPlaylist,
+    SET_ALBUM_TOP,
+    SetAlbumTop,
     setAllAlbums,
     setCategories,
     setCurrentAlbumDetail,
     setCurrentPage,
-    setCurrentTrack, setCurrentTrackSlug,
+    setCurrentTrack,
+    setCurrentTrackSlug,
     setDownloadErrorMessage,
     setFeaturedAlbums,
     setHasDownloadError,
@@ -53,7 +56,14 @@ import {
     TRACKS_REQUESTED,
     USER_INFO_REQUESTED
 } from './actions';
-import { apiDownloadTrack, apiFetchGenreTracks, apiFetchSearch, apiFetchTrack, apiFetchTracks } from '../api/TrackAPI';
+import {
+    apiDownloadTrack,
+    apiFetchGenreTracks,
+    apiFetchSearch,
+    apiFetchTrack,
+    apiFetchTracks,
+    apiSetAlbumTop
+} from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
 import { apiFetchCategories } from '../api/CategoriAPI';
@@ -204,6 +214,7 @@ function* tryLogin(action: RequestLogin) {
             // success
             localStorage.setItem('token', token);
             yield put(setLoggedIn(true));
+            yield put(requestUserInfo());
         } else {
             yield put(setLoginErrorMessage('Please provide valid credential.'));
         }
@@ -235,6 +246,22 @@ function* fetchSearch(action: RequestSearch) {
     }
 }
 
+function* setAlbumTop(action: SetAlbumTop) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const { result, album, message } = yield call(apiSetAlbumTop, action.albumId, action.onoff);
+        if (result === 0) {
+            yield put(setCurrentAlbumDetail(album));
+        } else {
+            console.log(message);
+        }
+    } catch (e) {
+        console.log(e.message);
+    } finally {
+        yield put(setLoadingState(LoadingState.LOADED));
+    }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
@@ -251,6 +278,7 @@ function* appSaga() {
     yield takeLatest(DOWNLOAD_ALBUM_REQUESTED, downloadAlbum);
     yield takeLatest(USER_INFO_REQUESTED, fetchUserInfo);
     yield takeLatest(SEARCH_REQUESTED, fetchSearch);
+    yield takeLatest(SET_ALBUM_TOP, setAlbumTop);
 }
 
 export default appSaga;
