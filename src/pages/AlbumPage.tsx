@@ -52,19 +52,25 @@ export default function AlbumPage() {
   const albumImagePath = composeAlbumImagePath(album?.location, album?.slug);
 
   const albumTitle = album?.title.replace('&amp;', '&');
+  const artist = album?.artist.name;
+  const publisher = album?.publisher.name;
+  const catalog = album?.catalog;
+  const metaDescription = `Download ${artist} - ${albumTitle} released on ${publisher} in MP3 320 kbps / FLAC quality`;
 
   return (
     <div className="page album-page">
       <Helmet>
         <title>{albumTitle}</title>
-        <meta name="description" content={`Check out ${albumTitle} album`}/>
-        <meta content={`${albumTitle}, music, house-language, album`} name="keywords"/>
+        <meta name="description" content={metaDescription}/>
         <meta name="robots" content="index, follow"/>
-        <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
-        <meta name="og:url" content={`https://house-language.me/album/${slug}`} />
-        <meta name="og:type" content="website"/>
-        <meta name="og:title" content={`${albumTitle}, ${album?.publisher.name}`}/>
-        <meta name="og:image" content={albumImagePath}/>
+        <meta name="keywords" content={`${artist}, ${publisher}, ${catalog}`}/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:site_name" content="House Language - Best House Music"/>
+        <meta property="og:title" content={`${artist} - ${albumTitle} » ${publisher} » ${catalog}`}/>
+        <meta property="og:description" content={metaDescription}/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:url" content={`https://house-language.me/album/${slug}`}/>
+        <meta property="og:image" content={albumImagePath}/>
       </Helmet>
       <p className="album-title">{albumTitle}</p>
       <Row>
@@ -109,7 +115,7 @@ export default function AlbumPage() {
           {userInfo.admin === 1 &&
           (
             <Button className="mt-3" onClick={() => {
-              dispatch(setAlbumOnTop(slug as string, ((album?.top_album as number)+1) % 2));
+              dispatch(setAlbumOnTop(slug as string, ((album?.top_album as number) + 1) % 2));
             }}>{(album?.top_album === 0) ? 'Set Top Album' : 'Unset Top Album'}</Button>
           )}
         </div>
