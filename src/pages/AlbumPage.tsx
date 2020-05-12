@@ -19,6 +19,7 @@ import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
 import AlbumDownloadButton from '../components/AlbumDownloadButton';
 import { MusicFileType } from '../types';
+import Helmet from 'react-helmet';
 
 export default function AlbumPage() {
   let {slug} = useParams();
@@ -49,9 +50,17 @@ export default function AlbumPage() {
     }
   }
 
+  const albumTitle = album?.title.replace('&amp;', '&');
+
   return (
     <div className="page album-page">
-      <p className="album-title">{album?.title.replace('&amp;', '&')}</p>
+      <Helmet>
+        <title>{albumTitle}</title>
+        <meta name="description" content={`Check out ${albumTitle} album on House Language`}/>
+        <meta name="robots" content="index, follow"/>
+        <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
+      </Helmet>
+      <p className="album-title">{albumTitle}</p>
       <Row>
         <div
           onClick={() => {
