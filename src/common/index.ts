@@ -11,6 +11,10 @@ export const composeTrackDownloadPath = (trackSlug?: string, ext?: string, check
     return `${environment.API_URL}/api/download-track/${trackSlug}/as/${ext}/${check}?token=${localStorage.getItem('token')}`;
 };
 
+export const composeSetAlbumTopPath = (albumSlug: string) => {
+    return `${environment.API_URL}/api/album/${albumSlug}/set-top`;
+}
+
 export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string, check?: string) => {
     return `${environment.API_URL}/api/download-album/${albumSlug}/as/${ext}/${check}?token=${localStorage.getItem('token')}`;
 };

@@ -47,6 +47,7 @@ export const initialState: StoreState = {
         downloadLimit: 0,
         downloadedData: 0,
         email: '',
+        admin: 0,
         name: '',
         expirationDate: 0
     },
