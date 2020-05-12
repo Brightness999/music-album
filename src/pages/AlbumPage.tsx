@@ -19,7 +19,7 @@ import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
 import AlbumDownloadButton from '../components/AlbumDownloadButton';
 import { MusicFileType } from '../types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 export default function AlbumPage() {
   let {slug} = useParams();
