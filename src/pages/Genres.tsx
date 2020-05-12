@@ -10,6 +10,7 @@ import TracksListView from '../components/TracksListView';
 import ShowModeSwitcher from '../components/ShowModeSwitcher';
 import { ShowMode } from '../redux/store';
 import AlbumsGridView from '../components/AlbumsGridView';
+import { Helmet } from 'react-helmet';
 
 export default function GenresPage() {
     let { slug: categorySlug, showMode, page } = useParams();
@@ -53,21 +54,21 @@ export default function GenresPage() {
 
     useEffect(() => {
         window.scrollTo({top: 0});
-    }, [tracks, albums]);
-
-    useEffect(() => {
-        if (albums.length === 0) {
+        if (tracks.length === 0) {
             return;
         }
-        albums[0].categories.forEach(category => {
-            if (category.slug === categorySlug) {
-                setCategory(category.name);
-            }
-        });
-    }, [albums, categorySlug]);
+        setCategory(tracks[0].category.name);
+    }, [tracks, albums]);
 
     return (
         <div className="page">
+            <Helmet>
+                <title>{category}</title>
+                <meta name="description" content={`Check out ${category} genre`}/>
+                <meta name="description" content={`Check out ${category} category`}/>
+                <meta name="robots" content="index, follow"/>
+                <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
+            </Helmet>
             <div className="d-flex justify-content-between">
                 <p className="page-title">{ category }</p>
                 <ShowModeSwitcher disableGridMode={categorySlug === undefined}/>

@@ -56,7 +56,7 @@ export default function AlbumPage() {
     <div className="page album-page">
       <Helmet>
         <title>{albumTitle}</title>
-        <meta name="description" content={`Check out ${albumTitle} album on House Language`}/>
+        <meta name="description" content={`Check out ${albumTitle} album`}/>
         <meta name="robots" content="index, follow"/>
         <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
       </Helmet>
