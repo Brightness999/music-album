@@ -58,6 +58,7 @@ export default function AlbumPage() {
       <Helmet>
         <title>{albumTitle}</title>
         <meta name="description" content={`Check out ${albumTitle} album`}/>
+        <meta content={`${albumTitle}, music, house-language, album`} name="keywords"/>
         <meta name="robots" content="index, follow"/>
         <meta name="google-site-verification" content="XBgyEbaQOjMrVRy8GjP1qG8aR4mQRHESuIQxqOgZJLo" />
         <meta name="og:url" content={`https://house-language.me/album/${slug}`} />
