@@ -7,6 +7,8 @@ if __name__ == '__main__':
         exit()
     f = open(f_path, 'r')
     data = f.read().replace('/static/', '/assets/spa/')
+    meta_string = "@if(isset($meta_string)){{$meta_string}}@endif"
+    data = f"{data[:37]}{meta_string}{data[37:]}"
     f.close()
     f = open(f_path, 'w')
     f.write(data)

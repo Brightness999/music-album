@@ -19,7 +19,6 @@ import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
 import AlbumDownloadButton from '../components/AlbumDownloadButton';
 import { MusicFileType } from '../types';
-import { Helmet } from 'react-helmet';
 
 export default function AlbumPage() {
   let {slug} = useParams();
@@ -52,26 +51,9 @@ export default function AlbumPage() {
   const albumImagePath = composeAlbumImagePath(album?.location, album?.slug);
 
   const albumTitle = album?.title.replace('&amp;', '&');
-  const artist = album?.artist.name;
-  const publisher = album?.publisher.name;
-  const catalog = album?.catalog;
-  const metaDescription = `Download ${artist} - ${albumTitle} released on ${publisher} in MP3 320 kbps / FLAC quality`;
 
   return (
     <div className="page album-page">
-      <Helmet>
-        <title>{albumTitle}</title>
-        <meta name="description" content={metaDescription}/>
-        <meta name="robots" content="index, follow"/>
-        <meta name="keywords" content={`${artist}, ${publisher}, ${catalog}`}/>
-        <meta property="og:locale" content="en_US"/>
-        <meta property="og:site_name" content="House Language - Best House Music"/>
-        <meta property="og:title" content={`${artist} - ${albumTitle} » ${publisher} » ${catalog}`}/>
-        <meta property="og:description" content={metaDescription}/>
-        <meta property="og:type" content="article"/>
-        <meta property="og:url" content={`https://house-language.me/album/${slug}`}/>
-        <meta property="og:image" content={albumImagePath}/>
-      </Helmet>
       <p className="album-title">{albumTitle}</p>
       <Row>
         <div
