@@ -56,7 +56,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.development react-scripts build && yarn transform-index",
     "start:com": "env-cmd -f .env.house-language.com react-scripts start",
     "start:me": "env-cmd -f .env.house-language.me react-scripts start",
     "build:com": "env-cmd -f .env.house-language.com react-scripts build && yarn transform-index",
