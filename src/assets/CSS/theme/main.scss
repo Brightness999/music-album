@@ -19,6 +19,14 @@ body {
 .pagination .page-item {
     margin-left: 5px;
     margin-right: 5px;
+    a {
+        color: #48505e;
+        text-decoration: none;
+    }
+    a.active, a:hover {
+        color: white;
+    }
+
     &.active .page-link {
         color: white;
     }
