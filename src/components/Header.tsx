@@ -60,6 +60,8 @@ export function Header() {
                     </div>
 
                     <NavLink to="/all-releases/s/GRID/p/0" activeClassName="active">All releases</NavLink>
+                    <NavLink to="/vinyl/s/GRID/p/0" activeClassName="active">Vinyl</NavLink>
+                    <NavLink to="/bandcamp/s/GRID/p/0" activeClassName="active">Bandcamp</NavLink>
                     <div className="d-flex align-items-center">
                         <FontAwesomeIcon icon={ faSearch } className="search-icon"/>
                         <Input placeholder="Search here..." id="iSearch" value={keyword} onChange={event => setKeyword(event.target.value)} onKeyDown={event => {

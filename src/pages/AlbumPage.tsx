@@ -14,7 +14,13 @@ import {
   selectPlayStatus,
   selectUserInfo
 } from '../redux/selectors';
-import { requestAlbumDetail, selectAlbumAsPlaylist, setAlbumOnTop, setPlayStatus } from '../redux/actions';
+import {
+  requestAlbumDetail,
+  selectAlbumAsPlaylist, setAlbumOnBandcamp,
+  setAlbumOnTop,
+  setAlbumOnVinyl,
+  setPlayStatus
+} from '../redux/actions';
 import { composeAlbumImagePath } from '../common';
 import { LoadingState, PlayStatus } from '../redux/store';
 import AlbumDownloadButton from '../components/AlbumDownloadButton';
@@ -96,9 +102,17 @@ export default function AlbumPage() {
           </div>
           {userInfo.admin === 1 &&
           (
-            <Button className="mt-3" onClick={() => {
-              dispatch(setAlbumOnTop(slug as string, ((album?.top_album as number) + 1) % 2));
-            }}>{(album?.top_album === 0) ? 'Set Top Album' : 'Unset Top Album'}</Button>
+            <div className="d-flex">
+              <Button className="mt-3 mr-2" onClick={() => {
+                dispatch(setAlbumOnTop(slug as string, ((album?.top_album as number) + 1) % 2));
+              }}>{(album?.top_album === 0) ? 'Set Top Album' : 'Unset Top Album'}</Button>
+              <Button className="mt-3 mr-2" onClick={() => {
+                dispatch(setAlbumOnVinyl(slug as string, ((album?.vinyl_album as number) + 1) % 2));
+              }}>{(album?.vinyl_album === 0) ? 'Set Vinyl Album' : 'Unset Vinyl Album'}</Button>
+              <Button className="mt-3" onClick={() => {
+                dispatch(setAlbumOnBandcamp(slug as string, ((album?.bandcamp_album as number) + 1) % 2));
+              }}>{(album?.bandcamp_album === 0) ? 'Set Bandcamp Album' : 'Unset Bandcamp Album'}</Button>
+            </div>
           )}
         </div>
       </Row>

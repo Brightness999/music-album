@@ -42,3 +42,7 @@ export const formatFileSize = (file_size: number): string => {
 export const formatSimpleDate = (date: string): string => {
     return moment(date).format('MMM D YYYY');
 };
+
+export const titleCase = (text: string): string => {
+    return `${text[0].toUpperCase()}${text.substr(1)}`;
+}

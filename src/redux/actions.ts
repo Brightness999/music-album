@@ -30,9 +30,11 @@ export const SET_SEARCH_MODE_VALUE = 'SET_SEARCH_MODE_VALUE';
 export const SET_PREMIUM = 'SET_PREMIUM';
 // saga actions
 export const ALL_ALBUMS_REQUESTED = 'ALL_ALBUMS_REQUESTED';
+export const PICKED_ALBUMS_REQUESTED = 'PICKED_ALBUMS_REQUESTED';
 export const GENRE_ALBUMS_REQUESTED = 'GENRE_ALBUMS_REQUESTED';
 export const FEATURED_ALBUMS_REQUESTED = 'FEATURED_ALBUMS_REQUESTED';
 export const TRACKS_REQUESTED = 'TRACKS_REQUESTED';
+export const PICKED_TRACKS_REQUESTED = 'PICKED_TRACKS_REQUESTED';
 export const ALBUM_DETAIL_REQUESTED = ' ALBUM_DETAIL_REQUEST';
 export const TRACK_REQUESTED = 'TRACK_REQUESTED';
 export const TOP_ALBUMS_REQUESTED = 'TOP_ALBUMS_REQUESTED';
@@ -44,6 +46,8 @@ export const DOWNLOAD_ALBUM_REQUESTED = 'DOWNLOAD_ALBUM_REQUESTED';
 export const USER_INFO_REQUESTED = 'USER_INFO_REQUESTED';
 export const SEARCH_REQUESTED = 'SEARCH_REQUESTED';
 export const SET_ALBUM_TOP = 'SET_ALBUM_TOP';
+export const SET_ALBUM_VINYL = 'SET_ALBUM_VINYL';
+export const SET_ALBUM_BANDCAMP = 'SET_ALBUM_BANDCAMP';
 
 type SET_SHOW_MODE = typeof SET_SHOW_MODE;
 type SET_PLAY_LIST = typeof SET_PLAY_LIST;
@@ -60,8 +64,10 @@ type SET_TOP_ALBUMS = typeof SET_TOP_ALBUMS;
 type ALBUM_DETAIL_REQUESTED = typeof ALBUM_DETAIL_REQUESTED;
 type GENRE_ALBUMS_REQUESTED = typeof GENRE_ALBUMS_REQUESTED;
 type ALL_ALBUMS_REQUESTED = typeof ALL_ALBUMS_REQUESTED;
+type PICKED_ALBUMS_REQUESTED = typeof PICKED_ALBUMS_REQUESTED;
 type TRACK_REQUESTED = typeof TRACK_REQUESTED;
 type TRACKS_REQUESTED = typeof TRACKS_REQUESTED;
+type PICKED_TRACKS_REQUESTED = typeof PICKED_TRACKS_REQUESTED;
 type SELECT_ALBUM_AS_PLAY_LIST = typeof SELECT_ALBUM_AS_PLAY_LIST;
 type SET_LOADING_STATE = typeof SET_LOADING_STATE;
 type GENRE_TRACKS_REQUESTED = typeof GENRE_TRACKS_REQUESTED;
@@ -82,6 +88,8 @@ type SEARCH_REQUESTED = typeof SEARCH_REQUESTED;
 type SET_SEARCH_MODE_VALUE = typeof SET_SEARCH_MODE_VALUE;
 type SET_PREMIUM = typeof SET_PREMIUM;
 type SET_ALBUM_TOP = typeof SET_ALBUM_TOP;
+type SET_ALBUM_VINYL = typeof SET_ALBUM_VINYL;
+type SET_ALBUM_BANDCAMP = typeof SET_ALBUM_BANDCAMP;
 
 interface SetShowMode {
     type: SET_SHOW_MODE;
@@ -220,6 +228,14 @@ export interface RequestAllAlbums {
     publisherSlug: string;
 }
 
+export interface RequestPickedAlbums {
+    type: PICKED_ALBUMS_REQUESTED;
+    pickType: string; // vinyl or bandcamp
+    skip: number;
+    limit: number;
+    publisherSlug: string;
+}
+
 export interface RequestGenreAlbums {
     type: GENRE_ALBUMS_REQUESTED;
     skip: number;
@@ -229,6 +245,15 @@ export interface RequestGenreAlbums {
 
 export interface RequestTracks {
     type: TRACKS_REQUESTED;
+    skip: number;
+    limit: number;
+    publisherSlug: string;
+    title: string;
+}
+
+export interface RequestPickedTracks {
+    type: PICKED_TRACKS_REQUESTED;
+    pickType: string;
     skip: number;
     limit: number;
     publisherSlug: string;
@@ -283,6 +308,18 @@ export interface SetAlbumTop {
     onoff: number;
 }
 
+export interface SetAlbumVinyl {
+    type: SET_ALBUM_VINYL;
+    albumId: string;
+    onoff: number;
+}
+
+export interface SetAlbumBandcamp {
+    type: SET_ALBUM_BANDCAMP;
+    albumId: string;
+    onoff: number;
+}
+
 export type ActionType =
     SetShowMode |
     SetCurrentTrackSlug |
@@ -316,7 +353,10 @@ export type ActionType =
     RequestSearch |
     SetSearchModeValue |
     SetPremium |
-    SetAlbumTop;
+    SetAlbumTop |
+    SetAlbumVinyl |
+    SetAlbumBandcamp
+  ;
 
 export const setShowMode = (showMode: ShowMode) => ({ type: SET_SHOW_MODE, showMode: showMode });
 export const setCurrentTrackSlug = (track: string) => ({ type: SET_CURRENT_TRACK_SLUG, trackSlug: track });
@@ -325,10 +365,12 @@ export const setPlayStatus = (playStatus: PlayStatus) => ({ type: SET_PLAY_STATU
 export const nextTrack = () => ({ type: NEXT_TRACK });
 export const previousTrack = () => ({ type: PREVIOUS_TRACK });
 export const requestAllAlbums = (skip: number, limit: number, publisherSlug: string) => ({ type: ALL_ALBUMS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
+export const requestPickedAlbums = (type: string, skip: number, limit: number, publisherSlug: string) => ({ type: PICKED_ALBUMS_REQUESTED, pickType: type, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestGenreAlbums = (skip: number, limit: number, category: string) => ({ type: GENRE_ALBUMS_REQUESTED, skip: skip, limit: limit, categorySlug: category });
 export const requestTopAlbums = () => ({ type: TOP_ALBUMS_REQUESTED });
 export const requestFeaturedAlbums = () => ({ type: FEATURED_ALBUMS_REQUESTED });
 export const requestTracks = (skip: number, limit: number, publisherSlug: string) => ({ type: TRACKS_REQUESTED, skip: skip, limit: limit, publisherSlug: publisherSlug });
+export const requestPickedTracks = (type: string, skip: number, limit: number, publisherSlug: string) => ({ type: PICKED_TRACKS_REQUESTED, pickType: type, skip: skip, limit: limit, publisherSlug: publisherSlug });
 export const requestGenreTracks = (categorySlug: string, skip: number, limit: number) => ({ type: GENRE_TRACKS_REQUESTED, categorySlug: categorySlug, skip: skip, limit: limit});
 export const requestTrack = (slug: string) => ({ type: TRACK_REQUESTED, slug: slug });
 export const requestAlbumDetail = (slug: string) => ({ type: ALBUM_DETAIL_REQUESTED, slug: slug });
@@ -359,3 +401,5 @@ export const requestSearch = (keyword: string, skip: number, limit: number) => (
 export const setSearchModeValue = (searchModeValue: string) => ({ type: SET_SEARCH_MODE_VALUE, searchModeValue: searchModeValue});
 export const setPremium = (premium: Premium) => ({ type: SET_PREMIUM, premium: premium});
 export const setAlbumOnTop = (albumId: string, onoff: number) => ({ type: SET_ALBUM_TOP, albumId, onoff });
+export const setAlbumOnVinyl = (albumId: string, onoff: number) => ({ type: SET_ALBUM_VINYL, albumId, onoff });
+export const setAlbumOnBandcamp = (albumId: string, onoff: number) => ({ type: SET_ALBUM_BANDCAMP, albumId, onoff });

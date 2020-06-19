@@ -21,6 +21,7 @@ import { LoadingState } from './redux/store';
 import history from './history';
 import SearchPage from './pages/SearchPage';
 import { environment } from './environments/envrionment';
+import PickedReleases from './pages/PickedReleases';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,12 @@ export default function App() {
           </Route>
           <Route path="/all-releases/s/:showMode/p/:page">
             <AllReleases/>
+          </Route>
+          <Route path="/vinyl/s/:showMode/p/:page">
+            <PickedReleases type='vinyl'/>
+          </Route>
+          <Route path="/bandcamp/s/:showMode/p/:page">
+            <PickedReleases type='bandcamp'/>
           </Route>
           <Route path="/all-releases/:publisherSlug/s/:showMode/p/:page">
             <AllReleases/>

@@ -14,4 +14,6 @@ export interface Album {
     publisher: Publisher;
     created_at: string;
     top_album: number;
+    vinyl_album: number;
+    bandcamp_album: number;
 }

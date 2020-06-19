@@ -15,6 +15,14 @@ export const composeSetAlbumTopPath = (albumSlug: string) => {
     return `${environment.API_URL}/api/album/${albumSlug}/set-top`;
 }
 
+export const composeSetAlbumVinylPath = (albumSlug: string) => {
+    return `${environment.API_URL}/api/album/${albumSlug}/set-vinyl`;
+}
+
+export const composeSetAlbumBandcampPath = (albumSlug: string) => {
+    return `${environment.API_URL}/api/album/${albumSlug}/set-bandcamp`;
+}
+
 export const composeAlbumDownloadPath = (albumSlug?: string, ext?: string, check?: string) => {
     return `${environment.API_URL}/api/download-album/${albumSlug}/as/${ext}/${check}?token=${localStorage.getItem('token')}`;
 };

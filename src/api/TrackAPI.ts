@@ -1,8 +1,19 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { Album, Track } from '../models';
-import { API_FETCH_GENRE_TRACKS, API_FETCH_SEARCH, API_FETCH_TRACK, API_FETCH_TRACKS } from './apis';
-import { composeSetAlbumTopPath, composeTrackDownloadPath } from '../common';
+import {
+  API_FETCH_GENRE_TRACKS,
+  API_FETCH_PICKED_TRACKS,
+  API_FETCH_SEARCH,
+  API_FETCH_TRACK,
+  API_FETCH_TRACKS
+} from './apis';
+import {
+  composeSetAlbumBandcampPath,
+  composeSetAlbumTopPath,
+  composeSetAlbumVinylPath,
+  composeTrackDownloadPath
+} from '../common';
 import { environment } from '../environments/envrionment';
 import { apiDownload } from './common';
 
@@ -40,6 +51,14 @@ export const apiFetchTracks = async (skip: number, limit: number, publisherSlug:
   return [result.data.tracks, result.data.track_count];
 };
 
+export const apiFetchPickedTracks = async (type: string, skip: number, limit: number, publisherSlug: string, title: string) => {
+  if (title === undefined) {
+    title = '';
+  }
+  const result: AxiosResponse<TracksResponse> = await axios(environment.API_URL + API_FETCH_PICKED_TRACKS + '?type='+type+'&skip=' + skip + '&limit=' + limit + '&publisher=' + publisherSlug + '&title=' + title);
+  return [result.data.tracks, result.data.track_count];
+};
+
 export const apiFetchTrack = async (slug: string) => {
   const result: AxiosResponse<TrackResponse> = await axios(environment.API_URL + API_FETCH_TRACK + slug);
   return result.data.track;
@@ -69,5 +88,15 @@ export const apiFetchSearch = async (skip: number, limit: number, keyword: strin
 
 export const apiSetAlbumTop = async (albumId: string, onoff: number) => {
   const result: AxiosResponse<SetOnTopResponse> = await axios.post(composeSetAlbumTopPath(albumId), {onoff, token: localStorage.getItem('token')});
+  return result.data;
+}
+
+export const apiSetAlbumVinyl = async (albumId: string, onoff: number) => {
+  const result: AxiosResponse<SetOnTopResponse> = await axios.post(composeSetAlbumVinylPath(albumId), {onoff, token: localStorage.getItem('token')});
+  return result.data;
+}
+
+export const apiSetAlbumBandcamp = async (albumId: string, onoff: number) => {
+  const result: AxiosResponse<SetOnTopResponse> = await axios.post(composeSetAlbumBandcampPath(albumId), {onoff, token: localStorage.getItem('token')});
   return result.data;
 }
