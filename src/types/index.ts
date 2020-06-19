@@ -9,6 +9,8 @@ export interface UserInfo {
     expirationDate: number;
     downloadLimit: number;
     downloadedData: number;
+    specialDownloadLimit: number;
+    specialDownloadedData: number;
     admin: number;
 }
 
