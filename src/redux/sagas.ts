@@ -5,7 +5,7 @@ import {
     apiFetchAlbumDetail,
     apiFetchAllAlbums,
     apiFetchFeaturedAlbums,
-    apiFetchGenreAlbums,
+    apiFetchGenreAlbums, apiFetchPickedAlbums,
     apiFetchTopAlbums
 } from '../api/AlbumAPI';
 import {
@@ -17,21 +17,21 @@ import {
     FEATURED_ALBUMS_REQUESTED,
     GENRE_ALBUMS_REQUESTED,
     GENRE_TRACKS_REQUESTED,
-    LOGIN_REQUESTED,
+    LOGIN_REQUESTED, PICKED_ALBUMS_REQUESTED, PICKED_TRACKS_REQUESTED,
     RequestAlbumDetail,
     RequestAllAlbums,
     RequestDownloadAlbum,
     RequestDownloadTrack,
     RequestGenreAlbums,
     RequestGenreTracks,
-    RequestLogin,
+    RequestLogin, RequestPickedAlbums, RequestPickedTracks,
     RequestSearch,
     RequestTrack,
     RequestTracks, requestUserInfo,
     SEARCH_REQUESTED,
     SELECT_ALBUM_AS_PLAY_LIST,
-    SelectAlbumAsPlaylist,
-    SET_ALBUM_TOP,
+    SelectAlbumAsPlaylist, SET_ALBUM_BANDCAMP,
+    SET_ALBUM_TOP, SET_ALBUM_VINYL,
     SetAlbumTop,
     setAllAlbums,
     setCategories,
@@ -58,11 +58,11 @@ import {
 } from './actions';
 import {
     apiDownloadTrack,
-    apiFetchGenreTracks,
+    apiFetchGenreTracks, apiFetchPickedTracks,
     apiFetchSearch,
     apiFetchTrack,
-    apiFetchTracks,
-    apiSetAlbumTop
+    apiFetchTracks, apiSetAlbumBandcamp,
+    apiSetAlbumTop, apiSetAlbumVinyl
 } from '../api/TrackAPI';
 import { Track } from '../models';
 import { LoadingState } from './store';
@@ -74,6 +74,23 @@ function* fetchAllAlbums(action: RequestAllAlbums) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
         const [albums, albumCount] = yield call(apiFetchAllAlbums, action.skip, action.limit, action.publisherSlug);
+        yield put(setAllAlbums(albums));
+        yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
+        if (albums.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setLoadingState(LoadingState.LOADED));
+
+    } catch (e) {
+        yield put(setAllAlbums([]));
+    }
+}
+
+function* fetchPickedAlbums(action: RequestPickedAlbums) {
+    console.log('fetch picked albums');
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [albums, albumCount] = yield call(apiFetchPickedAlbums, action.pickType, action.skip, action.limit, action.publisherSlug);
         yield put(setAllAlbums(albums));
         yield put(setPageCount(Math.ceil(albumCount / albumCountPerPage)));
         if (albums.length === 0) {
@@ -126,6 +143,21 @@ function* fetchTracks(action: RequestTracks) {
     try {
         yield put(setLoadingState(LoadingState.LOADING));
         const [tracks, trackCount] = yield call(apiFetchTracks, action.skip, action.limit, action.publisherSlug, action.title);
+        yield put(setTracks(tracks));
+        yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
+        if (tracks.length === 0) {
+            yield put(setCurrentPage(0));
+        }
+        yield put(setLoadingState(LoadingState.LOADED));
+    } catch (e) {
+        yield put(setTracks([]));
+    }
+}
+
+function* fetchPickedTracks(action: RequestPickedTracks) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const [tracks, trackCount] = yield call(apiFetchPickedTracks, action.pickType, action.skip, action.limit, action.publisherSlug, action.title);
         yield put(setTracks(tracks));
         yield put(setPageCount(Math.ceil(trackCount / trackCountPerPage)));
         if (tracks.length === 0) {
@@ -262,10 +294,44 @@ function* setAlbumTop(action: SetAlbumTop) {
     }
 }
 
+function* setAlbumVinyl(action: SetAlbumTop) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const { result, album, message } = yield call(apiSetAlbumVinyl, action.albumId, action.onoff);
+        if (result === 0) {
+            yield put(setCurrentAlbumDetail(album));
+        } else {
+            console.log(message);
+        }
+    } catch (e) {
+        console.log(e.message);
+    } finally {
+        yield put(setLoadingState(LoadingState.LOADED));
+    }
+}
+
+function* setAlbumBandcamp(action: SetAlbumTop) {
+    try {
+        yield put(setLoadingState(LoadingState.LOADING));
+        const { result, album, message } = yield call(apiSetAlbumBandcamp, action.albumId, action.onoff);
+        if (result === 0) {
+            yield put(setCurrentAlbumDetail(album));
+        } else {
+            console.log(message);
+        }
+    } catch (e) {
+        console.log(e.message);
+    } finally {
+        yield put(setLoadingState(LoadingState.LOADED));
+    }
+}
+
 function* appSaga() {
     yield takeLatest(ALL_ALBUMS_REQUESTED, fetchAllAlbums);
+    yield takeLatest(PICKED_ALBUMS_REQUESTED, fetchPickedAlbums);
     yield takeLatest(FEATURED_ALBUMS_REQUESTED, fetchFeaturedAlbums);
     yield takeLatest(TRACKS_REQUESTED, fetchTracks);
+    yield takeLatest(PICKED_TRACKS_REQUESTED, fetchPickedTracks);
     yield takeLatest(ALBUM_DETAIL_REQUESTED, fetchAlbumDetail);
     yield takeLatest(TRACK_REQUESTED, fetchTrack);
     yield takeLatest(SELECT_ALBUM_AS_PLAY_LIST, selectAlbumAsPlaylist);
@@ -279,6 +345,8 @@ function* appSaga() {
     yield takeLatest(USER_INFO_REQUESTED, fetchUserInfo);
     yield takeLatest(SEARCH_REQUESTED, fetchSearch);
     yield takeLatest(SET_ALBUM_TOP, setAlbumTop);
+    yield takeLatest(SET_ALBUM_VINYL, setAlbumVinyl);
+    yield takeLatest(SET_ALBUM_BANDCAMP, setAlbumBandcamp);
 }
 
 export default appSaga;

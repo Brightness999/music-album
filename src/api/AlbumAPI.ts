@@ -5,7 +5,7 @@ import {
     API_FETCH_ALBUM,
     API_FETCH_ALL_ALBUMS,
     API_FETCH_FEATURED_ALBUMS,
-    API_FETCH_GENRE_ALBUMS,
+    API_FETCH_GENRE_ALBUMS, API_FETCH_PICKED_ALBUMS,
     API_FETCH_TOP_ALBUMS
 } from './apis';
 import { environment } from '../environments/envrionment';
@@ -28,6 +28,11 @@ interface DownloadAlbumResponse {
 
 export const apiFetchAllAlbums = async (skip: number, limit: number, publisherSlug: string) => {
     const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_ALL_ALBUMS + '?skip='+skip+'&limit='+limit+'&publisher='+publisherSlug);
+    return [result.data.albums, result.data.album_count];
+};
+
+export const apiFetchPickedAlbums = async (pickType: string, skip: number, limit: number, publisherSlug: string) => {
+    const result: AxiosResponse<AlbumsResponse> = await axios(environment.API_URL + API_FETCH_PICKED_ALBUMS + '?type='+pickType+'&skip='+skip+'&limit='+limit+'&publisher='+publisherSlug);
     return [result.data.albums, result.data.album_count];
 };
 
