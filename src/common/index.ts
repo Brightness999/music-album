@@ -31,6 +31,10 @@ export const composeMusicFilePath = (albumSlug?: string) => {
     return `${environment.CDN_URL}/api/stream-mp3/${albumSlug}.mp3`;
 };
 
+export const composeMusicPreviewFilePath = (albumSlug?: string) => {
+    return `${environment.CDN_URL}/api/stream-mp3-preview/${albumSlug}.mp3`;
+};
+
 export const composeWaveformImagePath = (albumLocation?: string, trackSlug?: string) => {
     return `${environment.CDN_URL}/uploads/audios/${albumLocation}/wavefiles/${trackSlug}.png`;
 };
