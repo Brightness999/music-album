@@ -562,19 +562,19 @@ header div.genres-menu:hover {
             right: 0;
             bottom: 0;
             top: 0;
-            /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2a3343+0,ffffff+50,2a3343+100&0+0,0.3+50,0+100 */
-            background: -moz-linear-gradient(top,  rgba(42,51,67,0) 0%, rgba(255,255,255,0.3) 50%, rgba(42,51,67,0) 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top,  rgba(42,51,67,0) 0%,rgba(255,255,255,0.3) 50%,rgba(42,51,67,0) 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom,  rgba(42,51,67,0) 0%,rgba(255,255,255,0.3) 50%,rgba(42,51,67,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a3343', endColorstr='#002a3343',GradientType=0 ); /* IE6-9 */
-            border-left: 2px solid white;
-            border-right: 2px solid white;
+            ///* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2a3343+0,ffffff+50,2a3343+100&0+0,0.3+50,0+100 */
+            //background: -moz-linear-gradient(top,  rgba(42,51,67,0) 0%, rgba(255,255,255,0.3) 50%, rgba(42,51,67,0) 100%); /* FF3.6-15 */
+            //background: -webkit-linear-gradient(top,  rgba(42,51,67,0) 0%,rgba(255,255,255,0.3) 50%,rgba(42,51,67,0) 100%); /* Chrome10-25,Safari5.1-6 */
+            //background: linear-gradient(to bottom,  rgba(42,51,67,0) 0%,rgba(255,255,255,0.3) 50%,rgba(42,51,67,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#002a3343', endColorstr='#002a3343',GradientType=0 ); /* IE6-9 */
+            //border-left: 2px solid white;
+            //border-right: 2px solid white;
             overflow: hidden;
             img {
                 width: 100%;
             }
             .seek-bar {
-                background-color: #006AAA88;
+                background-color: #dddddd22;
                 border-right: 2px solid #78859c;
                 top: 0;
                 width: 0;
