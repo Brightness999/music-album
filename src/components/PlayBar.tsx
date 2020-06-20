@@ -60,20 +60,21 @@ export default function PlayBar() {
 
   useEffect(() => {
     if (track && refPlayerWrapper && environment.TEST_MODE) {
-      const duration = Math.floor(track.duration / 1000);
-      if (duration > previewLength) {
-        const startPoint = (duration - previewLength) / 2;
-        const startPointPercent = 100 * startPoint / duration;
-        if (refPlayerWrapper.current) {
-          refPlayerWrapper.current.style.left = `${startPointPercent}%`;
-          refPlayerWrapper.current.style.right = `${startPointPercent}%`;
-        }
-      } else {
+      // TODO: uncomment lines when using preview mode
+      // const duration = Math.floor(track.duration / 1000);
+      // if (duration > previewLength) {
+      //   const startPoint = (duration - previewLength) / 2;
+      //   const startPointPercent = 100 * startPoint / duration;
+      //   if (refPlayerWrapper.current) {
+      //     refPlayerWrapper.current.style.left = `${startPointPercent}%`;
+      //     refPlayerWrapper.current.style.right = `${startPointPercent}%`;
+      //   }
+      // } else {
         if (refPlayerWrapper && refPlayerWrapper.current) {
           refPlayerWrapper.current.style.left = '0';
           refPlayerWrapper.current.style.right = '0';
         }
-      }
+      // }
     }
   }, [track]);
 
@@ -101,7 +102,6 @@ export default function PlayBar() {
             if (playStatus === PlayStatus.PLAYING) {
               dispatch(setPlayStatus(PlayStatus.PAUSED));
             } else {
-              setPlayPosition(15000);
               dispatch(setPlayStatus(PlayStatus.PLAYING));
             }
           }}>
@@ -169,7 +169,8 @@ export default function PlayBar() {
                   dispatch(setPlayStatus(PlayStatus.STOPPED));
                   dispatch(nextTrack());
                 }}
-                url={environment.TEST_MODE ? composeMusicPreviewFilePath(track?.slug) : composeMusicFilePath(track?.slug)}
+                // url={environment.TEST_MODE ? composeMusicPreviewFilePath(track?.slug) : composeMusicFilePath(track?.slug)}
+                url={composeMusicFilePath(track?.slug)}
                 playStatus={playStatus}/>
               : <span/>
           }
