@@ -26,7 +26,7 @@ export default function PremiumPage() {
         <Row className="cards-wrapper">
             {
                 premiums.map((premium, index) => (
-                    <Col key={index}><PremiumCard
+                    <Col className="my-1" md={4} key={index}><PremiumCard
                         onClickRegistration={() => onClickRegistration(premium.premium)}
                         dayLimit={premium.dayLimit}
                         downloadPerDay={premium.downloadPerDay}
