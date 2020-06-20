@@ -249,9 +249,8 @@ header div.genres-menu:hover {
 .premium-card {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    height: 330px;
-    width: 250px;
-    background-color: #444444;
+    width: 300px;
+    background-color: #2d2d2d;
 
     .btn {
         border-radius: 4px;
@@ -269,7 +268,7 @@ header div.genres-menu:hover {
     }
 
     .btn-primary {
-        background-color: #1ec185;
+        background-color: #303640;
     }
 
     .btn-primary:focus,
@@ -284,13 +283,33 @@ header div.genres-menu:hover {
 }
 
 .premium-card-header {
-    background-color: #61bbe7;
-    line-height: 2;
-    height: 30px;
+    background-color: #303640;
+    height: 50px;
+
+    .premium-title-text {
+        padding-top: 0;
+        font-weight: bold;
+        font-size: 18px;
+        color: #e6bfb3;
+    }
+
+    .price-text {
+        color: white;
+        font-size: 14px;
+    }
 }
 
 .premium-card-body {
-    padding: 0.5rem;
+    padding: 0.5rem 1rem 1.5rem 1rem;
+    font-weight: 500;
+    img {
+        width: 47px;
+        height: 100%;
+    }
+}
+
+.premium-option-icon {
+    font-size: 25px;
 }
 
 // pages: Premium
