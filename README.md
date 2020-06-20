@@ -59,3 +59,24 @@ In linux you can do like this.<br/>
 ```bash
 sudo ln -s /path/to/python3 /usr/bin/py
 ```
+
+### Deployment Guide
+1. Make production files ready with one of the following build scripts.
+```
+yarn build:me
+```
+or
+```
+yarn build:com
+```
+This will generate build directory.
+```
+build
+  |----static
+  |      |----css
+  |      |----js
+  |----index.html
+...
+```
+2. Use ftp to copy `build/static/*` to `/var/www/vhosts/house-language.com/httpdocs/public/assets/spa/` in server.
+3. Replace the content of `/var/www/vhosts/house-language.com/httpdocs/app/views/spa/index.blade.php` with `build/index.html`.
