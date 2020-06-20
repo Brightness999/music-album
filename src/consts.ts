@@ -14,21 +14,24 @@ export const premiums = [
         premium: Premium.PREMIUM_30,
         dayLimit: 30,
         downloadPerDay: 30,
-        price: 20,
+        specialDownloadPerDay: 1,
+        price: 14.95,
         link: 'http://tiny.cc/premium30'
     },
     {
         premium: Premium.PREMIUM_50,
         dayLimit: 30,
         downloadPerDay: 50,
-        price: 30,
+        specialDownloadPerDay: 3,
+        price: 19.95,
         link: 'http://tiny.cc/premium50'
     },
     {
         premium: Premium.PREMIUM_100,
         dayLimit: 30,
         downloadPerDay: 100,
-        price: 45,
+        specialDownloadPerDay: 5,
+        price: 29.95,
         link: 'http://tiny.cc/premium100'
     }
 ];

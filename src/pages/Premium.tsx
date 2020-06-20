@@ -30,6 +30,7 @@ export default function PremiumPage() {
                         onClickRegistration={() => onClickRegistration(premium.premium)}
                         dayLimit={premium.dayLimit}
                         downloadPerDay={premium.downloadPerDay}
+                        specialDownloadPerDay={premium.specialDownloadPerDay}
                         link={premium.link}
                         price={premium.price}/></Col>
 
